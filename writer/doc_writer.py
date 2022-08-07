@@ -1,6 +1,5 @@
 import logging
 import yaml
-from markdownTable import markdownTable
 
 def write(output: str, input: dict, template: str):
     """
