@@ -1,6 +1,7 @@
 import logging
 import yaml
 
+
 def write(output: str, input: dict, template: str):
     """
     Creates a Markdown doc file for the helm chart.
@@ -75,7 +76,8 @@ The following values can/will be used for deployments.
     for line in template_content.split("\n"):
         for keyword in keywords:
             if keyword in line:
-                line = line.replace(keyword, str(input[keyword.replace("{", "").replace("}","").strip().replace("stella.","")]))
+                line = line.replace(keyword, str(
+                    input[keyword.replace("{", "").replace("}", "").strip().replace("stella.", "")]))
         result += line + "\n"
 
     logging.debug("writing output to file")
@@ -120,6 +122,9 @@ def translate_list_of_dicts_to_md(input: dict) -> str:
                             value = "<pre>" + str(value).lstrip()
                             value = value.replace("\n", "</br>")
                             value = value + "</pre>"
+                        if key == "description":
+                            value = value.replace("\n", " ")  # no newlines allowed out of code-blocks
+                            print(value)
                         md += f"| {value.rstrip()}"
         md += " |\n"
     return md
