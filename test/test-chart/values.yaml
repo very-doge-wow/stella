@@ -15,13 +15,6 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
-# -- stella
-# Specify one or more pull secrets to use for deployment.
-# This is another line.
-# -- example
-# imagePullSecrets:
-#   - banane
-#   - apfel
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
