@@ -12,7 +12,7 @@ a Markdown documentation from that data.
 Using the [OCI image](https://hub.docker.com/r/suchdogewow/stella):
 ````shell
 docker pull suchdogewow/stella:latest
-docker run suchdogewow/stella
+docker run -v $(pwd)/<path to your chart>:/tmp/chart stella -hcp /tmp/chart -o /tmp/chart/output.md 
 ````
 
 ### Installation
