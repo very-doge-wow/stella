@@ -125,6 +125,20 @@ def generate_values_doc(doc: dict, helm_chart_path: str) -> dict:
                 "default": values_yaml[value_name],
                 "example": example
             })
+    # also add doc entries for values that do not have stella docstrings
+    for values in values_yaml:
+        docs_created = False
+        for dictionary in doc["values"]:
+            for value in dictionary.values():
+                if values == value:
+                    docs_created = True
+        if not docs_created:
+            doc["values"].append({
+                "name": values,
+                "description": "",
+                "default": values_yaml[values],
+                "example": ""
+            })
     return doc
 
 

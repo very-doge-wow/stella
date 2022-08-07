@@ -42,7 +42,7 @@ The aforementioned templates will deploy the following objects.
 {{ stella.objects }}
 
 ## Values
-The following values can/will be used for deployments:
+The following values can/will be used for deployments.
 
 {{ stella.values }}
 
@@ -68,9 +68,9 @@ The following values can/will be used for deployments:
         if type(input[key]) == list:
             logging.debug(f"converting list of dicts {key} to md")
 
-            md = translate_list_of_dicts_to_md(input[key])
-
-            translated[key] = md
+            if len(input[key]) > 0:
+                md = translate_list_of_dicts_to_md(input[key])
+                translated[key] = md
 
     result = ""
     for line in template_content.split("\n"):
@@ -109,13 +109,11 @@ def translate_list_of_dicts_to_md(input: dict) -> str:
                             name = value
                         if type(value) == dict:
                             value = yaml.safe_dump({name: value})
-                        if key == "default" or key == "example" and value != "":
+                        if (key == "default" or key == "example") and value != "":
                             # we should put this into a code-block
                             value = "<pre>" + str(value).lstrip()
                             value = value.replace("\n", "</br>")
                             value = value + "</pre>"
                         md += f"| {value.rstrip()}"
         md += " |\n"
-
-    print(md)
     return md
