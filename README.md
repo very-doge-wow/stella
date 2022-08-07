@@ -8,6 +8,13 @@ a Markdown documentation from that data.
 
 ## Usage
 
+### Docker Image
+Using the [OCI image](https://hub.docker.com/r/suchdogewow/stella):
+````shell
+docker pull suchdogewow/stella:latest
+docker run suchdogewow/stella
+````
+
 ### Installation
 To run it natively on your machine using pipenv:
 ```shell
@@ -37,9 +44,9 @@ Will create documentation for helm charts using metadata.
 optional arguments:
   -h, --help            show this help message and exit
   -hcp HELM_CHART_PATH, --helm-chart-path HELM_CHART_PATH
-                        Path to helm chart.
+                        Path to helm chart. (default ".")
   -o OUTPUT, --output OUTPUT
-                        Output file.
+                        Output file. (default "output.md")
   -t TEMPLATE, --template TEMPLATE
                         Custom template file.
   -v, --verbose         Activate debug logging.
