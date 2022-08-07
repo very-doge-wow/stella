@@ -11,20 +11,20 @@ a Markdown documentation from that data.
 ### Installation
 To run it natively on your machine using pipenv:
 ```shell
-cd ~
+cd ~/Documents
 git clone https://github.com/very-doge-wow/stella.git
 cd stella
 pipenv install
-pipenv run python main.py --help
+pipenv run python stella.py --help
 ```
 
 Alternatively install dependencies using pip and create an alias to your `/usr/local/bin`, for example:
 ```shell
-cd ~
+cd ~/Documents
 git clone https://github.com/very-doge-wow/stella.git
 cd stella
 pip install pyyaml pytest
-python main.py --help
+python stella.py --help
 ```
 
 ### General Usage
