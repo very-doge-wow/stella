@@ -18,7 +18,7 @@ pipenv install
 pipenv run python stella.py --help
 ```
 
-Alternatively install dependencies using pip and create an alias to your `/usr/local/bin`, for example:
+Alternatively install dependencies using pip:
 ```shell
 cd ~/Documents
 git clone https://github.com/very-doge-wow/stella.git
@@ -29,7 +29,7 @@ python stella.py --help
 
 ### General Usage
 
-```shell
+```
 usage: main.py [-h] [-hcp HELM_CHART_PATH] [-o OUTPUT] [-t TEMPLATE] [-v]
 
 Will create documentation for helm charts using metadata.
