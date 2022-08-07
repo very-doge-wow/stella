@@ -6,7 +6,6 @@ name = "pypi"
 [packages]
 pyyaml = "*"
 pytest = "*"
-py-markdown-table = "*"
 
 [dev-packages]
 
