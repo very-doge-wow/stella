@@ -1,0 +1,9 @@
+dependencies:
+    - name: postgresql
+      condition: postgresql.enabled
+      version: 1.2.3
+      repository: https://lol.de/repo/
+    - name: mysql
+      condition: mysql.enabled
+      version: 1.2.3
+      repository: https://lol.de/repo/

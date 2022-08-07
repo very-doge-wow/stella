@@ -1,0 +1,16 @@
+# -- stella
+# how many replicas to deploy
+replicaCount: 1
+
+# -- stella
+# which image to deploy
+# -- example
+# image:
+#   repository: very-doge-wow/stella
+#   pullPolicy: IfNotPresent
+#   tag: "latest"
+image:
+  repository: nginx
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""

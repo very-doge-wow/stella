@@ -1,0 +1,3 @@
+# -- stella
+# how many replicas to deploy
+replicaCount: 1
