@@ -87,6 +87,13 @@ The following values can/will be used for deployments.
 
 
 def translate_list_of_dicts_to_md(input: dict) -> str:
+    """
+    Creates a Markdown table from a python dictionary.
+    Parameters:
+        input (dict): Data structure containing all relevant helm chart information.
+    Returns:
+        md (str): Markdown table created from dict.
+    """
     md = ""
 
     sort = {}
