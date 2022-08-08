@@ -14,7 +14,9 @@ transparent as possible, whether it's:
 I use GitHub to host code, to track issues and feature requests, as well as
 accept pull requests.
 
-## Use [Github Flow](https://guides.github.com/introduction/flow/index.html), So All Code Changes Happen Through Pull Requests
+## Use [Github Flow](https://guides.github.com/introduction/flow/index.html)
+
+All code changes happen through Pull Requests.
 
 Pull requests are the best way to propose changes to the codebase
 (I use [Github Flow](https://guides.github.com/introduction/flow/index.html)).
@@ -34,7 +36,7 @@ to be under the same [MIT License](http://choosealicense.com/licenses/mit/)
 that covers the project. Feel free to contact the maintainers/me if that's a
 concern.
 
-## Report bugs using Github's [issues](https://github.com/briandk/transcriptase-atom/issues)
+## Report bugs using GitHub Issues
 
 I use GitHub issues to track public bugs. Report a bug by [opening a new issue](https://github.com/very-doge-wow/stella/issues/new/choose); it's that easy!
 

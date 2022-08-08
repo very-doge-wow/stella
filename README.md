@@ -14,7 +14,7 @@ Using the [OCI image](https://hub.docker.com/r/suchdogewow/stella):
 
 ```shell
 docker pull suchdogewow/stella:latest
-docker run -v <full path to your chart>:/tmp/chart stella -hcp /tmp/chart -o /tmp/chart/output.md
+docker run -v ${full_path_to_host_chart_dir}:/tmp/chart stella -hcp /tmp/chart -o /tmp/chart/output.md [OPTIONS]
 ```
 
 ### Installation
@@ -74,7 +74,7 @@ You can use the following fields inside your template:
 
 ## Contributing to `stella`
 
-You want to contribute? Awesome! 
+You want to contribute? Awesome!
 Feel free to propose changes, report bugs or request features and
 improvements. But first, please read the
 [contribution guidelines](https://github.com/very-doge-wow/stella/blob/main/CONTRIBUTING.md).
