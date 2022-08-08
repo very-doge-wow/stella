@@ -1,24 +1,31 @@
 # 💫 stella
 
-Stella is a free tool to help automatically generate
+![stella](https://github.com/very-doge-wow/stella/blob/main/stella.png?raw=true)
+
+`stella` is a free tool to help automatically generate
 [helm](https://helm.sh/) chart documentation.
-It supports simple templating, so custom templates for output can be used as well.
-Will read metadata such as `Chart.yaml`, `values.yaml` or the present templates and generate
-a Markdown documentation from that data.
+It supports simple templating, so custom templates for output can be used as
+well. Will read metadata such as `Chart.yaml`, `values.yaml` or the present
+templates and generate a Markdown documentation from that data.
 
 ## Usage
 
 ### Docker Image
+
 Using the [OCI image](https://hub.docker.com/r/suchdogewow/stella):
-````shell
+
+<!-- markdownlint-disable MD013 -->
+```shell
 docker pull suchdogewow/stella:latest
-docker run -v $(pwd)/<path to your chart>:/tmp/chart stella -hcp /tmp/chart -o /tmp/chart/output.md 
-````
+docker run -v ${full_path_to_host_chart_dir}:/tmp/chart stella -hcp /tmp/chart -o /tmp/chart/output.md [OPTIONS]
+```
+<!-- markdownlint-enable MD013 -->
 
 ### Installation
+
 To run it natively on your machine using pipenv:
+
 ```shell
-cd ~/Documents
 git clone https://github.com/very-doge-wow/stella.git
 cd stella
 pipenv install
@@ -26,17 +33,17 @@ pipenv run python stella.py --help
 ```
 
 Alternatively install dependencies using pip:
+
 ```shell
-cd ~/Documents
 git clone https://github.com/very-doge-wow/stella.git
 cd stella
-pip install pyyaml pytest
+pip install pyyaml
 python stella.py --help
 ```
 
 ### General Usage
 
-```
+```text
 usage: main.py [-h] [-hcp HELM_CHART_PATH] [-o OUTPUT] [-t TEMPLATE] [-v]
 
 Will create documentation for helm charts using metadata.
@@ -53,8 +60,9 @@ optional arguments:
 ```
 
 ## Custom Templating
-To specifiy a custom template, create a text/markdown file, then pass it to stella
-using the config parameter.
+
+To specify a custom template, create a text/markdown file, then pass it to
+stella using the config parameter.
 You can use the following fields inside your template:
 
 * `{{ stella.name }}`
@@ -68,8 +76,18 @@ You can use the following fields inside your template:
 * `{{ stella.objects }}`
 * `{{ stella.values }`
 
+## Contributing to `stella`
+
+You want to contribute? Awesome!
+Feel free to propose changes, report bugs or request features and
+improvements. But first, please read the
+[contribution guidelines](https://github.com/very-doge-wow/stella/blob/main/CONTRIBUTING.md).
+
 ## Why `stella`?
-`stella` is named after [Tilemann Stella](https://de.wikipedia.org/wiki/Tilemann_Stella), a scholar from the Renaissance era.
+
+`stella` is named after
+[Tilemann Stella](https://de.wikipedia.org/wiki/Tilemann_Stella),
+a scholar from the Renaissance era.
 He is most famously known for being a cartographer and for creating
-multiple waterways, which is fitting when considering the tool should 
+multiple waterways, which is fitting when considering the tool should
 create helm chart docs.

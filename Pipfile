@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 pyyaml = "*"
 pytest = "*"
+pyhamcrest = "*"
 
 [dev-packages]
 

@@ -206,7 +206,7 @@ def generate_objects(doc: dict, helm_chart_path: str) -> dict:
         if object != "" and type(object) == str:
             doc["objects"].append({
                 "kind": object,
-                "fromTemplate": tmpl['path']
+                "from Template": tmpl['path']
             })
 
         logging.debug("done generating objects doc")

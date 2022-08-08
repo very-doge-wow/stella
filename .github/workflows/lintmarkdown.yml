@@ -1,0 +1,14 @@
+on: [push]
+jobs:
+  lint-markdown:
+    name: lint_markdown
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: lint_markdown
+      uses: docker://avtodev/markdown-lint:v1
+      with:
+        args: './*.md'
+        ignore: './test/output.md ./test/custom-template-keywords.md'
