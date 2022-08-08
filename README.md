@@ -59,6 +59,30 @@ optional arguments:
   -v, --verbose         Activate debug logging.
 ```
 
+## Adding `stella` Docstrings to your Chart
+
+Metadata is read from the present files of your chart.
+Additionally, you should also document the options given
+in your `values.yaml`. This can be done as follows:
+
+```yaml
+# -- stella
+# Define how many replicas should be deployed.
+# -- example
+# replicaCount: 2
+replicaCount: 1
+```
+
+You can use multiline descriptions as well as multiline
+examples. In that case, the formatting of the example
+is preserved **as is**, meaning you can simply copy
+a working example and then prepend the comment delimiter (`#`).
+
+The line starting with `# -- stella` tells `stella` that the following
+comment is a `stella` docstring. Use the `# -- example` delimiter to
+specify an optional example. If you leave this empty, the resulting
+documentation will leave this field blank.
+
 ## Custom Templating
 
 To specify a custom template, create a text/markdown file, then pass it to
