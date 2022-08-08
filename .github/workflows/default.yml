@@ -1,9 +1,15 @@
-name: default
-on: [push]
-jobs:
-  run_unit_tests:
-    runs-on: ubuntu-latest
-    steps:
-      - run: apt-get install python pip pipenv
-      - run: pipenv install --system --deploy
-      - run: pipenv run pytest -vv
+install-test:
+  runs-on: ubuntu-latest
+
+  steps:
+  - uses: actions/checkout@v2 # Checking out the repo
+
+  - name: Install dependencies
+    uses: VaultVulp/action-pipenv@v2.0.1
+    with:
+      command: install -d # Install all dependencies, including development ones
+
+  - name: Test
+    uses: VaultVulp/action-pipenv@v2.0.1
+    with:
+      command: run pytest -vv
