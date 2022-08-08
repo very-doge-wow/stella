@@ -4,6 +4,6 @@ jobs:
   run_unit_tests:
     runs-on: ubuntu-latest
     steps:
-      - run apt-get install python pip pipenv
+      - run: apt-get install python pip pipenv
       - run: pipenv install --system --deploy
       - run: pipenv run pytest -vv
