@@ -1,5 +1,0 @@
-- name: Buildah Build
-  on:
-    - push
-  uses: redhat-actions/buildah-build@v2.10
-  
