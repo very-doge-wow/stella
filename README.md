@@ -72,6 +72,13 @@ You can use the following fields inside your template:
 * `{{ stella.objects }}`
 * `{{ stella.values }`
 
+## Contributing to `stella`
+
+You want to contribute? Awesome! 
+Feel free to propose changes, report bugs or request features and
+improvements. But first, please read the
+[contribution guidelines](https://github.com/very-doge-wow/stella/blob/main/CONTRIBUTING.md).
+
 ## Why `stella`?
 
 `stella` is named after
