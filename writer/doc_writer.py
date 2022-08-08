@@ -2,13 +2,13 @@ import logging
 import yaml
 
 
-def write(output: str, input: dict, template: str):
+def write(output: str, doc: dict, template: str) -> str:
     """
     Creates a Markdown doc file for the helm chart.
     Uses a custom template if present, else uses a default template.
     Parameters:
         output (str): Output path to save the md file to.
-        input (dict): Data structure containing all relevant helm chart information.
+        doc (dict): Data structure containing all relevant helm chart information.
         template (str): Path to custom template. If value is empty, uses default template.
     """
     logging.debug("starting to write doc from generated data")
@@ -63,13 +63,13 @@ The following values can/will be used for deployments.
     ]
 
     # transform dicts to md tables
-    translated = input
-    for key in input:
-        if type(input[key]) == list:
+    translated = doc
+    for key in doc:
+        if type(doc[key]) == list:
             logging.debug(f"converting list of dicts {key} to md")
 
-            if len(input[key]) > 0:
-                md = translate_list_of_dicts_to_md(input[key])
+            if len(doc[key]) > 0:
+                md = translate_list_of_dicts_to_md(doc[key])
                 translated[key] = md
 
     result = ""
@@ -77,7 +77,7 @@ The following values can/will be used for deployments.
         for keyword in keywords:
             if keyword in line:
                 line = line.replace(keyword, str(
-                    input[keyword.replace("{", "").replace("}", "").strip().replace("stella.", "")]))
+                    doc[keyword.replace("{", "").replace("}", "").strip().replace("stella.", "")]))
         result += line + "\n"
 
     logging.debug("writing output to file")
@@ -86,13 +86,14 @@ The following values can/will be used for deployments.
         file.write(result)
 
     logging.info(f"Wrote doc to {output}.")
+    return result
 
 
-def translate_list_of_dicts_to_md(input: dict) -> str:
+def translate_list_of_dicts_to_md(list_of_dicts: list) -> str:
     """
-    Creates a Markdown table from a python dictionary.
+    Creates a Markdown table from a list of python dictionaries.
     Parameters:
-        input (dict): Data structure containing all relevant helm chart information.
+        list_of_dicts (list[dict]): Data structure containing all relevant helm chart information.
     Returns:
         md (str): Markdown table created from dict.
     """
@@ -100,13 +101,13 @@ def translate_list_of_dicts_to_md(input: dict) -> str:
 
     sort = {}
 
-    for num, key in enumerate(input[0].keys()):
+    for num, key in enumerate(list_of_dicts[0].keys()):
         md += f"| {key.capitalize()} "
         sort[key] = num
-    md += " |\n"
-    md += "|---" * len(input[0].keys()) + " | \n"
+    md += "|\n"
+    md += "|---" * len(list_of_dicts[0].keys()) + "| \n"
 
-    for dictionary in input:
+    for dictionary in list_of_dicts:
         name = ""
         for times in range(len(sort)):
             for key in sort:
@@ -122,9 +123,8 @@ def translate_list_of_dicts_to_md(input: dict) -> str:
                             value = "<pre>" + str(value).lstrip()
                             value = value.replace("\n", "</br>")
                             value = value + "</pre>"
-                        if key == "description":
+                        if key != "default" or key != "example":
                             value = value.replace("\n", " ")  # no newlines allowed out of code-blocks
-                            print(value)
-                        md += f"| {value.rstrip()}"
-        md += " |\n"
+                        md += f"| {value.rstrip()} "
+        md += "|\n"
     return md

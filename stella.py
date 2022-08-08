@@ -31,7 +31,7 @@ if __name__ == '__main__':
     # actual logic
     try:
         result = chart_reader.read(args.helm_chart_path)
-        doc_writer.write(output=args.output, input=result, template=args.template)
+        doc_writer.write(output=args.output, doc=result, template=args.template)
     except Exception as err:
         logging.exception("Error occured.")
         exit(1)

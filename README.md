@@ -1,6 +1,6 @@
 # 💫 stella
 
-Stella is a free tool to help automatically generate
+`stella` is a free tool to help automatically generate
 [helm](https://helm.sh/) chart documentation.
 It supports simple templating, so custom templates for output can be used as well.
 Will read metadata such as `Chart.yaml`, `values.yaml` or the present templates and generate
@@ -12,13 +12,12 @@ a Markdown documentation from that data.
 Using the [OCI image](https://hub.docker.com/r/suchdogewow/stella):
 ````shell
 docker pull suchdogewow/stella:latest
-docker run -v $(pwd)/<path to your chart>:/tmp/chart stella -hcp /tmp/chart -o /tmp/chart/output.md 
+docker run -v <full path to your chart>:/tmp/chart stella -hcp /tmp/chart -o /tmp/chart/output.md
 ````
 
 ### Installation
 To run it natively on your machine using pipenv:
 ```shell
-cd ~/Documents
 git clone https://github.com/very-doge-wow/stella.git
 cd stella
 pipenv install
@@ -27,10 +26,9 @@ pipenv run python stella.py --help
 
 Alternatively install dependencies using pip:
 ```shell
-cd ~/Documents
 git clone https://github.com/very-doge-wow/stella.git
 cd stella
-pip install pyyaml pytest
+pip install pyyaml
 python stella.py --help
 ```
 
@@ -53,7 +51,7 @@ optional arguments:
 ```
 
 ## Custom Templating
-To specifiy a custom template, create a text/markdown file, then pass it to stella
+To specify a custom template, create a text/markdown file, then pass it to stella
 using the config parameter.
 You can use the following fields inside your template:
 
