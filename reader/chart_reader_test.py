@@ -49,8 +49,11 @@ def test_read():
                 {'name': 'tolerations', 'description': '', 'default': [], 'example': ''},
                 {'name': 'affinity', 'description': '', 'default': {}, 'example': ''}],
             'templates': [
-                {'path': 'deployment.yaml'}, {'path': 'ingress.yaml'}, {'path': 'service.yaml'},
-                {'path': 'hpa.yaml'}, {'path': 'serviceaccount.yaml'}
+                {'path': 'deployment.yaml'},
+                {'path': 'hpa.yaml'},
+                {'path': 'ingress.yaml'},
+                {'path': 'service.yaml'},
+                {'path': 'serviceaccount.yaml'}
             ],
             'objects': [
                 {'kind': 'Deployment', 'from Template': 'deployment.yaml'},
