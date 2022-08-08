@@ -1,3 +1,4 @@
+on: [push]
 jobs:
   lint-markdown:
     name: Lint markdown file(s)
