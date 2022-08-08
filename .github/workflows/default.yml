@@ -6,5 +6,3 @@ jobs:
     steps:
       - pipenv install --system --deploy
       - pipenv run pytest -vv
-  builah_build:
-    uses: redhat-actions/buildah-build@v2.10
