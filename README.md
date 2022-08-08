@@ -1,6 +1,6 @@
 # 💫 stella
 
-![stella](https://github.com/very-doge-wow/stella/blob/main/stella.png?raw=true)
+![stella](https://github.com/very-doge-wow/stella/blob/main/stella2.png?raw=true)
 
 `stella` is a free tool to help automatically generate
 [helm](https://helm.sh/) chart documentation.
