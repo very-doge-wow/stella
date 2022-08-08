@@ -1,10 +1,10 @@
-- name: default
-  on: [push]
-  jobs:
-    run_unit_tests:
-      runs-on: python:3.10
-      steps:
-        - pipenv install --system --deploy
-        - pipenv run pytest -vv
-    builah_build:
-      uses: redhat-actions/buildah-build@v2.10
+name: default
+on: [push]
+jobs:
+  run_unit_tests:
+    runs-on: python:3.10
+    steps:
+      - pipenv install --system --deploy
+      - pipenv run pytest -vv
+  builah_build:
+    uses: redhat-actions/buildah-build@v2.10
