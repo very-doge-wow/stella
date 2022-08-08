@@ -4,5 +4,5 @@ jobs:
   run_unit_tests:
     runs-on: python:3.10
     steps:
-      - pipenv install --system --deploy
-      - pipenv run pytest -vv
+      - run: pipenv install --system --deploy
+      - run: pipenv run pytest -vv
