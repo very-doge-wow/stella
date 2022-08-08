@@ -1,7 +1,6 @@
+on: [push]
 install-test:
   runs-on: ubuntu-latest
-  on: [push]
-
   steps:
   - uses: actions/checkout@v2 # Checking out the repo
 
