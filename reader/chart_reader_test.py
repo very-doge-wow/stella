@@ -19,6 +19,7 @@ def test_read():
     }
     result = chart_reader.read("test/test-chart")
     result["objects"] = sorted(result["objects"], key=lambda item: item.get("kind"))
+    result["templates"] = sorted(result["templates"], key=lambda item: item.get("path"))
     assert_that(result, has_entries(
         {
             'name': 'test-chart',
