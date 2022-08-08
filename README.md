@@ -12,10 +12,12 @@ templates and generate a Markdown documentation from that data.
 
 Using the [OCI image](https://hub.docker.com/r/suchdogewow/stella):
 
+<!-- markdownlint-disable MD013 -->
 ```shell
 docker pull suchdogewow/stella:latest
 docker run -v ${full_path_to_host_chart_dir}:/tmp/chart stella -hcp /tmp/chart -o /tmp/chart/output.md [OPTIONS]
 ```
+<!-- markdownlint-enable MD013 -->
 
 ### Installation
 
