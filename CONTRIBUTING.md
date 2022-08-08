@@ -61,6 +61,11 @@ Try using the same coding style as other code in the repository. You can try
 running a linter for style clarification. However, keep in mind that we
 do not want to `die in beauty` - function over form.
 
+## Use Conventional Commits
+
+Commits should follow the pattern as specified
+[here](https://www.conventionalcommits.org/en/v1.0.0/).
+
 ## License
 
 By contributing, you agree that your contributions will be licensed under the
