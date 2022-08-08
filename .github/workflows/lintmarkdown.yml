@@ -1,13 +1,13 @@
 on: [push]
 jobs:
   lint-markdown:
-    name: Lint markdown file(s)
+    name: lint_markdown
     runs-on: ubuntu-latest
     steps:
     - name: Check out code
       uses: actions/checkout@v2
 
-    - name: Lint changelog file
+    - name: lint_markdown
       uses: docker://avtodev/markdown-lint:v1
       with:
         args: './*.md'
