@@ -47,7 +47,7 @@ The following values can/will be used for deployments.
 {{ stella.values }}
 
 *Automatic helm documentation generated using [very-doge-wow/stella](https://github.com/very-doge-wow/stella).*
-        """
+"""
 
     keywords = [
         "{{ stella.name }}",
@@ -64,12 +64,15 @@ The following values can/will be used for deployments.
 
     # transform dicts to md tables
     translated = doc
-    for key in doc:
-        if type(doc[key]) == list:
+    for key in translated:
+        if type(translated[key]) == list:
             logging.debug(f"converting list of dicts {key} to md")
 
-            if len(doc[key]) > 0:
+            if len(translated[key]) > 0:
                 md = translate_list_of_dicts_to_md(doc[key])
+                translated[key] = md
+            else:
+                md = f"*No {get_name_from_keyword(key)} found.*"
                 translated[key] = md
 
     result = ""
@@ -77,7 +80,7 @@ The following values can/will be used for deployments.
         for keyword in keywords:
             if keyword in line:
                 line = line.replace(keyword, str(
-                    doc[keyword.replace("{", "").replace("}", "").strip().replace("stella.", "")]))
+                    translated[get_name_from_keyword(keyword)]))
         result += line + "\n"
 
     logging.debug("writing output to file")
@@ -128,3 +131,8 @@ def translate_list_of_dicts_to_md(list_of_dicts: list) -> str:
                         md += f"| {value.rstrip()} "
         md += "|\n"
     return md
+
+
+def get_name_from_keyword(keyword: str) -> str:
+    result = keyword.replace("{", "").replace("}", "").strip().replace("stella.", "")
+    return result

@@ -286,5 +286,92 @@ The following values can/will be used for deployments.
 
 
 *Automatic helm documentation generated using [very-doge-wow/stella](https://github.com/very-doge-wow/stella).*
-        
+
 """
+
+
+def test_writer_empty():
+    doc = {
+        "type": "application",
+        "version": "1.0",
+        "appVersion": "1.1",
+        "apiVersion": "1.2",
+        "name": "unittest",
+        "description": "simple templating test",
+        "dependencies": [],
+        "templates": [],
+        "objects": [
+            {
+                "kind": "Ingress",
+                "from Template": "template.yaml"
+            }
+        ],
+        "values": [
+            {
+                "name": "ReplicaCount",
+                "description": "how many replicas to deploy",
+                "default": "1",
+                "example": "replicaCount: 2"
+            }
+        ]
+    }
+
+    result = doc_writer.write("test/output.md", doc, "")
+    assert result == """
+# unittest
+![Version: 1.0](https://img.shields.io/badge/Version-1.0-informational?style=flat-square) ![Version: 1.1](https://img.shields.io/badge/appVersion-1.1-informational?style=flat-square) ![Version: 1.2](https://img.shields.io/badge/apiVersion-1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) 
+
+## Description
+simple templating test
+
+## Dependencies
+This chart depends on the following subcharts.
+
+*No dependencies found.*
+
+## Templates
+The following templates will be deployed.
+
+*No templates found.*
+
+### Objects
+The aforementioned templates will deploy the following objects.
+
+| Kind | From template |
+|---|---| 
+| Ingress | template.yaml |
+
+
+## Values
+The following values can/will be used for deployments.
+
+| Name | Description | Default | Example |
+|---|---|---|---| 
+| ReplicaCount | how many replicas to deploy | <pre>1</pre> | <pre>replicaCount: 2</pre> |
+
+
+*Automatic helm documentation generated using [very-doge-wow/stella](https://github.com/very-doge-wow/stella).*
+
+"""
+
+
+def test_get_name_from_keyword():
+    keywords = [
+        "{{ stella.lol }}",
+        "{{ stella.banana }}",
+        "",
+        "{{stella.rofl}}",
+        "{{pear}}"
+    ]
+
+    results = [
+        "lol",
+        "banana",
+        "",
+        "rofl",
+        "pear"
+    ]
+
+    for index, keyword in enumerate(keywords):
+        result = doc_writer.get_name_from_keyword(keyword)
+        assert results[index] == result
