@@ -353,3 +353,25 @@ The following values can/will be used for deployments.
 *Automatic helm documentation generated using [very-doge-wow/stella](https://github.com/very-doge-wow/stella).*
 
 """
+
+
+def test_get_name_from_keyword():
+    keywords = [
+        "{{ stella.lol }}",
+        "{{ stella.banana }}",
+        "",
+        "{{stella.rofl}}",
+        "{{pear}}"
+    ]
+
+    results = [
+        "lol",
+        "banana",
+        "",
+        "rofl",
+        "pear"
+    ]
+
+    for index, keyword in enumerate(keywords):
+        result = doc_writer.get_name_from_keyword(keyword)
+        assert results[index] == result
