@@ -8,7 +8,7 @@ jobs:
     - name: install_deps
       uses: VaultVulp/action-pipenv@v2.0.1
       with:
-        command: install -d # Install all dependencies, including development ones
+        command: install -d --system --deploy # Install all dependencies, including development ones
 
     - name: test
       uses: VaultVulp/action-pipenv@v2.0.1
