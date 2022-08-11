@@ -43,6 +43,7 @@ python stella.py --help
 
 ### General Usage
 
+<!-- markdownlint-disable MD013 -->
 ```text
 usage: stella.py [-h] [-hcp HELM_CHART_PATH] [-o OUTPUT] [-t TEMPLATE] [-fh] [-css CSS] [-v]
 
@@ -60,6 +61,7 @@ optional arguments:
   -css CSS, --css CSS   Path to css file to use for html generation (use in conjunction with -fh).
   -v, --verbose         Activate debug logging.
 ```
+<!-- markdownlint-enable MD013 -->
 
 ## Adding `stella` Docstrings to your Chart
 
