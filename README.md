@@ -98,7 +98,7 @@ You can use the following fields inside your template:
 * `{{ stella.dependencies }}`
 * `{{ stella.templates }}`
 * `{{ stella.objects }}`
-* `{{ stella.values }`
+* `{{ stella.values }}`
 
 ## Contributing to `stella`
 
