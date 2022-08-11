@@ -12,8 +12,8 @@ if __name__ == '__main__':
     parser.add_argument("-o", "--output", help="Output file (default `output.md`).", required=False, default="output.md")
     parser.add_argument("-t", "--template", help="Custom template file.", required=False, default="")
     parser.add_argument("-fh", "--format-html", help="Output using html instead of md.", required=False, action="store_true")
-    parser.add_argument("-css", "--css", help="Path to css file to use for html generation (use in conjunction with "
-                                              "-fh).", required=False, default="")
+    parser.add_argument("-css", "--css", help="Path to optional css file to use for html generation (use in "
+                                              "conjunction with -fh).", required=False, default="")
     parser.add_argument("-v", "--verbose", help="Activate debug logging.", required=False, action="store_true")
     args = parser.parse_args()
 

@@ -1,7 +1,6 @@
 import logging
 import yaml
-import pandoc
-import tempfile
+import markdown
 
 
 def write(output: str, doc: dict, template: str, format_html: bool, css: str) -> str:
@@ -89,20 +88,30 @@ The following values can/will be used for deployments.
 
     logging.debug("writing output to file")
 
-    with open(output, "wb") as file:
+    with open(output, "w") as file:
         if format_html:
             logging.debug("converting md to html before write")
-            # convert md to html and output as file / gfm = github-flavored-markdown
-            doc = pandoc.read(source=result, format="gfm+raw_html")
-            # pass custom css if desired
-            write_options = []
+            result = markdown.markdown(result, extensions=["tables"])
             if css != "":
-                write_options.append("--self-contained")
-                write_options.append(f"--css={css}")
-            result = pandoc.write(doc=doc, file=file, format="html", options=write_options)
-        else:
-            # simply output md
-            file.write(bytes(result, encoding="utf-8"))
+                logging.debug("adding custom css to html before write")
+                with open(css, "r") as style:
+                    result = f"""<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="very-doge-wow/stella" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <style type="text/css" media="screen">
+    {style.read()}
+  </style>
+</head>
+<body>
+{result}
+</body>
+</html>
+"""
+        # simply output the text (md or html, don't care)
+        file.write(result)
 
     logging.info(f"Wrote doc to {output}.")
     return result

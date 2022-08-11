@@ -37,13 +37,9 @@ Alternatively install dependencies using pip:
 ```shell
 git clone https://github.com/very-doge-wow/stella.git
 cd stella
-pip install pyyaml pandoc
+pip install pyyaml markdown
 python stella.py --help
 ```
-
-**If you plan on outputting your documentation in HTML instead
-of Markdown, you will also need to install [pandoc](https://pandoc.org/installing.html)
-and make it available in your $PATH.**
 
 ### General Usage
 
@@ -62,7 +58,7 @@ optional arguments:
   -t TEMPLATE, --template TEMPLATE
                         Custom template file.
   -fh, --format-html    Output using html instead of md.
-  -css CSS, --css CSS   Path to css file to use for html generation (use in conjunction with -fh).
+  -css CSS, --css CSS   Path to optional css file to use for html generation (use in conjunction with -fh).
   -v, --verbose         Activate debug logging.
 ```
 <!-- markdownlint-enable MD013 -->
