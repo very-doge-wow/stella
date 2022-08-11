@@ -14,12 +14,12 @@ transparent as possible, whether it's:
 I use GitHub to host code, to track issues and feature requests, as well as
 accept pull requests.
 
-## Use [Github Flow](https://guides.github.com/introduction/flow/index.html)
+## Use GitHub Flow
 
 All code changes happen through Pull Requests.
 
 Pull requests are the best way to propose changes to the codebase
-(I use [Github Flow](https://guides.github.com/introduction/flow/index.html)).
+(I use [Github Flow](https://docs.github.com/en/get-started/quickstart/github-flow)).
 I actively welcome your pull requests:
 
 1. Fork the repo and create your branch from `main`.
@@ -65,11 +65,6 @@ do not want to `die in beauty` - function over form.
 
 Commits should follow the pattern as specified
 [here](https://www.conventionalcommits.org/en/v1.0.0/).
-
-## License
-
-By contributing, you agree that your contributions will be licensed under the
-MIT License.
 
 ## References
 
