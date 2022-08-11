@@ -10,6 +10,11 @@ jobs:
       with:
         command: install -d # Install all dependencies, including development ones
 
+    - name: show_graph
+      uses: VaultVulp/action-pipenv@v2.0.1
+      with:
+        command: graph # shows installed pip packages
+
     - name: test
       uses: VaultVulp/action-pipenv@v2.0.1
       with:

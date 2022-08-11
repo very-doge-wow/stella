@@ -171,7 +171,7 @@ def test_writer_keywords_custom_template():
         ]
     }
 
-    result = doc_writer.write("test/output.md", doc, "test/custom-template-keywords.md")
+    result = doc_writer.write("test/output.md", doc, "test/custom-template-keywords.md", False, "")
     assert result == """unittest
 
 1.0
@@ -244,7 +244,7 @@ def test_writer_keywords_default_template():
         ]
     }
 
-    result = doc_writer.write("test/output.md", doc, "")
+    result = doc_writer.write("test/output.md", doc, "", False, "")
 
     assert result == """
 # unittest
@@ -316,7 +316,7 @@ def test_writer_empty():
         ]
     }
 
-    result = doc_writer.write("test/output.md", doc, "")
+    result = doc_writer.write("test/output.md", doc, "", False, "")
     assert result == """
 # unittest
 ![Version: 1.0](https://img.shields.io/badge/Version-1.0-informational?style=flat-square) ![Version: 1.1](https://img.shields.io/badge/appVersion-1.1-informational?style=flat-square) ![Version: 1.2](https://img.shields.io/badge/apiVersion-1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) 
@@ -375,3 +375,192 @@ def test_get_name_from_keyword():
     for index, keyword in enumerate(keywords):
         result = doc_writer.get_name_from_keyword(keyword)
         assert results[index] == result
+
+
+def test_writer_html():
+    doc = {
+        "type": "application",
+        "version": "1.0",
+        "appVersion": "1.1",
+        "apiVersion": "1.2",
+        "name": "unittest",
+        "description": "simple templating test",
+        "dependencies": [],
+        "templates": [],
+        "objects": [
+            {
+                "kind": "Ingress",
+                "from Template": "template.yaml"
+            }
+        ],
+        "values": [
+            {
+                "name": "ReplicaCount",
+                "description": "how many replicas to deploy",
+                "default": "1",
+                "example": "replicaCount: 2"
+            }
+        ]
+    }
+
+    result = doc_writer.write("test/output.md", doc, "", True, "")
+    assert result == """<h1>unittest</h1>
+<p><img alt="Version: 1.0" src="https://img.shields.io/badge/Version-1.0-informational?style=flat-square" /> <img alt="Version: 1.1" src="https://img.shields.io/badge/appVersion-1.1-informational?style=flat-square" /> <img alt="Version: 1.2" src="https://img.shields.io/badge/apiVersion-1.2-informational?style=flat-square" /> <img alt="Type: application" src="https://img.shields.io/badge/Type-application-informational?style=flat-square" /> </p>
+<h2>Description</h2>
+<p>simple templating test</p>
+<h2>Dependencies</h2>
+<p>This chart depends on the following subcharts.</p>
+<p><em>No dependencies found.</em></p>
+<h2>Templates</h2>
+<p>The following templates will be deployed.</p>
+<p><em>No templates found.</em></p>
+<h3>Objects</h3>
+<p>The aforementioned templates will deploy the following objects.</p>
+<table>
+<thead>
+<tr>
+<th>Kind</th>
+<th>From template</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ingress</td>
+<td>template.yaml</td>
+</tr>
+</tbody>
+</table>
+<h2>Values</h2>
+<p>The following values can/will be used for deployments.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Default</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ReplicaCount</td>
+<td>how many replicas to deploy</td>
+<td><pre>1</pre></td>
+<td><pre>replicaCount: 2</pre></td>
+</tr>
+</tbody>
+</table>
+<p><em>Automatic helm documentation generated using <a href="https://github.com/very-doge-wow/stella">very-doge-wow/stella</a>.</em></p>"""
+
+
+def test_writer_html_custom_css():
+    doc = {
+        "type": "application",
+        "version": "1.0",
+        "appVersion": "1.1",
+        "apiVersion": "1.2",
+        "name": "unittest",
+        "description": "simple templating test",
+        "dependencies": [],
+        "templates": [],
+        "objects": [
+            {
+                "kind": "Ingress",
+                "from Template": "template.yaml"
+            }
+        ],
+        "values": [
+            {
+                "name": "ReplicaCount",
+                "description": "how many replicas to deploy",
+                "default": "1",
+                "example": "replicaCount: 2"
+            }
+        ]
+    }
+
+    result = doc_writer.write("test/output.md", doc, "", True, "test/style.css")
+    assert result == """<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="very-doge-wow/stella" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <style type="text/css" media="screen">
+    tr {
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+  }
+
+th {
+    display: none;
+}
+
+body {
+  padding: 0 2em;
+  font-family: Montserrat, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  color: #444;
+  background: #eee;
+}
+
+h1 {
+  font-weight: normal;
+  letter-spacing: -1px;
+  color: #34495E;
+}
+
+  </style>
+</head>
+<body>
+<h1>unittest</h1>
+<p><img alt="Version: 1.0" src="https://img.shields.io/badge/Version-1.0-informational?style=flat-square" /> <img alt="Version: 1.1" src="https://img.shields.io/badge/appVersion-1.1-informational?style=flat-square" /> <img alt="Version: 1.2" src="https://img.shields.io/badge/apiVersion-1.2-informational?style=flat-square" /> <img alt="Type: application" src="https://img.shields.io/badge/Type-application-informational?style=flat-square" /> </p>
+<h2>Description</h2>
+<p>simple templating test</p>
+<h2>Dependencies</h2>
+<p>This chart depends on the following subcharts.</p>
+<p><em>No dependencies found.</em></p>
+<h2>Templates</h2>
+<p>The following templates will be deployed.</p>
+<p><em>No templates found.</em></p>
+<h3>Objects</h3>
+<p>The aforementioned templates will deploy the following objects.</p>
+<table>
+<thead>
+<tr>
+<th>Kind</th>
+<th>From template</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ingress</td>
+<td>template.yaml</td>
+</tr>
+</tbody>
+</table>
+<h2>Values</h2>
+<p>The following values can/will be used for deployments.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Default</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ReplicaCount</td>
+<td>how many replicas to deploy</td>
+<td><pre>1</pre></td>
+<td><pre>replicaCount: 2</pre></td>
+</tr>
+</tbody>
+</table>
+<p><em>Automatic helm documentation generated using <a href="https://github.com/very-doge-wow/stella">very-doge-wow/stella</a>.</em></p>
+</body>
+</html>
+"""
