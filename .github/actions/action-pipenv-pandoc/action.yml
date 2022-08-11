@@ -1,0 +1,17 @@
+name: 'Pipenv for Github Actions with Pandoc installation'
+description: 'Use pipenv commands in your GitHub Actions Workflow which require pandoc. Uses https://github.com/VaultVulp/action-pipenv/'
+
+inputs:
+  command:
+    description: 'pipenv command and its argument to be executed'
+    required: true
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.command }}
+
+branding:
+  icon: 'package'
+  color: 'green'

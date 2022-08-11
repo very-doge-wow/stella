@@ -41,6 +41,10 @@ pip install pyyaml pandoc
 python stella.py --help
 ```
 
+**If you plan on outputting your documentation in HTML instead
+of Markdown, you will also need to install [pandoc](https://pandoc.org/installing.html)
+and make it available in your $PATH.**
+
 ### General Usage
 
 <!-- markdownlint-disable MD013 -->
