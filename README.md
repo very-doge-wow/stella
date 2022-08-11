@@ -6,7 +6,7 @@
 [helm](https://helm.sh/) chart documentation.
 It supports simple templating, so custom templates for output can be used as
 well. Will read metadata such as `Chart.yaml`, `values.yaml` or the present
-templates and generate a Markdown documentation from that data.
+templates and generate a Markdown or HTML documentation from that data.
 
 ## Usage
 
