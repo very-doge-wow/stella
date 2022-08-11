@@ -44,18 +44,20 @@ python stella.py --help
 ### General Usage
 
 ```text
-usage: main.py [-h] [-hcp HELM_CHART_PATH] [-o OUTPUT] [-t TEMPLATE] [-v]
+usage: stella.py [-h] [-hcp HELM_CHART_PATH] [-o OUTPUT] [-t TEMPLATE] [-fh] [-css CSS] [-v]
 
 Will create documentation for helm charts using metadata.
 
 optional arguments:
   -h, --help            show this help message and exit
   -hcp HELM_CHART_PATH, --helm-chart-path HELM_CHART_PATH
-                        Path to helm chart. (default ".")
+                        Path to helm chart (default `.`).
   -o OUTPUT, --output OUTPUT
-                        Output file. (default "output.md")
+                        Output file (default `output.md`).
   -t TEMPLATE, --template TEMPLATE
                         Custom template file.
+  -fh, --format-html    Output using html instead of md.
+  -css CSS, --css CSS   Path to css file to use for html generation (use in conjunction with -fh).
   -v, --verbose         Activate debug logging.
 ```
 

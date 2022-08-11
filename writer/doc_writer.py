@@ -1,8 +1,10 @@
 import logging
 import yaml
+import pandoc
+import tempfile
 
 
-def write(output: str, doc: dict, template: str) -> str:
+def write(output: str, doc: dict, template: str, format_html: bool, css: str) -> str:
     """
     Creates a Markdown doc file for the helm chart.
     Uses a custom template if present, else uses a default template.
@@ -10,6 +12,8 @@ def write(output: str, doc: dict, template: str) -> str:
         output (str): Output path to save the md file to.
         doc (dict): Data structure containing all relevant helm chart information.
         template (str): Path to custom template. If value is empty, uses default template.
+        format_html (bool): Whether to convert the finished md to html before writing to file.
+        css (str): Path to optional css file for html generation.
     """
     logging.debug("starting to write doc from generated data")
 
@@ -85,8 +89,20 @@ The following values can/will be used for deployments.
 
     logging.debug("writing output to file")
 
-    with open(output, "w") as file:
-        file.write(result)
+    with open(output, "wb") as file:
+        if format_html:
+            logging.debug("converting md to html before write")
+            # convert md to html and output as file / gfm = github-flavored-markdown
+            doc = pandoc.read(source=result, format="gfm+raw_html")
+            # pass custom css if desired
+            write_options = []
+            if css != "":
+                write_options.append("--self-contained")
+                write_options.append(f"--css={css}")
+            result = pandoc.write(doc=doc, file=file, format="html", options=write_options)
+        else:
+            # simply output md
+            file.write(bytes(result, encoding="utf-8"))
 
     logging.info(f"Wrote doc to {output}.")
     return result

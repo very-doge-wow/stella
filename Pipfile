@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 pyyaml = "==6.0"
+pandoc = "==2.2"
 
 [dev-packages]
 pyhamcrest = "==2.0.4"

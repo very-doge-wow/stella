@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "a15afd1e6912dad90fb41517694908886cf446be359152373d86343cc21177d6"
+            "sha256": "7cf3062b3fc2a5f4a13cbe504dac46f4be4f97989000144d9fadc7e855d8f0b2"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,28 @@
         ]
     },
     "default": {
+        "pandoc": {
+            "hashes": [
+                "sha256:d063ee252f2761010f16cf3a14912ad9245187c24c56f4b1ad9696e104fe6e1e"
+            ],
+            "index": "pypi",
+            "version": "==2.2"
+        },
+        "plumbum": {
+            "hashes": [
+                "sha256:0bbf431e31da988405de2fb36c3226f09c0c9cdf69c8480f8997f4b94b7370a1",
+                "sha256:0d1bf908076bbd0484d16412479cb97d6843069ee19f99e267e11dd980040523"
+            ],
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'",
+            "version": "==1.7.2"
+        },
+        "ply": {
+            "hashes": [
+                "sha256:00c7c1aaa88358b9c765b6d3000c6eec0ba42abca5351b095321aef446081da3",
+                "sha256:096f9b8350b65ebd2fd1346b12452efe5b9607f7482813ffca50c22722a807ce"
+            ],
+            "version": "==3.11"
+        },
         "pyyaml": {
             "hashes": [
                 "sha256:0283c35a6a9fbf047493e3a0ce8d79ef5030852c51e9d911a27badfde0605293",
