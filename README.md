@@ -37,7 +37,7 @@ Alternatively install dependencies using pip:
 ```shell
 git clone https://github.com/very-doge-wow/stella.git
 cd stella
-pip install pyyaml
+pip install pyyaml pandoc
 python stella.py --help
 ```
 
