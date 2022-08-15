@@ -145,7 +145,7 @@ def translate_list_of_dicts_to_md(list_of_dicts: list) -> str:
                         if key == "name":
                             name = value
                         if type(value) == dict:
-                            value = yaml.safe_dump({name: value})
+                            value = yaml.safe_dump(value)
                         if (key == "default" or key == "example") and value != "":
                             # we should put this into a code-block
                             value = "<pre>" + str(value).lstrip()
