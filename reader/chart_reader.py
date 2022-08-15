@@ -98,7 +98,7 @@ def generate_values_doc(doc: dict, helm_chart_path: str) -> dict:
             i = index
             # check if the next line still is a comment, if so add it to docstring
             while values_lines[i+1].startswith("#"):
-                doc_string += values_lines[i+1].replace("# ", "").replace("#","") + "\n"
+                doc_string += values_lines[i+1].replace("# ", "").replace("#", "") + "\n"
                 i += 1
             # this loop starts when no comment is present anymore
             while values_lines[i+1].strip() == "":
@@ -122,8 +122,8 @@ def generate_values_doc(doc: dict, helm_chart_path: str) -> dict:
             doc["values"].append({
                 "name": value_name,
                 "description": doc_string,
-                "default": values_yaml[value_name],
-                "example": example
+                "default": {value_name: values_yaml[value_name]},
+                "example": example.replace("|", "\\|")  # escape pipe symbol to correctly render md table
             })
     # also add doc entries for values that do not have stella docstrings
     for values in values_yaml:
@@ -136,7 +136,7 @@ def generate_values_doc(doc: dict, helm_chart_path: str) -> dict:
             doc["values"].append({
                 "name": values,
                 "description": "",
-                "default": values_yaml[values],
+                "default": {values: values_yaml[values]},
                 "example": ""
             })
     return doc

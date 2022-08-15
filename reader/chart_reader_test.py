@@ -21,47 +21,43 @@ def test_read():
     result["objects"] = sorted(result["objects"], key=lambda item: item.get("kind"))
     result["templates"] = sorted(result["templates"], key=lambda item: item.get("path"))
     assert_that(result, has_entries(
-        {
-            'name': 'test-chart',
-            'appVersion': '1.16.0',
-            'apiVersion': 'v2',
-            'version': '0.1.0',
-            'description': 'A Helm chart for Kubernetes',
-            'type': 'application',
-            'dependencies': [
-                {'name': 'postgresql', 'condition': 'postgresql.enabled', 'version': '1.2.3',
-                 'repository': 'https://lol.de/repo/'},
-                {'name': 'mysql', 'condition': 'mysql.enabled', 'version': '1.2.3', 'repository': 'https://lol.de/repo/'}
-            ],
-            'values': [
-                {'name': 'replicaCount', 'description': 'how many replicas to deploy\n', 'default': 1, 'example': ''},
-                {'name': 'image', 'description': 'which image to deploy\n', 'default': {'repository': 'nginx', 'pullPolicy': 'IfNotPresent', 'tag': ''}, 'example': '\nimage:\n  repository: very-doge-wow/stella\n  pullPolicy: IfNotPresent\n  tag: "latest"\n'},
-                {'name': 'imagePullSecrets', 'description': '', 'default': [], 'example': ''},
-                {'name': 'nameOverride', 'description': '', 'default': '', 'example': ''},
-                {'name': 'fullnameOverride', 'description': '', 'default': '', 'example': ''},
-                {'name': 'serviceAccount', 'description': '', 'default': {'create': True, 'annotations': {}, 'name': ''}, 'example': ''}, {'name': 'podAnnotations', 'description': '', 'default': {}, 'example': ''},
-                {'name': 'podSecurityContext', 'description': '', 'default': {}, 'example': ''},
-                {'name': 'securityContext', 'description': '', 'default': {}, 'example': ''},
-                {'name': 'service', 'description': '', 'default': {'type': 'ClusterIP', 'port': 80}, 'example': ''},
-                {'name': 'ingress', 'description': '', 'default': {'enabled': False, 'className': '', 'annotations': {}, 'hosts': [{'host': 'chart-example.local', 'paths': [{'path': '/', 'pathType': 'ImplementationSpecific'}]}], 'tls': []}, 'example': ''},
-                {'name': 'resources', 'description': '', 'default': {}, 'example': ''},
-                {'name': 'autoscaling', 'description': '', 'default': {'enabled': False, 'minReplicas': 1, 'maxReplicas': 100, 'targetCPUUtilizationPercentage': 80}, 'example': ''}, {'name': 'nodeSelector', 'description': '', 'default': {}, 'example': ''},
-                {'name': 'tolerations', 'description': '', 'default': [], 'example': ''},
-                {'name': 'affinity', 'description': '', 'default': {}, 'example': ''}],
-            'templates': [
-                {'path': 'deployment.yaml'},
-                {'path': 'hpa.yaml'},
-                {'path': 'ingress.yaml'},
-                {'path': 'service.yaml'},
-                {'path': 'serviceaccount.yaml'}
-            ],
-            'objects': [
-                {'kind': 'Deployment', 'from Template': 'deployment.yaml'},
-                {'kind': 'HorizontalPodAutoscaler', 'from Template': 'hpa.yaml'},
-                {'kind': 'Ingress', 'from Template': 'ingress.yaml'},
-                {'kind': 'Service', 'from Template': 'service.yaml'},
-                {'kind': 'ServiceAccount', 'from Template': 'serviceaccount.yaml'},
-            ],
+        {'name': 'test-chart', 'appVersion': '1.16.0', 'apiVersion': 'v2', 'version': '0.1.0',
+         'description': 'A Helm chart for Kubernetes', 'type': 'application', 'dependencies': [
+            {'name': 'postgresql', 'condition': 'postgresql.enabled', 'version': '1.2.3',
+             'repository': 'https://lol.de/repo/'},
+            {'name': 'mysql', 'condition': 'mysql.enabled', 'version': '1.2.3', 'repository': 'https://lol.de/repo/'}],
+         'values': [
+             {'name': 'replicaCount', 'description': 'how many replicas to deploy\n', 'default': {'replicaCount': 1},
+              'example': ''}, {'name': 'image', 'description': 'which image to deploy\n',
+                               'default': {'image': {'repository': 'nginx', 'pullPolicy': 'IfNotPresent', 'tag': ''}},
+                               'example': '\nimage:\n  repository: very-doge-wow/stella\n  pullPolicy: IfNotPresent\n  tag: "latest"\n'},
+             {'name': 'imagePullSecrets', 'description': '', 'default': {'imagePullSecrets': []}, 'example': ''},
+             {'name': 'nameOverride', 'description': '', 'default': {'nameOverride': ''}, 'example': ''},
+             {'name': 'fullnameOverride', 'description': '', 'default': {'fullnameOverride': ''}, 'example': ''},
+             {'name': 'serviceAccount', 'description': '',
+              'default': {'serviceAccount': {'create': True, 'annotations': {}, 'name': ''}}, 'example': ''},
+             {'name': 'podAnnotations', 'description': '', 'default': {'podAnnotations': {}}, 'example': ''},
+             {'name': 'podSecurityContext', 'description': '', 'default': {'podSecurityContext': {}}, 'example': ''},
+             {'name': 'securityContext', 'description': '', 'default': {'securityContext': {}}, 'example': ''},
+             {'name': 'service', 'description': '', 'default': {'service': {'type': 'ClusterIP', 'port': 80}},
+              'example': ''}, {'name': 'ingress', 'description': '', 'default': {
+                 'ingress': {'enabled': False, 'className': '', 'annotations': {}, 'hosts': [
+                     {'host': 'chart-example.local', 'paths': [{'path': '/', 'pathType': 'ImplementationSpecific'}]}],
+                             'tls': []}}, 'example': ''},
+             {'name': 'resources', 'description': '', 'default': {'resources': {}}, 'example': ''},
+             {'name': 'autoscaling', 'description': '', 'default': {
+                 'autoscaling': {'enabled': False, 'minReplicas': 1, 'maxReplicas': 100,
+                                 'targetCPUUtilizationPercentage': 80}}, 'example': ''},
+             {'name': 'nodeSelector', 'description': '', 'default': {'nodeSelector': {}}, 'example': ''},
+             {'name': 'tolerations', 'description': '', 'default': {'tolerations': []}, 'example': ''},
+             {'name': 'affinity', 'description': '', 'default': {'affinity': {}}, 'example': ''}],
+         'templates': [{'path': 'deployment.yaml'}, {'path': 'hpa.yaml'}, {'path': 'ingress.yaml'},
+                       {'path': 'service.yaml'}, {'path': 'serviceaccount.yaml'}],
+         'objects': [{'kind': 'Deployment', 'from Template': 'deployment.yaml'},
+                     {'kind': 'HorizontalPodAutoscaler', 'from Template': 'hpa.yaml'},
+                     {'kind': 'Ingress', 'from Template': 'ingress.yaml'},
+                     {'kind': 'Service', 'from Template': 'service.yaml'},
+                     {'kind': 'ServiceAccount', 'from Template': 'serviceaccount.yaml'}],
          'commands': [{'description': '', 'command': ''}]}
     ))
 
@@ -117,12 +113,12 @@ def test_generate_values_doc_and_example():
         {
             'name': 'replicaCount',
             'description': 'how many replicas to deploy\n',
-            'default': 1, 'example': ''
+            'default': {'replicaCount': 1}, 'example': ''
         },
         {
             'name': 'image',
             'description': 'which image to deploy\n',
-            'default': {'repository': 'nginx', 'pullPolicy': 'IfNotPresent', 'tag': ''},
+            'default': {'image': {'repository': 'nginx', 'pullPolicy': 'IfNotPresent', 'tag': ''}},
             'example': '\nimage:\n  repository: very-doge-wow/stella\n  pullPolicy: IfNotPresent\n  tag: "latest"\n'
         }
     ))
@@ -147,8 +143,29 @@ def test_generate_values_doc_only():
         {
             'name': 'replicaCount',
             'description': 'how many replicas to deploy\n',
-            'default': 1, 'example': ''
+            'default': {'replicaCount': 1}, 'example': ''
         }
+    ))
+
+
+def test_generate_values_pipes_in_tables():
+    doc = {
+        "name": "",
+        "appVersion": "",
+        "apiVersion": "",
+        "version": "",
+        "description": "",
+        "type": "",
+        "dependencies": [],
+        "values": [],
+        "templates": [],
+        "objects": [],
+        "commands": [],
+    }
+    result = chart_reader.generate_values_doc(doc, "test/values-pipes")
+    print(result)
+    assert_that(result["values"], contains_inanyorder(
+        {'name': 'customObjects', 'description': 'Test for using pipes in examples\n', 'default': {'customObjects': []}, 'example': '\ncustomObjects:\n  - \\|\n    best-string\n'}
     ))
 
 

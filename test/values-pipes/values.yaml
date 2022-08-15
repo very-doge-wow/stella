@@ -1,0 +1,7 @@
+# -- stella
+# Test for using pipes in examples
+# -- example
+# customObjects:
+#   - |
+#     best-string
+customObjects: []
