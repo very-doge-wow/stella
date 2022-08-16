@@ -62,7 +62,7 @@ def test_translate_list_of_dicts_to_md_multiline_with_codeblock():
     md_table = doc_writer.translate_list_of_dicts_to_md(list_of_dicts)
     assert md_table == """| Name | Color | Example |
 |---|---|---| 
-| Banana | Yellow | <pre>Banana-shaped</br>and kinda bent</pre> |
+| Banana | Yellow | <pre>Banana-shaped<br>and kinda bent</pre> |
 | Pear | Green | <pre>Pear-shaped</pre> |
 """
 
@@ -106,7 +106,7 @@ def test_translate_list_of_dicts_to_md_big_codeblock():
     md_table = doc_writer.translate_list_of_dicts_to_md(list_of_dicts)
     assert md_table == """| Name | Color | Default |
 |---|---|---| 
-| Banana |  | <pre>Banana-shaped:</br>  - list-item</br>  - list-item</br>  image:</br>    - name: busybox</br>    - entrypoint: ["/bin/sh", "-c"]</pre> |
+| Banana |  | <pre>Banana-shaped:<br>  - list-item<br>  - list-item<br>  image:<br>    - name: busybox<br>    - entrypoint: ["/bin/sh", "-c"]</pre> |
 | Pear | Green | <pre>pear</pre> |
 """
 
