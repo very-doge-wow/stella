@@ -149,7 +149,7 @@ def translate_list_of_dicts_to_md(list_of_dicts: list) -> str:
                         if (key == "default" or key == "example") and value != "":
                             # we should put this into a code-block
                             value = "<pre>" + str(value).lstrip()
-                            value = value.replace("\n", "</br>")
+                            value = value.replace("\n", "<br>")
                             value = value + "</pre>"
                         if key != "default" or key != "example":
                             value = value.replace("\n", " ")  # no newlines allowed out of code-blocks
