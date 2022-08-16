@@ -163,9 +163,30 @@ def test_generate_values_pipes_in_tables():
         "commands": [],
     }
     result = chart_reader.generate_values_doc(doc, "test/values-pipes")
-    print(result)
     assert_that(result["values"], contains_inanyorder(
         {'name': 'customObjects', 'description': 'Test for using pipes in examples\n', 'default': {'customObjects': []}, 'example': '\ncustomObjects:\n  - \\|\n    best-string\n'}
+    ))
+
+
+def test_generate_values_comments_in_examples():
+    doc = {
+        "name": "",
+        "appVersion": "",
+        "apiVersion": "",
+        "version": "",
+        "description": "",
+        "type": "",
+        "dependencies": [],
+        "values": [],
+        "templates": [],
+        "objects": [],
+        "commands": [],
+    }
+    result = chart_reader.generate_values_doc(doc, "test/values-comments-examples")
+    print(result)
+    assert_that(result["values"], contains_inanyorder(
+        {'name': 'best', 'description': 'Test for comments in examples\n', 'default': {'best': []},
+         'example': '\nbest:\n  # this is a comment inside an example\n  - value\n'}
     ))
 
 
