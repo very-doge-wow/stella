@@ -1,0 +1,7 @@
+# -- stella
+# Test for comments in examples
+# -- example
+# best:
+#   # this is a comment inside an example
+#   - value
+best: []
