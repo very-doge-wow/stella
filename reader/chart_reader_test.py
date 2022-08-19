@@ -311,3 +311,34 @@ def test_generate_objects():
             }
     ))
 
+
+def test_generate_objects_multiple_objects_single_template():
+    doc = {
+        "name": "",
+        "appVersion": "",
+        "apiVersion": "",
+        "version": "",
+        "description": "",
+        "type": "",
+        "dependencies": [],
+        "values": [],
+        "templates": [
+            {
+                "path": "best.yaml"
+            }
+        ],
+        "objects": [],
+        "commands": [],
+    }
+
+    result = chart_reader.generate_objects(doc, "test/test-chart-objects")
+    assert_that(result["objects"], contains_inanyorder(
+            {
+                "kind": "Deployment",
+                "from Template": "best.yaml"
+            },
+            {
+                "kind": "Secret",
+                "from Template": "best.yaml"
+            }
+    ))
