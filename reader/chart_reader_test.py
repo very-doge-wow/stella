@@ -222,6 +222,38 @@ def test_generate_requirements():
     ))
 
 
+def test_generate_requirements_from_chart_yaml():
+    doc = {
+        "name": "",
+        "appVersion": "",
+        "apiVersion": "",
+        "version": "",
+        "description": "",
+        "type": "",
+        "dependencies": [],
+        "values": [],
+        "templates": [],
+        "objects": [],
+        "commands": [],
+    }
+
+    result = chart_reader.generate_requirements(doc, "test/test-chart-dependencies")
+    assert_that(result["dependencies"], contains_inanyorder(
+        {
+            "name": "postgresql",
+            "condition": "postgresql.enabled",
+            "version": "1.2.3",
+            "repository": "https://lol.de/repo/"
+        },
+        {
+            "name": "mysql",
+            "condition": "mysql.enabled",
+            "version": "1.2.3",
+            "repository": "https://lol.de/repo/"
+        }
+    ))
+
+
 def test_generate_templates():
     doc = {
         "name": "",

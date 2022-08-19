@@ -149,7 +149,8 @@ def generate_values_doc(doc: dict, helm_chart_path: str) -> dict:
 
 def generate_requirements(doc: dict, helm_chart_path: str) -> dict:
     """
-    Reads basic requirements/dependency metadata from requirements.yaml into a data structure.
+    Reads basic requirements/dependency metadata from requirements.yaml
+    or from Chart.yaml into a data structure.
     Parameters:
         doc (dict): Data structure to save to.
         helm_chart_path (str): Path to the chart.
@@ -158,12 +159,15 @@ def generate_requirements(doc: dict, helm_chart_path: str) -> dict:
     """
     logging.debug("generating requirements/dependencies doc")
     if not os.path.exists(f"{helm_chart_path}/requirements.yaml"):
-        return doc
+        with open(f"{helm_chart_path}/Chart.yaml") as file:
+            dep_yaml = yaml.safe_load(file)
+            if "dependencies" not in dep_yaml:
+                return doc
+    else:
+        with open(f"{helm_chart_path}/requirements.yaml") as file:
+            dep_yaml = yaml.safe_load(file)
 
-    with open(f"{helm_chart_path}/requirements.yaml") as file:
-        req_yaml = yaml.safe_load(file)
-
-    doc["dependencies"] = req_yaml["dependencies"]
+    doc["dependencies"] = dep_yaml["dependencies"]
     logging.debug("done generating requirements/dependencies doc")
     return doc
 
