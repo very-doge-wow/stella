@@ -2,6 +2,7 @@ import yaml
 import logging
 import os
 
+
 def read(helm_chart_path: str) -> dict:
     """
     Reads all present chart metadata into a data structure.
@@ -97,19 +98,19 @@ def generate_values_doc(doc: dict, helm_chart_path: str) -> dict:
             doc_string = ""
             i = index
             # check if the next line still is a comment, if so add it to docstring
-            while values_lines[i+1].startswith("#"):
+            while values_lines[i + 1].startswith("#"):
                 # remove first char (#) and add newline
-                calc = values_lines[i+1].replace("#", "", 1) + "\n"
+                calc = values_lines[i + 1].replace("#", "", 1) + "\n"
                 if calc[0] == " ":
                     calc = calc.replace(" ", "", 1)
                 doc_string += calc
                 i += 1
             # this loop starts when no comment is present anymore
-            while values_lines[i+1].strip() == "":
+            while values_lines[i + 1].strip() == "":
                 # if it is whitespace, ignore the line
                 i += 1
             # when the loop is terminated, the nearest value name is extracted
-            value_name = values_lines[i+1].split(":")[0].strip()
+            value_name = values_lines[i + 1].split(":")[0].strip()
 
             # check if an example is present in the docstring
             example_delimiter = "-- example"
@@ -199,19 +200,20 @@ def generate_objects(doc: dict, helm_chart_path: str) -> dict:
     logging.debug("generating objects doc")
 
     for tmpl in doc["templates"]:
-        object = ""
         with open(f"{helm_chart_path}/templates/{tmpl['path']}") as file:
             tmpl_string = file.read()
 
+        objects = []
         for line in tmpl_string.split("\n"):
             if line.startswith("kind:"):
-                object = line.split("kind:")[1].strip()
+                objects.append(line.split("kind:")[1].strip())
 
-        if object != "" and type(object) == str:
-            doc["objects"].append({
-                "kind": object,
-                "from Template": tmpl['path']
-            })
+        for obj in objects:
+            if obj != "" and type(obj) == str:
+                doc["objects"].append({
+                    "kind": obj,
+                    "from Template": tmpl['path']
+                })
 
         logging.debug("done generating objects doc")
     return doc
