@@ -2,15 +2,9 @@
 
 ![stella](https://github.com/very-doge-wow/stella/blob/main/stella.png?raw=true)
 
-<a href="https://github.com/very-doge-wow/stella/actions/workflows/lintmarkdown.yml">
-  <img alt="Lint Markdown" src="https://github.com/very-doge-wow/stella/actions/workflows/lintmarkdown.yml/badge.svg">
-</a>
-<a href="https://github.com/very-doge-wow/stella/actions/workflows/unittest.yml">
-    <img alt="Tests" src="https://github.com/very-doge-wow/stella/actions/workflows/unittest.yml/badge.svg">
- </a>
-<a href="https://hub.docker.com/r/suchdogewow/stella">
-  <img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/suchdogewow/stella.svg" />
-</a>
+[![Lint Markdown](https://github.com/very-doge-wow/stella/actions/workflows/lintmarkdown.yml/badge.svg)](https://github.com/very-doge-wow/stella/actions/workflows/lintmarkdown.yml)
+[![Unittests](https://github.com/very-doge-wow/stella/actions/workflows/unittest.yml/badge.svg)](https://github.com/very-doge-wow/stella/actions/workflows/unittest.yml)
+[![Docker Pulls](https://img.shields.io/docker/pulls/suchdogewow/stella.svg)](https://hub.docker.com/r/suchdogewow/stella)
 
 `stella` is a free tool to help automatically generate
 [helm](https://helm.sh/) chart documentation.
