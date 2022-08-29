@@ -1,3 +1,4 @@
+name: Unittests
 on: [push]
 jobs:
   run_unit_tests:
