@@ -1,3 +1,4 @@
+name: Markdownlint
 on: [push]
 jobs:
   lint-markdown:
