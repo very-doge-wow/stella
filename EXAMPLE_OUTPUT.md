@@ -1,4 +1,4 @@
-
+<!-- markdownlint-disable MD013 -->
 # kibana
 ![Version: 8.4.1](https://img.shields.io/badge/Version-8.4.1-informational?style=flat-square) ![Version: 8.4.1](https://img.shields.io/badge/appVersion-8.4.1-informational?style=flat-square) ![Version: v1](https://img.shields.io/badge/apiVersion-v1-informational?style=flat-square) ![Type: unknown](https://img.shields.io/badge/Type-unknown-informational?style=flat-square) 
 
