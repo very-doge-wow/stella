@@ -13,6 +13,7 @@ well. Will read metadata such as `Chart.yaml`, `values.yaml` or the present
 templates and generate a Markdown or HTML documentation from that data.
 
 ## Example
+
 For an example output when running `stella` for the
 [kibana](https://github.com/elastic/helm-charts/tree/main/kibana) helm chart,
 follow [this](https://github.com/very-doge-wow/stella/blob/main/EXAMPLE_OUTPUT.md)
