@@ -12,4 +12,4 @@ jobs:
       uses: docker://avtodev/markdown-lint:v1
       with:
         args: './*.md'
-        ignore: './test/output.md ./test/custom-template-keywords.md'
+        ignore: './test/output.md ./test/custom-template-keywords.md ./EXAMPLE_OUTPUT.md'
