@@ -12,6 +12,12 @@ It supports simple templating, so custom templates for output can be used as
 well. Will read metadata such as `Chart.yaml`, `values.yaml` or the present
 templates and generate a Markdown or HTML documentation from that data.
 
+## Example
+For an example output when running `stella` for the
+[kibana](https://github.com/elastic/helm-charts/tree/main/kibana) helm chart,
+follow [this](https://github.com/very-doge-wow/stella/blob/main/EXAMPLE_OUTPUT.md)
+link.
+
 ## Usage
 
 ### Docker Image
@@ -21,7 +27,7 @@ Using the [OCI image](https://hub.docker.com/r/suchdogewow/stella):
 <!-- markdownlint-disable MD013 -->
 ```shell
 docker pull suchdogewow/stella:latest
-docker run -v ${full_path_to_host_chart_dir}:/tmp/chart stella -hcp /tmp/chart -o /tmp/chart/output.md [OPTIONS]
+docker run -v ${full_path_to_host_chart_dir}:/tmp/chart suchdogewow/stella -hcp /tmp/chart -o /tmp/chart/output.md [OPTIONS]
 ```
 <!-- markdownlint-enable MD013 -->
 
