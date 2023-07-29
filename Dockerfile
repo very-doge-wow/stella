@@ -4,7 +4,9 @@ USER root
 
 WORKDIR app
 
-COPY . .
+COPY reader ./reader/
+COPY writer ./writer/
+COPY stella.py Pipfile Pipfile.lock ./
 
 RUN pip install pipenv && \
     pipenv install --system --deploy && \
