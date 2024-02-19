@@ -144,6 +144,9 @@ def generate_values_doc(doc: dict, helm_chart_path: str) -> dict:
                 "default": {values: values_yaml[values]},
                 "example": ""
             })
+
+    # sort values alphabetically
+    doc["values"] = sorted(doc["values"], key=lambda item: item["name"])
     return doc
 
 
