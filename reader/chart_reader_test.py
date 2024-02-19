@@ -27,30 +27,31 @@ def test_read():
              'repository': 'https://lol.de/repo/'},
             {'name': 'mysql', 'condition': 'mysql.enabled', 'version': '1.2.3', 'repository': 'https://lol.de/repo/'}],
          'values': [
-             {'name': 'replicaCount', 'description': 'how many replicas to deploy\n', 'default': {'replicaCount': 1},
-              'example': ''}, {'name': 'image', 'description': 'which image to deploy\n',
-                               'default': {'image': {'repository': 'nginx', 'pullPolicy': 'IfNotPresent', 'tag': ''}},
-                               'example': '\nimage:\n  repository: very-doge-wow/stella\n  pullPolicy: IfNotPresent\n  tag: "latest"\n'},
+             {'name': 'affinity',
+              'description': '',
+              'default': {'affinity': {}}, 'example': ''},{'name': 'autoscaling', 'description': '', 'default':
+                 {'autoscaling': {'enabled': False, 'minReplicas': 1, 'maxReplicas': 100,
+                                  'targetCPUUtilizationPercentage': 80}}, 'example': ''},
+             {'name': 'fullnameOverride', 'description': '', 'default': {'fullnameOverride': ''},
+              'example': ''}, {'name': 'image', 'description': 'which image to deploy\n', 'default':
+                 {'image': {'repository': 'nginx', 'pullPolicy': 'IfNotPresent', 'tag': ''}}, 'example':
+                 '\nimage:\n  repository: very-doge-wow/stella\n  pullPolicy: IfNotPresent\n  tag: "latest"\n'},
              {'name': 'imagePullSecrets', 'description': '', 'default': {'imagePullSecrets': []}, 'example': ''},
+             {'name': 'ingress', 'description': '', 'default': {'ingress': {'enabled': False, 'className': '',
+            'annotations': {}, 'hosts': [{'host': 'chart-example.local', 'paths':
+             [{'path': '/', 'pathType': 'ImplementationSpecific'}]}], 'tls': []}}, 'example': ''},
              {'name': 'nameOverride', 'description': '', 'default': {'nameOverride': ''}, 'example': ''},
-             {'name': 'fullnameOverride', 'description': '', 'default': {'fullnameOverride': ''}, 'example': ''},
-             {'name': 'serviceAccount', 'description': '',
-              'default': {'serviceAccount': {'create': True, 'annotations': {}, 'name': ''}}, 'example': ''},
+             {'name': 'nodeSelector', 'description': '', 'default': {'nodeSelector': {}}, 'example': ''},
              {'name': 'podAnnotations', 'description': '', 'default': {'podAnnotations': {}}, 'example': ''},
              {'name': 'podSecurityContext', 'description': '', 'default': {'podSecurityContext': {}}, 'example': ''},
-             {'name': 'securityContext', 'description': '', 'default': {'securityContext': {}}, 'example': ''},
-             {'name': 'service', 'description': '', 'default': {'service': {'type': 'ClusterIP', 'port': 80}},
-              'example': ''}, {'name': 'ingress', 'description': '', 'default': {
-                 'ingress': {'enabled': False, 'className': '', 'annotations': {}, 'hosts': [
-                     {'host': 'chart-example.local', 'paths': [{'path': '/', 'pathType': 'ImplementationSpecific'}]}],
-                             'tls': []}}, 'example': ''},
-             {'name': 'resources', 'description': '', 'default': {'resources': {}}, 'example': ''},
-             {'name': 'autoscaling', 'description': '', 'default': {
-                 'autoscaling': {'enabled': False, 'minReplicas': 1, 'maxReplicas': 100,
-                                 'targetCPUUtilizationPercentage': 80}}, 'example': ''},
-             {'name': 'nodeSelector', 'description': '', 'default': {'nodeSelector': {}}, 'example': ''},
-             {'name': 'tolerations', 'description': '', 'default': {'tolerations': []}, 'example': ''},
-             {'name': 'affinity', 'description': '', 'default': {'affinity': {}}, 'example': ''}],
+             {'name': 'replicaCount', 'description': 'how many replicas to deploy\n', 'default':
+                 {'replicaCount': 1}, 'example': ''}, {'name': 'resources', 'description': '', 'default':
+                 {'resources': {}}, 'example': ''}, {'name': 'securityContext', 'description': '',
+                 'default': {'securityContext': {}}, 'example': ''}, {'name': 'service', 'description': '',
+                  'default': {'service': {'type': 'ClusterIP', 'port': 80}}, 'example': ''},
+             {'name': 'serviceAccount', 'description': '', 'default': {'serviceAccount':
+             {'create': True, 'annotations': {}, 'name': ''}}, 'example': ''},
+             {'name': 'tolerations', 'description': '', 'default': {'tolerations': []}, 'example': ''}],
          'templates': [{'path': 'deployment.yaml'}, {'path': 'hpa.yaml'}, {'path': 'ingress.yaml'},
                        {'path': 'service.yaml'}, {'path': 'serviceaccount.yaml'}],
          'objects': [{'kind': 'Deployment', 'from Template': 'deployment.yaml'},
