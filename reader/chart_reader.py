@@ -135,7 +135,7 @@ def generate_values_doc(doc: dict, helm_chart_path: str) -> dict:
                 "name": full_path,
                 "description": doc_string,
                 # todo: extract values using the yaml path in full_path
-                "default": {full_path: ""},
+                "default": {full_path: pop_unneeded_yaml(values_yaml, full_path)},
                 "example": example.replace("|", "\\|")  # escape pipe symbol to correctly render md table
             })
     # also add doc entries for values that do not have stella docstrings
@@ -156,6 +156,18 @@ def generate_values_doc(doc: dict, helm_chart_path: str) -> dict:
     # sort values alphabetically
     doc["values"] = sorted(doc["values"], key=lambda item: item["name"])
     return doc
+
+
+def pop_unneeded_yaml(values_yaml: dict, full_path: str):
+    split = full_path.split('.')[0]
+    first_key = split[0]
+    rest = '.'.join(split[1:])
+    values = values_yaml.get(first_key)
+    for key in values:
+        if key not in rest:
+            values.pop(key)
+        values = pop_unneeded_yaml(values, rest)
+    return values
 
 
 def build_full_path(i, value_name_dirty, value_name_clean, values_lines):
