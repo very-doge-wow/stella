@@ -168,12 +168,15 @@ def generate_values_doc(doc: dict, helm_chart_path: str) -> dict:
     for index, line in enumerate(values_lines):
         if stella in line:
             # found a stella doc string
+            # get the indent
+            match = re.search(r'^(\s+).*$', line)
+            indent_num = match.group(0).count(' ')-1 if match else 0
             doc_string = ""
             i = index
             # check if the next line still is a comment, if so add it to docstring
             while values_lines[i + 1].lstrip().startswith("#"):
                 # remove first char (#) and add newline
-                calc = values_lines[i + 1].replace("#", "", 1) + "\n"
+                calc = values_lines[i + 1].replace(" ", "", indent_num).replace("#", "", 1) + "\n"
                 if calc[0] == " ":
                     calc = calc.replace(" ", "", 1)
                 doc_string += calc
