@@ -1,3 +1,5 @@
+import re
+
 import yaml
 import logging
 import os
@@ -98,7 +100,7 @@ def generate_values_doc(doc: dict, helm_chart_path: str) -> dict:
             doc_string = ""
             i = index
             # check if the next line still is a comment, if so add it to docstring
-            while values_lines[i + 1].startswith("#"):
+            while values_lines[i + 1].lstrip().startswith("#"):
                 # remove first char (#) and add newline
                 calc = values_lines[i + 1].replace("#", "", 1) + "\n"
                 if calc[0] == " ":
@@ -109,8 +111,13 @@ def generate_values_doc(doc: dict, helm_chart_path: str) -> dict:
             while values_lines[i + 1].strip() == "":
                 # if it is whitespace, ignore the line
                 i += 1
+
             # when the loop is terminated, the nearest value name is extracted
-            value_name = values_lines[i + 1].split(":")[0].strip()
+            i += 1
+            value_name_dirty = values_lines[i].split(":")[0]
+            value_name_sanitized = value_name_dirty.strip()
+            # if it is not a top-level value, we need to determine the entire yaml path to the element
+            full_path = build_full_path(i, value_name_dirty, value_name_sanitized, values_lines)
 
             # check if an example is present in the docstring
             example_delimiter = "-- example"
@@ -125,9 +132,10 @@ def generate_values_doc(doc: dict, helm_chart_path: str) -> dict:
 
             # write the generated values to the output data structure
             doc["values"].append({
-                "name": value_name,
+                "name": full_path,
                 "description": doc_string,
-                "default": {value_name: values_yaml[value_name]},
+                # todo: extract values using the yaml path in full_path
+                "default": {full_path: ""},
                 "example": example.replace("|", "\\|")  # escape pipe symbol to correctly render md table
             })
     # also add doc entries for values that do not have stella docstrings
@@ -148,6 +156,37 @@ def generate_values_doc(doc: dict, helm_chart_path: str) -> dict:
     # sort values alphabetically
     doc["values"] = sorted(doc["values"], key=lambda item: item["name"])
     return doc
+
+
+def build_full_path(i, value_name_dirty, value_name_clean, values_lines):
+    # first element will always be the current key's name
+    full_path = value_name_clean
+    # check if whitespace before key is found
+    match = re.search(r'^(\s+).*$', value_name_dirty)
+    index = i
+    while match:
+        # count the indent
+        indent_num = match.group(0).count(' ')
+        # early exit if already on toplevel
+        if indent_num == 0:
+            return f"{upper_key}.{full_path}"
+        # iterate to the nearest key which is (closer to) top-level
+        while values_lines[index - 1].lstrip().startswith("#") or values_lines[index - 1].strip() == "":
+            # loop ignores empty lines and comments
+            index -= 1
+        # loop terminates when next yaml key is found
+        index -= 1
+        # index now points to the line with the key
+        value_name_dirty = values_lines[index].split(":")[0]
+        upper_key = value_name_dirty.strip()
+        # make sure the found key is actually closer to top-level than the first one by counting indent
+        match_new = re.search(r'^\s*', value_name_dirty)
+        if match_new:
+            indent_num_new = match.group(0).count(' ')
+            if indent_num_new < indent_num:
+                full_path = f"{upper_key}.{full_path}"
+        match = re.search(r'^\s*', value_name_dirty)
+    return full_path
 
 
 def generate_requirements(doc: dict, helm_chart_path: str) -> dict:
