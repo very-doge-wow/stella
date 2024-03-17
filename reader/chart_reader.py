@@ -1,4 +1,5 @@
 import re
+from typing import Iterable
 
 import yaml
 import logging
@@ -70,6 +71,76 @@ def generate_chart_metadata(doc: dict, helm_chart_path: str) -> dict:
     return doc
 
 
+def get_value_from_yaml(parsed_yaml: dict, full_path: str) -> dict:
+    """
+    Takes a full yaml path such as first.second.third and gets
+    the associated yaml value from the dictionary. Preserves
+    toplevel keys while doing so.
+    Parameters:
+        parsed_yaml (dict): data structure from which to read
+        full_path (str): full path to desired values
+    Returns:
+        result (dict): Generated data structure.
+    """
+    keys = full_path.split('.')
+    result = {}
+    current = result
+    for key in keys[:-1]:
+        current[key] = {}
+        current = current[key]
+        if key in parsed_yaml:
+            parsed_yaml = parsed_yaml[key]
+        else:
+            return result  # Return if any intermediate key is not found
+    current[keys[-1]] = parsed_yaml.get(keys[-1])  # Get the value if exists
+    return result
+
+
+def build_full_path(i: int, value_name_dirty: str, value_name_clean: str, values_lines: list) -> str:
+    """
+    Takes a value name and its current index when traversing a values file
+    line by line and tries to determine the full path inside the yaml
+    document without parsing it. Will evaluate lines above the current
+    line and their respective indent until the toplevel is reached, all
+    the while building the full path.
+    Parameters:
+        i (int): current index from outer scope
+        value_name_dirty (str): the current value's name without having removed leading whitespace
+        value_name_clean (str): the current value's name sanitized
+        values_lines (list): list of all lines in the values document
+    Returns:
+        full_path (str): Full path to the currently evaluated value inside the document.
+    """
+    # first element will always be the current key's name
+    full_path = value_name_clean
+    # check if whitespace before key is found
+    match = re.search(r'^(\s+).*$', value_name_dirty)
+    index = i
+    while match:
+        # count the indent
+        indent_num = match.group(0).count(' ')
+        # early exit if already on toplevel
+        if indent_num == 0:
+            return f"{upper_key}.{full_path}"
+        # iterate to the nearest key which is (closer to) top-level
+        while values_lines[index - 1].lstrip().startswith("#") or values_lines[index - 1].strip() == "":
+            # loop ignores empty lines and comments
+            index -= 1
+        # loop terminates when next yaml key is found
+        index -= 1
+        # index now points to the line with the key
+        value_name_dirty = values_lines[index].split(":")[0]
+        upper_key = value_name_dirty.strip()
+        # make sure the found key is actually closer to top-level than the first one by counting indent
+        match_new = re.search(r'^\s*', value_name_dirty)
+        if match_new:
+            indent_num_new = match.group(0).count(' ')
+            if indent_num_new < indent_num:
+                full_path = f"{upper_key}.{full_path}"
+        match = re.search(r'^\s*', value_name_dirty)
+    return full_path
+
+
 def generate_values_doc(doc: dict, helm_chart_path: str) -> dict:
     """
     Reads stella doc strings from values.yaml and assigns them to a specific value entry.
@@ -134,8 +205,7 @@ def generate_values_doc(doc: dict, helm_chart_path: str) -> dict:
             doc["values"].append({
                 "name": full_path,
                 "description": doc_string,
-                # todo: extract values using the yaml path in full_path
-                "default": {full_path: pop_unneeded_yaml(values_yaml, full_path)},
+                "default": get_value_from_yaml(values_yaml, full_path),
                 "example": example.replace("|", "\\|")  # escape pipe symbol to correctly render md table
             })
     # also add doc entries for values that do not have stella docstrings
@@ -156,49 +226,6 @@ def generate_values_doc(doc: dict, helm_chart_path: str) -> dict:
     # sort values alphabetically
     doc["values"] = sorted(doc["values"], key=lambda item: item["name"])
     return doc
-
-
-def pop_unneeded_yaml(values_yaml: dict, full_path: str):
-    split = full_path.split('.')[0]
-    first_key = split[0]
-    rest = '.'.join(split[1:])
-    values = values_yaml.get(first_key)
-    for key in values:
-        if key not in rest:
-            values.pop(key)
-        values = pop_unneeded_yaml(values, rest)
-    return values
-
-
-def build_full_path(i, value_name_dirty, value_name_clean, values_lines):
-    # first element will always be the current key's name
-    full_path = value_name_clean
-    # check if whitespace before key is found
-    match = re.search(r'^(\s+).*$', value_name_dirty)
-    index = i
-    while match:
-        # count the indent
-        indent_num = match.group(0).count(' ')
-        # early exit if already on toplevel
-        if indent_num == 0:
-            return f"{upper_key}.{full_path}"
-        # iterate to the nearest key which is (closer to) top-level
-        while values_lines[index - 1].lstrip().startswith("#") or values_lines[index - 1].strip() == "":
-            # loop ignores empty lines and comments
-            index -= 1
-        # loop terminates when next yaml key is found
-        index -= 1
-        # index now points to the line with the key
-        value_name_dirty = values_lines[index].split(":")[0]
-        upper_key = value_name_dirty.strip()
-        # make sure the found key is actually closer to top-level than the first one by counting indent
-        match_new = re.search(r'^\s*', value_name_dirty)
-        if match_new:
-            indent_num_new = match.group(0).count(' ')
-            if indent_num_new < indent_num:
-                full_path = f"{upper_key}.{full_path}"
-        match = re.search(r'^\s*', value_name_dirty)
-    return full_path
 
 
 def generate_requirements(doc: dict, helm_chart_path: str) -> dict:

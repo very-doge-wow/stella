@@ -1,3 +1,5 @@
+import yaml
+
 import chart_reader
 from unittest.mock import Mock
 from hamcrest import assert_that, has_entries, contains_inanyorder
@@ -189,6 +191,226 @@ def test_generate_values_comments_in_examples():
         {'name': 'best', 'description': 'Test for comments in examples\n', 'default': {'best': []},
          'example': '\nbest:\n  # this is a comment inside an example\n  - value\n'}
     ))
+
+
+def test_generate_values_docs_nested():
+    doc = {
+        "name": "",
+        "appVersion": "",
+        "apiVersion": "",
+        "version": "",
+        "description": "",
+        "type": "",
+        "dependencies": [],
+        "values": [],
+        "templates": [],
+        "objects": [],
+        "commands": [],
+    }
+    result = chart_reader.generate_values_doc(doc, "test/values-nested-docs")
+    print(result)
+    assert_that(result["values"], contains_inanyorder(
+        {
+            'name': 'replicaCount',
+            'description': 'how many replicas to deploy\n',
+            'default': {'replicaCount': 1}, 'example': ''
+        }
+    ))
+
+
+def test_get_value_from_yaml():
+    yaml_string = """first:
+  second:
+    third: "value"
+"""
+    path = "first.second.third"
+    result = chart_reader.get_value_from_yaml(yaml.safe_load(yaml_string), path)
+    assert result == {
+        "first": {
+            "second": {
+                "third": "value"
+            }
+        }
+    }
+
+    yaml_string = """first: 1
+"""
+    path = "first"
+    result = chart_reader.get_value_from_yaml(yaml.safe_load(yaml_string), path)
+    assert result == {
+        "first": 1
+    }
+
+    yaml_string = """first:
+  - name: lol
+    value: rofl
+"""
+    path = "first"
+    result = chart_reader.get_value_from_yaml(yaml.safe_load(yaml_string), path)
+    assert result == {
+        "first": [{"name": "lol", "value": "rofl"}]
+    }
+
+    yaml_string = """first:
+  second:
+    third: lol
+  fourth: rofl
+"""
+    path = "first.fourth"
+    result = chart_reader.get_value_from_yaml(yaml.safe_load(yaml_string), path)
+    assert result == {
+        "first": {
+            "fourth": "rofl"
+        }
+    }
+
+    yaml_string = """first:
+  second:
+    third:
+      fifth: uhuhu
+    fourth: rofl
+"""
+    path = "first.second.fourth"
+    result = chart_reader.get_value_from_yaml(yaml.safe_load(yaml_string), path)
+    assert result == {
+        "first": {
+            "second": {
+                "fourth": "rofl"
+            }
+        }
+    }
+
+    yaml_string = """first:
+  second:
+    third:
+      fifth: uhuhu
+    fourth: rofl
+another: one
+"""
+    path = "first.second.fourth"
+    result = chart_reader.get_value_from_yaml(yaml.safe_load(yaml_string), path)
+    assert result == {
+        "first": {
+            "second": {
+                "fourth": "rofl"
+            }
+        }
+    }
+
+    yaml_string = """first:
+  second:
+    third:
+      fifth: uhuhu
+    fourth: rofl
+another: one
+    """
+    path = "another"
+    result = chart_reader.get_value_from_yaml(yaml.safe_load(yaml_string), path)
+    assert result == {
+        "another": "one"
+    }
+
+    yaml_string = """first: {}
+    """
+    path = "first"
+    result = chart_reader.get_value_from_yaml(yaml.safe_load(yaml_string), path)
+    assert result == {
+        "first": {}
+    }
+
+    yaml_string = """first: []
+    """
+    path = "first"
+    result = chart_reader.get_value_from_yaml(yaml.safe_load(yaml_string), path)
+    assert result == {
+        "first": []
+    }
+
+    yaml_string = """first: ""
+    """
+    path = "first"
+    result = chart_reader.get_value_from_yaml(yaml.safe_load(yaml_string), path)
+    assert result == {
+        "first": ""
+    }
+
+    yaml_string = """first: ''
+    """
+    path = "first"
+    result = chart_reader.get_value_from_yaml(yaml.safe_load(yaml_string), path)
+    assert result == {
+        "first": ""
+    }
+
+    yaml_string = """first:
+  very:
+    nested:
+      indeed:
+        omg:
+          this:
+            is:
+              so:
+                nested: true
+    """
+    path = "first"
+    result = chart_reader.get_value_from_yaml(yaml.safe_load(yaml_string), path)
+    assert result == {
+        "first": {
+            "very": {
+                "nested": {
+                    "indeed": {
+                        "omg": {
+                            "this": {
+                                "is": {
+                                    "so": {
+                                        "nested": True
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+def test_build_full_path():
+    test_yaml = """---
+first:
+  element: "wow"
+  another: "one"
+
+emptydict: {}
+
+emptyarray: []
+
+yet:
+  another: []
+"""
+    result = chart_reader.build_full_path(i=3, value_name_dirty='  another', value_name_clean='another',
+                                          values_lines=test_yaml.split('\n'))
+    assert result == "first.another"
+
+    result = chart_reader.build_full_path(i=2, value_name_dirty='  element', value_name_clean='element',
+                                          values_lines=test_yaml.split('\n'))
+    assert result == "first.element"
+
+    result = chart_reader.build_full_path(i=5, value_name_dirty='emptydict', value_name_clean='emptydict',
+                                          values_lines=test_yaml.split('\n'))
+    assert result == "emptydict"
+
+    result = chart_reader.build_full_path(i=5, value_name_dirty='emptyarray', value_name_clean='emptyarray',
+                                          values_lines=test_yaml.split('\n'))
+    assert result == "emptyarray"
+
+    result = chart_reader.build_full_path(i=9, value_name_dirty='yet', value_name_clean='yet',
+                                          values_lines=test_yaml.split('\n'))
+    assert result == "yet"
+
+    result = chart_reader.build_full_path(i=10, value_name_dirty='  another', value_name_clean='another',
+                                          values_lines=test_yaml.split('\n'))
+    assert result == "yet.another"
 
 
 def test_generate_requirements():

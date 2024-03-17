@@ -12,31 +12,8 @@ replicaCount: 1
 image:
   repository: nginx
   pullPolicy: IfNotPresent
-  # -- stella
   # Overrides the image tag whose default is the chart appVersion.
-  # -- example
-  # tag: "@sha256:awdawdawd"
   tag: ""
-
-# -- stella
-# Hello
-abcdefg:
-  is:
-    just: "a test"
-  # -- stella
-  # I am indented
-  # the upper thing is more to the right than me.
-  closer: 1
-  # -- stella
-  # this is an array with simple values.
-  array:
-    - item1
-    - item2
-  # -- stella
-  # this is an array with complex values.
-  arrayagain:
-    - name: lol
-      value: rofl
 
 imagePullSecrets: []
 nameOverride: ""
