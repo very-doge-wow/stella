@@ -176,8 +176,8 @@ def generate_values_doc(doc: dict, helm_chart_path: str) -> dict:
             # check if the next line still is a comment, if so add it to docstring
             while values_lines[i + 1].lstrip().startswith("#"):
                 # remove first char (#) and add newline
-                calc = values_lines[i + 1].replace(" ", "", indent_num).replace("#", "", 1) + "\n"
-                if calc[0] == " ":
+                calc = values_lines[i + 1].replace("#", "", 1).replace(" ", "", indent_num) + "\n"
+                if indent_num == 0 and calc[0] == " ":
                     calc = calc.replace(" ", "", 1)
                 doc_string += calc
                 i += 1

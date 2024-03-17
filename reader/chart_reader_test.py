@@ -210,7 +210,7 @@ def test_generate_values_docs_nested():
     result = chart_reader.generate_values_doc(doc, "test/values-nested-docs")
     print(result)
     assert_that(result["values"], contains_inanyorder(
-    {'name': 'image', 'description': 'which image to deploy\n', 'default': {'image': {'repository': 'nginx', 'pullPolicy': 'IfNotPresent', 'tag': ''}}, 'example': '\nimage:\n  repository: very-doge-wow/stella\n  pullPolicy: IfNotPresent\n'}, {'name': 'image.tag', 'description': 'Overrides the image tag whose default is the chart appVersion.\n', 'default': {'image': {'tag': ''}}, 'example': '\nimage:\n tag: "latest"\n'}, {'name': 'replicaCount', 'description': 'how many replicas to deploy\n', 'default': {'replicaCount': 1}, 'example': ''}
+    {'name': 'image', 'description': 'which image to deploy\n', 'default': {'image': {'repository': 'nginx', 'pullPolicy': 'IfNotPresent', 'tag': ''}}, 'example': '\nimage:\n  repository: very-doge-wow/stella\n  pullPolicy: IfNotPresent\n'}, {'name': 'image.tag', 'description': 'Overrides the image tag whose default is the chart appVersion.\n', 'default': {'image': {'tag': ''}}, 'example': '\nimage:\n  tag: "latest"\n'}, {'name': 'replicaCount', 'description': 'how many replicas to deploy\n', 'default': {'replicaCount': 1}, 'example': ''}
     ))
 
 
