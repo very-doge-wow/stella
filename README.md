@@ -109,13 +109,16 @@ podSecurityPolicy:
   enabled: false
 ```
 
-Will yield this output:
+Will yield the output:
 
+<!-- markdownlint-disable MD033 -->
+<!-- markdownlint-disable MD013 -->
 | Name | Description | Default | Example |
-|---|---|---|---| 
+|---|---|---|---|
 | podSecurityPolicy | Define whether to enable the pod security policy. | <pre>podSecurityPolicy:<br>  enabled: false<br></pre> | <pre>podSecurityPolicy:<br>  enabled: true<br></pre> |
+<!-- markdownlint-enable MD013 -->
 
-You may also document nested keys, which is a feature not many helm docs tools offer. For example:
+You may also document **nested keys**. For example:
 
 ```yaml
 configmapReload:
@@ -124,11 +127,14 @@ configmapReload:
   reloadUrl: ""
 ```
 
-Will yield this output:
+Will yield the output:
 
+<!-- markdownlint-disable MD013 -->
 | Name | Description | Default | Example |
-|---|---|---|---| 
+|---|---|---|---|
 | configmapReload.reloadUrl | URL for configmap-reload to use for reloads | <pre>configmapReload:<br>  reloadUrl: ''<br></pre> |  |
+<!-- markdownlint-enable MD013 -->
+<!-- markdownlint-enable MD033 -->
 
 ## Custom Templating
 
