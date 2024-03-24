@@ -74,25 +74,38 @@ def get_value_from_yaml(parsed_yaml: dict, full_path: str) -> dict:
     """
     Takes a full yaml path such as first.second.third and gets
     the associated yaml value from the dictionary. Preserves
-    toplevel keys while doing so.
+    toplevel keys inside the output dict while doing so.
     Parameters:
         parsed_yaml (dict): data structure from which to read
         full_path (str): full path to desired values
     Returns:
         result (dict): Generated data structure.
     """
-    keys = full_path.split('.')
-    result = {}
-    current = result
-    for key in keys[:-1]:
-        current[key] = {}
-        current = current[key]
-        if key in parsed_yaml:
-            parsed_yaml = parsed_yaml[key]
+
+    #"configmapReload.prometheus.image.containerSecurityContext"
+    keys = full_path.split('.')  # Split the full path into individual keys
+    result = {}  # Initialize an empty dictionary to store the result
+    current = result  # Set a pointer to the beginning of the result dictionary
+    for key in keys[:-1]:  # Iterate over each key except the last one
+        current[key] = {}  # Create an empty dictionary for the current key
+        current = current[key]  # Move the pointer to the newly created dictionary
+        if key in parsed_yaml:  # Check if the current key exists in the parsed_yaml dictionary
+            parsed_yaml = parsed_yaml[key]  # Update parsed_yaml to the value corresponding to the current key
         else:
-            return result  # Return if any intermediate key is not found
-    current[keys[-1]] = parsed_yaml.get(keys[-1])  # Get the value if exists
-    return result
+            return result  # If any intermediate key is not found, return the result immediately
+    if keys[-1] in parsed_yaml:
+        value = parsed_yaml[keys[-1]]
+        if isinstance(value, dict):
+            current[keys[-1]] = value  # Set the value if it's a dictionary
+        elif isinstance(value, list) and not value:
+            current[keys[-1]] = []  # Set the value if it's an empty list
+        elif isinstance(value, str) and not value.strip():
+            current[keys[-1]] = ''  # Set the value if it's an empty string or contains only whitespace
+        else:
+            current[keys[-1]] = value  # Otherwise, set the value as is
+    else:
+        current[keys[-1]] = {}  # Set the value to an empty dictionary if it does not exist
+    return result  # Return the result dictionary
 
 
 def build_full_path(i: int, value_name_dirty: str, value_name_clean: str, values_lines: list) -> str:
@@ -103,7 +116,7 @@ def build_full_path(i: int, value_name_dirty: str, value_name_clean: str, values
     line and their respective indent until the toplevel is reached, all
     the while building the full path.
     Parameters:
-        i (int): current index from outer scope
+        i (int): current index while traversing values_lines (from outer scope)
         value_name_dirty (str): the current value's name without having removed leading whitespace
         value_name_clean (str): the current value's name sanitized
         values_lines (list): list of all lines in the values document
@@ -131,9 +144,9 @@ def build_full_path(i: int, value_name_dirty: str, value_name_clean: str, values
         value_name_dirty = values_lines[index].split(":")[0]
         upper_key = value_name_dirty.strip()
         # make sure the found key is actually closer to top-level than the first one by counting indent
-        match_new = re.search(r'^\s*', value_name_dirty)
+        match_new = re.search(r'^\s+', value_name_dirty)
         if match_new:
-            indent_num_new = match.group(0).count(' ')
+            indent_num_new = match_new.group(0).count(' ')
             if indent_num_new < indent_num:
                 full_path = f"{upper_key}.{full_path}"
         match = re.search(r'^\s*', value_name_dirty)

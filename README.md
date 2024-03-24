@@ -97,7 +97,44 @@ a working example and then prepend the comment delimiter (`#`).
 The line starting with `# -- stella` tells `stella` that the following
 comment is a `stella` docstring. Use the `# -- example` delimiter to
 specify an optional example. If you leave this empty, the resulting
-documentation will leave this field blank.
+documentation will leave this field blank. For example:
+
+```yaml
+# -- stella
+# Define whether to enable the pod security policy.
+# -- example
+# podSecurityPolicy:
+#   enabled: true
+podSecurityPolicy:
+  enabled: false
+```
+
+Will yield the output:
+
+<!-- markdownlint-disable MD033 -->
+<!-- markdownlint-disable MD013 -->
+| Name | Description | Default | Example |
+|---|---|---|---|
+| podSecurityPolicy | Define whether to enable the pod security policy. | <pre>podSecurityPolicy:<br>  enabled: false<br></pre> | <pre>podSecurityPolicy:<br>  enabled: true<br></pre> |
+<!-- markdownlint-enable MD013 -->
+
+You may also document **nested keys**. For example:
+
+```yaml
+configmapReload:
+  # -- stella
+  # URL for configmap-reload to use for reloads
+  reloadUrl: ""
+```
+
+Will yield the output:
+
+<!-- markdownlint-disable MD013 -->
+| Name | Description | Default | Example |
+|---|---|---|---|
+| configmapReload.reloadUrl | URL for configmap-reload to use for reloads | <pre>configmapReload:<br>  reloadUrl: ''<br></pre> |  |
+<!-- markdownlint-enable MD013 -->
+<!-- markdownlint-enable MD033 -->
 
 ## Custom Templating
 
