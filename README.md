@@ -2,9 +2,12 @@
 
 ![stella](https://github.com/very-doge-wow/stella/blob/main/stella.png?raw=true)
 
-[![Lint Markdown](https://github.com/very-doge-wow/stella/actions/workflows/lintmarkdown.yml/badge.svg)](https://github.com/very-doge-wow/stella/actions/workflows/lintmarkdown.yml)
-[![Unittests](https://github.com/very-doge-wow/stella/actions/workflows/unittest.yml/badge.svg)](https://github.com/very-doge-wow/stella/actions/workflows/unittest.yml)
-[![Docker Pulls](https://img.shields.io/docker/pulls/suchdogewow/stella.svg)](https://hub.docker.com/r/suchdogewow/stella)
+[![markdownlint](https://github.com/very-doge-wow/stella/actions/workflows/lintmarkdown.yml/badge.svg)](https://github.com/very-doge-wow/stella/actions/workflows/lintmarkdown.yml)
+[![unittests](https://github.com/very-doge-wow/stella/actions/workflows/unittest.yml/badge.svg)](https://github.com/very-doge-wow/stella/actions/workflows/unittest.yml)
+[![release](https://img.shields.io/github/v/release/very-doge-wow/stella)](https://github.com/very-doge-wow/stella)
+[![license](https://img.shields.io/github/license/very-doge-wow/stella)](https://github.com/very-doge-wow/stella?tab=MIT-1-ov-file#readme)
+[![docker pulls](https://img.shields.io/docker/pulls/suchdogewow/stella.svg)](https://hub.docker.com/r/suchdogewow/stella)
+[![downloads](https://img.shields.io/github/downloads/very-doge-wow/stella/total)](https://github.com/very-doge-wow/stella/pkgs/container/stella)
 
 `stella` is a free tool to help automatically generate
 [helm](https://helm.sh/) chart documentation.
@@ -24,7 +27,7 @@ link.
 
 ### Docker Image
 
-Using the [OCI image](https://hub.docker.com/r/suchdogewow/stella):
+Using the [Docker image](https://github.com/very-doge-wow/stella/pkgs/container/stella):
 
 <!-- markdownlint-disable MD013 -->
 ```shell

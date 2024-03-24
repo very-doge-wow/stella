@@ -19,4 +19,10 @@ jobs:
     - name: test
       uses: VaultVulp/action-pipenv@v2.0.1
       with:
-        command: run pytest -vv
+        command: coverage run -m pytest && coverage report
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v4.0.1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        slug: very-doge-wow/stella
