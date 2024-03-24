@@ -81,8 +81,6 @@ def get_value_from_yaml(parsed_yaml: dict, full_path: str) -> dict:
     Returns:
         result (dict): Generated data structure.
     """
-
-    #"configmapReload.prometheus.image.containerSecurityContext"
     keys = full_path.split('.')  # Split the full path into individual keys
     result = {}  # Initialize an empty dictionary to store the result
     current = result  # Set a pointer to the beginning of the result dictionary
@@ -169,10 +167,6 @@ def generate_values_doc(doc: dict, helm_chart_path: str) -> dict:
         values_yaml = yaml.safe_load(values_file)
     with open(f"{helm_chart_path}/values.yaml", "r") as values_file:
         values_string = values_file.read()
-
-    if values_yaml is None or values_string == "":
-        logging.error("Couldn't import values.yaml")
-        raise ValueError
 
     # determine if a stella description has been added
     stella = "-- stella"
