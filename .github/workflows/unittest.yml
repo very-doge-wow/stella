@@ -4,7 +4,7 @@ jobs:
   run_unit_tests:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2 # Checking out the repo
+    - uses: actions/checkout@v4 # Checking out the repo
 
     - name: install_deps
       uses: VaultVulp/action-pipenv@v2.0.1
