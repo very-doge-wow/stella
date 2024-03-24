@@ -18,3 +18,5 @@ EOF
 USER 1000
 
 ENTRYPOINT ["stella"]
+
+LABEL "org.opencontainers.image.source"="https://github.com/very-doge-wow/stella"
