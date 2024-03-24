@@ -136,7 +136,6 @@ def translate_list_of_dicts_to_md(list_of_dicts: list) -> str:
     md += "|---" * len(list_of_dicts[0].keys()) + "| \n"
 
     for dictionary in list_of_dicts:
-        name = ""
         for times in range(len(sort)):
             for key in sort:
                 for dict_key in dictionary.keys():

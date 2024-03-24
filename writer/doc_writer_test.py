@@ -591,3 +591,79 @@ tr:hover {
 </body>
 </html>
 """
+
+
+def test_count_lines():
+    input_str = """one
+    two
+    three"""
+    assert doc_writer.count_lines(input_str) == 3
+
+    input_str = "just one"
+    assert doc_writer.count_lines(input_str) == 1
+
+    input_str = ""
+    assert doc_writer.count_lines(input_str) == 1
+
+
+# test if values/examples are wrapped in html details element
+def test_translate_list_of_dicts_to_md_details_summary():
+    list_of_dicts = [
+        {
+            "name": "Banana",
+            "description": "Yellow",
+            "default": """0 multiline
+1 multiline
+2 multiline
+3 multiline
+4 multiline
+5 multiline
+6 multiline
+7 multiline
+8 multiline
+9 multiline
+10 multiline
+11 multiline
+12 multiline
+14 multiline
+15 multiline
+16 multiline""",
+            "example": "lol",
+        },
+        {
+            "name": "Pear",
+            "description": "Green",
+            "default": "Pear-shaped",
+            "example": """0 multiline
+1 multiline
+2 multiline
+3 multiline
+4 multiline
+5 multiline
+6 multiline
+7 multiline
+8 multiline
+9 multiline
+10 multiline
+11 multiline
+12 multiline
+14 multiline
+15 multiline
+16 multiline""",
+        },
+        {
+            "name": "Melon",
+            "description": "Green",
+            "default": "Melon-shaped",
+            "example": "rofl",
+        }
+    ]
+
+    md_table = doc_writer.translate_list_of_dicts_to_md(list_of_dicts)
+    print(md_table)
+    assert md_table == """| Name | Description | Default | Example |
+|---|---|---|---| 
+| Banana | Yellow | <details><summary>Expand</summary><pre>0 multiline<br>1 multiline<br>2 multiline<br>3 multiline<br>4 multiline<br>5 multiline<br>6 multiline<br>7 multiline<br>8 multiline<br>9 multiline<br>10 multiline<br>11 multiline<br>12 multiline<br>14 multiline<br>15 multiline<br>16 multiline</pre></details> | <pre>lol</pre> |
+| Pear | Green | <pre>Pear-shaped</pre> | <details><summary>Expand</summary><pre>0 multiline<br>1 multiline<br>2 multiline<br>3 multiline<br>4 multiline<br>5 multiline<br>6 multiline<br>7 multiline<br>8 multiline<br>9 multiline<br>10 multiline<br>11 multiline<br>12 multiline<br>14 multiline<br>15 multiline<br>16 multiline</pre></details> |
+| Melon | Green | <pre>Melon-shaped</pre> | <pre>rofl</pre> |
+"""
