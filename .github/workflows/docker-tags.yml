@@ -21,7 +21,10 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t ghcr.io/${{ github.repository }}:${{ github.ref_name }} .
+          docker build  \
+            --build-arg="COMMIT_SHA=${GITHUB_SHA}"\
+            --build-arg="IMAGE_VERSION=${{ github.ref_name }}" \
+            -t ghcr.io/${{ github.repository }}:${{ github.ref_name }} .
           docker push ghcr.io/${{ github.repository }}:${{ github.ref_name }}
           docker tag ghcr.io/${{ github.repository }}:${{ github.ref_name }} ghcr.io/${{ github.repository }}:latest
           docker push ghcr.io/${{ github.repository }}:latest
