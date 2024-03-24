@@ -490,10 +490,6 @@ def test_writer_html_custom_css():
     tr {
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
-  }
-
-th {
-    display: none;
 }
 
 body {
@@ -509,6 +505,37 @@ h1 {
   font-weight: normal;
   letter-spacing: -1px;
   color: #34495E;
+}
+
+/* Styling for HTML tables */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+/* Styling for table headings */
+th {
+  background-color: lightblue;
+  color: black;
+}
+
+/* Styling for table rows */
+tr:nth-child(even) {
+  background-color: #f2f2f2; /* Light gray background */
+}
+
+tr:nth-child(odd) {
+  background-color: white; /* White background */
+}
+
+/* Styling for table cells */
+td {
+  border: 1px solid black; /* Add borders to table cells */
+}
+
+/* Hover effect */
+tr:hover {
+  background-color: #cce6ff; /* Light blue background on hover */
 }
 
   </style>

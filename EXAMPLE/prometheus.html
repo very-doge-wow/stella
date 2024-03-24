@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="very-doge-wow/stella" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <style type="text/css" media="screen">
+    tr {
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+body {
+  padding: 0 2em;
+  font-family: Montserrat, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  color: #444;
+  background: #eee;
+}
+
+h1 {
+  font-weight: normal;
+  letter-spacing: -1px;
+  color: #34495E;
+}
+
+/* Styling for HTML tables */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+/* Styling for table headings */
+th {
+  background-color: lightblue;
+  color: black;
+}
+
+/* Styling for table rows */
+tr:nth-child(even) {
+  background-color: #f2f2f2; /* Light gray background */
+}
+
+tr:nth-child(odd) {
+  background-color: white; /* White background */
+}
+
+/* Styling for table cells */
+td {
+  border: 1px solid black; /* Add borders to table cells */
+}
+
+/* Hover effect */
+tr:hover {
+  background-color: #cce6ff; /* Light blue background on hover */
+}
+
+  </style>
+</head>
+<body>
+<h1>prometheus</h1>
+<p><img alt="Version: 25.18.0" src="https://img.shields.io/badge/Version-25.18.0-informational?style=flat-square" /> <img alt="Version: v2.51.0" src="https://img.shields.io/badge/appVersion-v2.51.0-informational?style=flat-square" /> <img alt="Version: v2" src="https://img.shields.io/badge/apiVersion-v2-informational?style=flat-square" /> <img alt="Type: application" src="https://img.shields.io/badge/Type-application-informational?style=flat-square" /> </p>
+<h2>Description</h2>
+<p>Prometheus is a monitoring system and time series database.</p>
+<h2>Dependencies</h2>
+<p>This chart depends on the following subcharts.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Version</th>
+<th>Repository</th>
+<th>Condition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>alertmanager</td>
+<td>1.10.*</td>
+<td>https://prometheus-community.github.io/helm-charts</td>
+<td>alertmanager.enabled</td>
+</tr>
+<tr>
+<td>kube-state-metrics</td>
+<td>5.17.*</td>
+<td>https://prometheus-community.github.io/helm-charts</td>
+<td>kube-state-metrics.enabled</td>
+</tr>
+<tr>
+<td>prometheus-node-exporter</td>
+<td>4.31.*</td>
+<td>https://prometheus-community.github.io/helm-charts</td>
+<td>prometheus-node-exporter.enabled</td>
+</tr>
+<tr>
+<td>prometheus-pushgateway</td>
+<td>2.8.*</td>
+<td>https://prometheus-community.github.io/helm-charts</td>
+<td>prometheus-pushgateway.enabled</td>
+</tr>
+</tbody>
+</table>
+<h2>Templates</h2>
+<p>The following templates will be deployed.</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>vpa.yaml</td>
+</tr>
+<tr>
+<td>pdb.yaml</td>
+</tr>
+<tr>
+<td>ingress.yaml</td>
+</tr>
+<tr>
+<td>deploy.yaml</td>
+</tr>
+<tr>
+<td>network-policy.yaml</td>
+</tr>
+<tr>
+<td>service.yaml</td>
+</tr>
+<tr>
+<td>clusterrole.yaml</td>
+</tr>
+<tr>
+<td>sts.yaml</td>
+</tr>
+<tr>
+<td>cm.yaml</td>
+</tr>
+<tr>
+<td>pvc.yaml</td>
+</tr>
+<tr>
+<td>serviceaccount.yaml</td>
+</tr>
+<tr>
+<td>psp.yaml</td>
+</tr>
+<tr>
+<td>headless-svc.yaml</td>
+</tr>
+<tr>
+<td>extra-manifests.yaml</td>
+</tr>
+<tr>
+<td>clusterrolebinding.yaml</td>
+</tr>
+<tr>
+<td>rolebinding.yaml</td>
+</tr>
+</tbody>
+</table>
+<h3>Objects</h3>
+<p>The aforementioned templates will deploy the following objects.</p>
+<table>
+<thead>
+<tr>
+<th>Kind</th>
+<th>From template</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VerticalPodAutoscaler</td>
+<td>vpa.yaml</td>
+</tr>
+<tr>
+<td>PodDisruptionBudget</td>
+<td>pdb.yaml</td>
+</tr>
+<tr>
+<td>Ingress</td>
+<td>ingress.yaml</td>
+</tr>
+<tr>
+<td>Deployment</td>
+<td>deploy.yaml</td>
+</tr>
+<tr>
+<td>NetworkPolicy</td>
+<td>network-policy.yaml</td>
+</tr>
+<tr>
+<td>Service</td>
+<td>service.yaml</td>
+</tr>
+<tr>
+<td>ClusterRole</td>
+<td>clusterrole.yaml</td>
+</tr>
+<tr>
+<td>StatefulSet</td>
+<td>sts.yaml</td>
+</tr>
+<tr>
+<td>ConfigMap</td>
+<td>cm.yaml</td>
+</tr>
+<tr>
+<td>PersistentVolumeClaim</td>
+<td>pvc.yaml</td>
+</tr>
+<tr>
+<td>ServiceAccount</td>
+<td>serviceaccount.yaml</td>
+</tr>
+<tr>
+<td>PodSecurityPolicy</td>
+<td>psp.yaml</td>
+</tr>
+<tr>
+<td>Service</td>
+<td>headless-svc.yaml</td>
+</tr>
+<tr>
+<td>ClusterRoleBinding</td>
+<td>clusterrolebinding.yaml</td>
+</tr>
+<tr>
+<td>RoleBinding</td>
+<td>rolebinding.yaml</td>
+</tr>
+</tbody>
+</table>
+<h2>Values</h2>
+<p>The following values can/will be used for deployments.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Default</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>alertRelabelConfigs</td>
+<td></td>
+<td><pre>alertRelabelConfigs: {}<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>alertmanager</td>
+<td></td>
+<td><pre>alertmanager:<br>  enabled: true<br>  persistence:<br>    size: 2Gi<br>  podSecurityContext:<br>    fsGroup: 65534<br>    runAsGroup: 65534<br>    runAsNonRoot: true<br>    runAsUser: 65534<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>commonMetaLabels</td>
+<td>Additional labels to attach to all resources</td>
+<td><pre>commonMetaLabels: {}<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>configmapReload</td>
+<td>Monitors ConfigMap changes and POSTs to a URL. Ref: https://github.com/prometheus-operator/prometheus-operator/tree/main/cmd/prometheus-config-reloader</td>
+<td><details><summary>Expand</summary><pre>configmapReload:<br>  env: []<br>  prometheus:<br>    containerSecurityContext: {}<br>    enabled: true<br>    extraArgs: {}<br>    extraConfigmapMounts: []<br>    extraVolumeDirs: []<br>    extraVolumeMounts: []<br>    image:<br>      digest: ''<br>      pullPolicy: IfNotPresent<br>      repository: quay.io/prometheus-operator/prometheus-config-reloader<br>      tag: v0.72.0<br>    name: configmap-reload<br>    resources: {}<br>  reloadUrl: ''<br></pre></details></td>
+<td></td>
+</tr>
+<tr>
+<td>configmapReload.containerSecurityContext</td>
+<td>Security context to be added to configmap-reload container</td>
+<td><pre>configmapReload:<br>  containerSecurityContext: null<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>configmapReload.digest</td>
+<td>When digest is set to a non-empty value, images will be pulled by digest (regardless of tag value).</td>
+<td><pre>configmapReload:<br>  digest: null<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>configmapReload.enabled</td>
+<td>If false, the configmap-reload container will not be deployed.</td>
+<td><pre>configmapReload:<br>  enabled: null<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>configmapReload.env</td>
+<td>env sets environment variables to pass to the container. Can be set as name/value pairs, read from secrets or configmaps.</td>
+<td><pre>configmapReload:<br>  env: []<br></pre></td>
+<td><details><summary>Expand</summary><pre>env:<br>  - name: SOMEVAR<br>    value: somevalue<br>  - name: SOMEVARAGAIN<br>    value: somevalueanother<br>  - name: strawberry<br>    value: redanddelishous<br>  - name: melon<br>    value: greenandred<br>  - name: justanother<br>    value: dayinparadise<br>  - name: PASSWORD<br>    valueFrom:<br>      secretKeyRef:<br>        name: mysecret<br>        key: password<br>        optional: false<br></pre></details></td>
+</tr>
+<tr>
+<td>configmapReload.extraArgs</td>
+<td>Additional configmap-reload container arguments</td>
+<td><pre>configmapReload:<br>  extraArgs: null<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>configmapReload.extraConfigmapMounts</td>
+<td>Additional configmap-reload mounts.</td>
+<td><pre>configmapReload:<br>  extraConfigmapMounts: null<br></pre></td>
+<td><pre>extraConfigmapMounts:<br>  - name: prometheus-alerts<br>    mountPath: /etc/alerts.d<br>    subPath: ""<br>    configMap: prometheus-alerts<br>    readOnly: true<br></pre></td>
+</tr>
+<tr>
+<td>configmapReload.extraVolumeDirs</td>
+<td>Additional configmap-reload volume directories</td>
+<td><pre>configmapReload:<br>  extraVolumeDirs: null<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>configmapReload.extraVolumeMounts</td>
+<td>Additional configmap-reload volume mounts</td>
+<td><pre>configmapReload:<br>  extraVolumeMounts: null<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>configmapReload.image</td>
+<td>configmap-reload container image</td>
+<td><pre>configmapReload:<br>  image: null<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>configmapReload.name</td>
+<td>configmap-reload container name</td>
+<td><pre>configmapReload:<br>  name: null<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>configmapReload.prometheus</td>
+<td>Define values for the prometheus configuration.</td>
+<td><details><summary>Expand</summary><pre>configmapReload:<br>  prometheus:<br>    containerSecurityContext: {}<br>    enabled: true<br>    extraArgs: {}<br>    extraConfigmapMounts: []<br>    extraVolumeDirs: []<br>    extraVolumeMounts: []<br>    image:<br>      digest: ''<br>      pullPolicy: IfNotPresent<br>      repository: quay.io/prometheus-operator/prometheus-config-reloader<br>      tag: v0.72.0<br>    name: configmap-reload<br>    resources: {}<br></pre></details></td>
+<td></td>
+</tr>
+<tr>
+<td>configmapReload.reloadUrl</td>
+<td>URL for configmap-reload to use for reloads</td>
+<td><pre>configmapReload:<br>  reloadUrl: ''<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>configmapReload.resources</td>
+<td>configmap-reload resource requests and limits. Ref: http://kubernetes.io/docs/user-guide/compute-resources/</td>
+<td><pre>configmapReload:<br>  resources: null<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>extraManifests</td>
+<td></td>
+<td><pre>extraManifests: []<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>extraScrapeConfigs</td>
+<td></td>
+<td><pre>extraScrapeConfigs: ''<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>forceNamespace</td>
+<td></td>
+<td><pre>forceNamespace: ''<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>imagePullSecrets</td>
+<td>Define ImagePullSecrets for the deployment.</td>
+<td><pre>imagePullSecrets: []<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>kube-state-metrics</td>
+<td></td>
+<td><pre>kube-state-metrics:<br>  enabled: true<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>networkPolicy</td>
+<td></td>
+<td><pre>networkPolicy:<br>  enabled: false<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>podSecurityPolicy</td>
+<td></td>
+<td><pre>podSecurityPolicy:<br>  enabled: false<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>prometheus-node-exporter</td>
+<td></td>
+<td><pre>prometheus-node-exporter:<br>  containerSecurityContext:<br>    allowPrivilegeEscalation: false<br>  enabled: true<br>  rbac:<br>    pspEnabled: false<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>prometheus-pushgateway</td>
+<td></td>
+<td><pre>prometheus-pushgateway:<br>  enabled: true<br>  serviceAnnotations:<br>    prometheus.io/probe: pushgateway<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>rbac</td>
+<td>Whether to create rbac.</td>
+<td><pre>rbac:<br>  create: true<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>ruleFiles</td>
+<td></td>
+<td><pre>ruleFiles: {}<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>scrapeConfigFiles</td>
+<td></td>
+<td><pre>scrapeConfigFiles: []<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>server</td>
+<td>Configure the server component.</td>
+<td><details><summary>Expand</summary><pre>server:<br>  affinity: {}<br>  alertmanagers: []<br>  automountServiceAccountToken: false<br>  baseURL: ''<br>  clusterRoleNameOverride: ''<br>  command: []<br>  configMapAnnotations: {}<br>  configMapOverrideName: ''<br>  configPath: /etc/config/prometheus.yml<br>  containerSecurityContext: {}<br>  defaultFlagsOverride: []<br>  deploymentAnnotations: {}<br>  dnsConfig: {}<br>  dnsPolicy: ClusterFirst<br>  emptyDir:<br>    sizeLimit: ''<br>  enableServiceLinks: true<br>  env: []<br>  exemplars: {}<br>  extraArgs: {}<br>  extraConfigmapLabels: {}<br>  extraConfigmapMounts: []<br>  extraFlags:<br>  - web.enable-lifecycle<br>  extraHostPathMounts: []<br>  extraInitContainers: []<br>  extraSecretMounts: []<br>  extraVolumeMounts: []<br>  extraVolumes: []<br>  global:<br>    evaluation_interval: 1m<br>    scrape_interval: 1m<br>    scrape_timeout: 10s<br>  hostAliases: []<br>  hostNetwork: false<br>  image:<br>    digest: ''<br>    pullPolicy: IfNotPresent<br>    repository: quay.io/prometheus/prometheus<br>    tag: ''<br>  ingress:<br>    annotations: {}<br>    enabled: false<br>    extraLabels: {}<br>    extraPaths: []<br>    hosts: []<br>    path: /<br>    pathType: Prefix<br>    tls: []<br>  livenessProbeFailureThreshold: 3<br>  livenessProbeInitialDelay: 30<br>  livenessProbePeriodSeconds: 15<br>  livenessProbeSuccessThreshold: 1<br>  livenessProbeTimeout: 10<br>  name: server<br>  nodeSelector: {}<br>  persistentVolume:<br>    accessModes:<br>    - ReadWriteOnce<br>    annotations: {}<br>    enabled: true<br>    existingClaim: ''<br>    labels: {}<br>    mountPath: /data<br>    size: 8Gi<br>    statefulSetNameOverride: ''<br>    subPath: ''<br>  podAnnotations: {}<br>  podAntiAffinity: ''<br>  podAntiAffinityTopologyKey: kubernetes.io/hostname<br>  podDisruptionBudget:<br>    enabled: false<br>    maxUnavailable: 1<br>  podLabels: {}<br>  podSecurityPolicy:<br>    annotations: {}<br>  portName: ''<br>  prefixURL: ''<br>  priorityClassName: ''<br>  probeHeaders: []<br>  probeScheme: HTTP<br>  readinessProbeFailureThreshold: 3<br>  readinessProbeInitialDelay: 30<br>  readinessProbePeriodSeconds: 5<br>  readinessProbeSuccessThreshold: 1<br>  readinessProbeTimeout: 4<br>  releaseNamespace: false<br>  remoteRead: []<br>  remoteWrite: []<br>  replicaCount: 1<br>  resources: {}<br>  retention: 15d<br>  retentionSize: ''<br>  revisionHistoryLimit: 10<br>  securityContext:<br>    fsGroup: 65534<br>    runAsGroup: 65534<br>    runAsNonRoot: true<br>    runAsUser: 65534<br>  service:<br>    additionalPorts: []<br>    annotations: {}<br>    clusterIP: ''<br>    enabled: true<br>    externalIPs: []<br>    gRPC:<br>      enabled: false<br>      servicePort: 10901<br>    labels: {}<br>    loadBalancerIP: ''<br>    loadBalancerSourceRanges: []<br>    servicePort: 80<br>    sessionAffinity: None<br>    statefulsetReplica:<br>      enabled: false<br>      replica: 0<br>    type: ClusterIP<br>  sidecarContainers: {}<br>  sidecarTemplateValues: {}<br>  startupProbe:<br>    enabled: false<br>    failureThreshold: 30<br>    periodSeconds: 5<br>    timeoutSeconds: 10<br>  statefulSet:<br>    annotations: {}<br>    enabled: false<br>    headless:<br>      annotations: {}<br>      gRPC:<br>        enabled: false<br>        servicePort: 10901<br>      labels: {}<br>      servicePort: 80<br>    labels: {}<br>    podManagementPolicy: OrderedReady<br>    pvcDeleteOnStsDelete: false<br>    pvcDeleteOnStsScale: false<br>  storagePath: ''<br>  strategy:<br>    type: Recreate<br>  tcpSocketProbeEnabled: false<br>  terminationGracePeriodSeconds: 300<br>  tolerations: []<br>  topologySpreadConstraints: []<br>  tsdb: {}<br>  useExistingClusterRoleName: null<br>  verticalAutoscaler:<br>    enabled: false<br></pre></details></td>
+<td></td>
+</tr>
+<tr>
+<td>server.automountServiceAccountToken</td>
+<td>Opt out of automounting Kubernetes API credentials. If set it will override serviceAccounts.server.automountServiceAccountToken value for ServiceAccount.</td>
+<td><pre>server:<br>  automountServiceAccountToken: false<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>server.clusterRoleNameOverride</td>
+<td>If set it will override prometheus.server.fullname value for ClusterRole and ClusterRoleBinding</td>
+<td><pre>server:<br>  clusterRoleNameOverride: ''<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>server.name</td>
+<td>Prometheus server container name</td>
+<td><pre>server:<br>  name: server<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>server.useExistingClusterRoleName</td>
+<td>Use a ClusterRole (and ClusterRoleBinding). If set to false, we define a RoleBinding in the defined namespaces ONLY. NB: because we need a Role with nonResourceURL's ("/metrics") - you must get someone with Cluster-admin privileges to define this role for you, before running with this setting enabled. This makes prometheus work - for users who do not have ClusterAdmin privs, but wants prometheus to operate on their own namespaces, instead of clusterwide. You MUST also set namespaces to the ones you have access to and want monitored by Prometheus.</td>
+<td><pre>server:<br>  useExistingClusterRoleName: null<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>serverFiles</td>
+<td></td>
+<td><details><summary>Expand</summary><pre>serverFiles:<br>  alerting_rules.yml: {}<br>  alerts: {}<br>  prometheus.yml:<br>    rule_files:<br>    - /etc/config/recording_rules.yml<br>    - /etc/config/alerting_rules.yml<br>    - /etc/config/rules<br>    - /etc/config/alerts<br>    scrape_configs:<br>    - job_name: prometheus<br>      static_configs:<br>      - targets:<br>        - localhost:9090<br>    - bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token<br>      job_name: kubernetes-apiservers<br>      kubernetes_sd_configs:<br>      - role: endpoints<br>      relabel_configs:<br>      - action: keep<br>        regex: default;kubernetes;https<br>        source_labels:<br>        - <strong>meta_kubernetes_namespace<br>        - __meta_kubernetes_service_name<br>        - __meta_kubernetes_endpoint_port_name<br>      scheme: https<br>      tls_config:<br>        ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt<br>        insecure_skip_verify: true<br>    - bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token<br>      job_name: kubernetes-nodes<br>      kubernetes_sd_configs:<br>      - role: node<br>      relabel_configs:<br>      - action: labelmap<br>        regex: __meta_kubernetes_node_label_(.+)<br>      - replacement: kubernetes.default.svc:443<br>        target_label: __address</strong><br>      - regex: (.+)<br>        replacement: /api/v1/nodes/$1/proxy/metrics<br>        source_labels:<br>        - <strong>meta_kubernetes_node_name<br>        target_label: __metrics_path</strong><br>      scheme: https<br>      tls_config:<br>        ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt<br>        insecure_skip_verify: true<br>    - bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token<br>      job_name: kubernetes-nodes-cadvisor<br>      kubernetes_sd_configs:<br>      - role: node<br>      relabel_configs:<br>      - action: labelmap<br>        regex: <strong>meta_kubernetes_node_label_(.+)<br>      - replacement: kubernetes.default.svc:443<br>        target_label: __address</strong><br>      - regex: (.+)<br>        replacement: /api/v1/nodes/$1/proxy/metrics/cadvisor<br>        source_labels:<br>        - <strong>meta_kubernetes_node_name<br>        target_label: __metrics_path</strong><br>      scheme: https<br>      tls_config:<br>        ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt<br>        insecure_skip_verify: true<br>    - honor_labels: true<br>      job_name: kubernetes-service-endpoints<br>      kubernetes_sd_configs:<br>      - role: endpoints<br>      relabel_configs:<br>      - action: keep<br>        regex: true<br>        source_labels:<br>        - <strong>meta_kubernetes_service_annotation_prometheus_io_scrape<br>      - action: drop<br>        regex: true<br>        source_labels:<br>        - __meta_kubernetes_service_annotation_prometheus_io_scrape_slow<br>      - action: replace<br>        regex: (https?)<br>        source_labels:<br>        - __meta_kubernetes_service_annotation_prometheus_io_scheme<br>        target_label: __scheme</strong><br>      - action: replace<br>        regex: (.+)<br>        source_labels:<br>        - <strong>meta_kubernetes_service_annotation_prometheus_io_path<br>        target_label: __metrics_path</strong><br>      - action: replace<br>        regex: (.+?)(?::\d+)?;(\d+)<br>        replacement: $1:$2<br>        source_labels:<br>        - <strong>address</strong><br>        - <strong>meta_kubernetes_service_annotation_prometheus_io_port<br>        target_label: __address</strong><br>      - action: labelmap<br>        regex: <strong>meta_kubernetes_service_annotation_prometheus_io_param_(.+)<br>        replacement: __param_$1<br>      - action: labelmap<br>        regex: __meta_kubernetes_service_label_(.+)<br>      - action: replace<br>        source_labels:<br>        - __meta_kubernetes_namespace<br>        target_label: namespace<br>      - action: replace<br>        source_labels:<br>        - __meta_kubernetes_service_name<br>        target_label: service<br>      - action: replace<br>        source_labels:<br>        - __meta_kubernetes_pod_node_name<br>        target_label: node<br>    - honor_labels: true<br>      job_name: kubernetes-service-endpoints-slow<br>      kubernetes_sd_configs:<br>      - role: endpoints<br>      relabel_configs:<br>      - action: keep<br>        regex: true<br>        source_labels:<br>        - __meta_kubernetes_service_annotation_prometheus_io_scrape_slow<br>      - action: replace<br>        regex: (https?)<br>        source_labels:<br>        - __meta_kubernetes_service_annotation_prometheus_io_scheme<br>        target_label: __scheme</strong><br>      - action: replace<br>        regex: (.+)<br>        source_labels:<br>        - <strong>meta_kubernetes_service_annotation_prometheus_io_path<br>        target_label: __metrics_path</strong><br>      - action: replace<br>        regex: (.+?)(?::\d+)?;(\d+)<br>        replacement: $1:$2<br>        source_labels:<br>        - <strong>address</strong><br>        - <strong>meta_kubernetes_service_annotation_prometheus_io_port<br>        target_label: __address</strong><br>      - action: labelmap<br>        regex: <strong>meta_kubernetes_service_annotation_prometheus_io_param_(.+)<br>        replacement: __param_$1<br>      - action: labelmap<br>        regex: __meta_kubernetes_service_label_(.+)<br>      - action: replace<br>        source_labels:<br>        - __meta_kubernetes_namespace<br>        target_label: namespace<br>      - action: replace<br>        source_labels:<br>        - __meta_kubernetes_service_name<br>        target_label: service<br>      - action: replace<br>        source_labels:<br>        - __meta_kubernetes_pod_node_name<br>        target_label: node<br>      scrape_interval: 5m<br>      scrape_timeout: 30s<br>    - honor_labels: true<br>      job_name: prometheus-pushgateway<br>      kubernetes_sd_configs:<br>      - role: service<br>      relabel_configs:<br>      - action: keep<br>        regex: pushgateway<br>        source_labels:<br>        - __meta_kubernetes_service_annotation_prometheus_io_probe<br>    - honor_labels: true<br>      job_name: kubernetes-services<br>      kubernetes_sd_configs:<br>      - role: service<br>      metrics_path: /probe<br>      params:<br>        module:<br>        - http_2xx<br>      relabel_configs:<br>      - action: keep<br>        regex: true<br>        source_labels:<br>        - __meta_kubernetes_service_annotation_prometheus_io_probe<br>      - source_labels:<br>        - __address</strong><br>        target_label: <strong>param_target<br>      - replacement: blackbox<br>        target_label: __address</strong><br>      - source_labels:<br>        - <strong>param_target<br>        target_label: instance<br>      - action: labelmap<br>        regex: __meta_kubernetes_service_label_(.+)<br>      - source_labels:<br>        - __meta_kubernetes_namespace<br>        target_label: namespace<br>      - source_labels:<br>        - __meta_kubernetes_service_name<br>        target_label: service<br>    - honor_labels: true<br>      job_name: kubernetes-pods<br>      kubernetes_sd_configs:<br>      - role: pod<br>      relabel_configs:<br>      - action: keep<br>        regex: true<br>        source_labels:<br>        - __meta_kubernetes_pod_annotation_prometheus_io_scrape<br>      - action: drop<br>        regex: true<br>        source_labels:<br>        - __meta_kubernetes_pod_annotation_prometheus_io_scrape_slow<br>      - action: replace<br>        regex: (https?)<br>        source_labels:<br>        - __meta_kubernetes_pod_annotation_prometheus_io_scheme<br>        target_label: __scheme</strong><br>      - action: replace<br>        regex: (.+)<br>        source_labels:<br>        - <strong>meta_kubernetes_pod_annotation_prometheus_io_path<br>        target_label: __metrics_path</strong><br>      - action: replace<br>        regex: (\d+);(([A-Fa-f0-9]{1,4}::?){1,7}[A-Fa-f0-9]{1,4})<br>        replacement: '[$2]:$1'<br>        source_labels:<br>        - <strong>meta_kubernetes_pod_annotation_prometheus_io_port<br>        - __meta_kubernetes_pod_ip<br>        target_label: __address</strong><br>      - action: replace<br>        regex: (\d+);((([0-9]+?)(.|$)){4})<br>        replacement: $2:$1<br>        source_labels:<br>        - <strong>meta_kubernetes_pod_annotation_prometheus_io_port<br>        - __meta_kubernetes_pod_ip<br>        target_label: __address</strong><br>      - action: labelmap<br>        regex: <strong>meta_kubernetes_pod_annotation_prometheus_io_param_(.+)<br>        replacement: __param_$1<br>      - action: labelmap<br>        regex: __meta_kubernetes_pod_label_(.+)<br>      - action: replace<br>        source_labels:<br>        - __meta_kubernetes_namespace<br>        target_label: namespace<br>      - action: replace<br>        source_labels:<br>        - __meta_kubernetes_pod_name<br>        target_label: pod<br>      - action: drop<br>        regex: Pending|Succeeded|Failed|Completed<br>        source_labels:<br>        - __meta_kubernetes_pod_phase<br>      - action: replace<br>        source_labels:<br>        - __meta_kubernetes_pod_node_name<br>        target_label: node<br>    - honor_labels: true<br>      job_name: kubernetes-pods-slow<br>      kubernetes_sd_configs:<br>      - role: pod<br>      relabel_configs:<br>      - action: keep<br>        regex: true<br>        source_labels:<br>        - __meta_kubernetes_pod_annotation_prometheus_io_scrape_slow<br>      - action: replace<br>        regex: (https?)<br>        source_labels:<br>        - __meta_kubernetes_pod_annotation_prometheus_io_scheme<br>        target_label: __scheme</strong><br>      - action: replace<br>        regex: (.+)<br>        source_labels:<br>        - <strong>meta_kubernetes_pod_annotation_prometheus_io_path<br>        target_label: __metrics_path</strong><br>      - action: replace<br>        regex: (\d+);(([A-Fa-f0-9]{1,4}::?){1,7}[A-Fa-f0-9]{1,4})<br>        replacement: '[$2]:$1'<br>        source_labels:<br>        - <strong>meta_kubernetes_pod_annotation_prometheus_io_port<br>        - __meta_kubernetes_pod_ip<br>        target_label: __address</strong><br>      - action: replace<br>        regex: (\d+);((([0-9]+?)(.|$)){4})<br>        replacement: $2:$1<br>        source_labels:<br>        - <strong>meta_kubernetes_pod_annotation_prometheus_io_port<br>        - __meta_kubernetes_pod_ip<br>        target_label: __address</strong><br>      - action: labelmap<br>        regex: __meta_kubernetes_pod_annotation_prometheus_io_param_(.+)<br>        replacement: __param_$1<br>      - action: labelmap<br>        regex: __meta_kubernetes_pod_label_(.+)<br>      - action: replace<br>        source_labels:<br>        - __meta_kubernetes_namespace<br>        target_label: namespace<br>      - action: replace<br>        source_labels:<br>        - __meta_kubernetes_pod_name<br>        target_label: pod<br>      - action: drop<br>        regex: Pending|Succeeded|Failed|Completed<br>        source_labels:<br>        - __meta_kubernetes_pod_phase<br>      - action: replace<br>        source_labels:<br>        - __meta_kubernetes_pod_node_name<br>        target_label: node<br>      scrape_interval: 5m<br>      scrape_timeout: 30s<br>  recording_rules.yml: {}<br>  rules: {}<br></pre></details></td>
+<td></td>
+</tr>
+<tr>
+<td>serviceAccounts</td>
+<td>Define serviceAccount names for components. Defaults to component's fully qualified name.</td>
+<td><pre>serviceAccounts:<br>  server:<br>    annotations: {}<br>    automountServiceAccountToken: false<br>    create: true<br>    name: ''<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>serviceAccounts.automountServiceAccountToken</td>
+<td>Opt out of automounting Kubernetes API credentials. It will be overriden by server.automountServiceAccountToken value, if set.</td>
+<td><pre>serviceAccounts:<br>  automountServiceAccountToken: null<br></pre></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><em>Automatic helm documentation generated using <a href="https://github.com/very-doge-wow/stella">very-doge-wow/stella</a>.</em></p>
+</body>
+</html>

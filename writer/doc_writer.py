@@ -148,14 +148,24 @@ def translate_list_of_dicts_to_md(list_of_dicts: list) -> str:
                             value = yaml.safe_dump(value).replace("|", "\\|")  # escape pipe chars to fix md tables
                         if (key == "default" or key == "example") and value != "":
                             # we should put this into a code-block
-                            value = "<pre>" + str(value).lstrip()
+                            value = "<pre>" + str(value).lstrip() + "</pre>"
+                            # wrap element inside html details element if num of lines exceeded
+                            if count_lines(value) >= 15:
+                                value = f"<details><summary>Expand</summary>{value}</details>"
+                            # replace newlines with html equivalent
                             value = value.replace("\n", "<br>")
-                            value = value + "</pre>"
                         if key != "default" or key != "example":
                             value = value.replace("\n", " ")  # no newlines allowed out of code-blocks
                         md += f"| {value.rstrip()} "
         md += "|\n"
     return md
+
+
+def count_lines(text):
+    # Split the text by newline characters
+    lines = text.split('\n')
+    # Count the number of lines
+    return len(lines)
 
 
 def get_name_from_keyword(keyword: str) -> str:
