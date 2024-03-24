@@ -24,14 +24,14 @@ jobs:
       uses: VaultVulp/action-pipenv@v2.0.1
       with:
         command: |
-          run coverage run -m pytest
+          run pytest -vv --cov
 
     # generate coverage report
     - name: report
       uses: VaultVulp/action-pipenv@v2.0.1
       with:
         command: |
-          run coverage report --format total > coverage.txt
+          run coverage report > coverage.txt
 
     # upload coverage to codecov
     - name: upload
