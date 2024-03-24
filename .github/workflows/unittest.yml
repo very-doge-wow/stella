@@ -19,7 +19,9 @@ jobs:
     - name: test
       uses: VaultVulp/action-pipenv@v2.0.1
       with:
-        command: coverage run -m pytest && coverage report
+        command: |
+          run coverage run -m pytest && \
+          coverage report
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4.0.1
