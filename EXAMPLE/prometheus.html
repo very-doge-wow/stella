@@ -269,64 +269,10 @@ tr:hover {
 <td></td>
 </tr>
 <tr>
-<td>configmapReload.containerSecurityContext</td>
-<td>Security context to be added to configmap-reload container</td>
-<td><pre>configmapReload:<br>  containerSecurityContext: null<br></pre></td>
-<td></td>
-</tr>
-<tr>
-<td>configmapReload.digest</td>
-<td>When digest is set to a non-empty value, images will be pulled by digest (regardless of tag value).</td>
-<td><pre>configmapReload:<br>  digest: null<br></pre></td>
-<td></td>
-</tr>
-<tr>
-<td>configmapReload.enabled</td>
-<td>If false, the configmap-reload container will not be deployed.</td>
-<td><pre>configmapReload:<br>  enabled: null<br></pre></td>
-<td></td>
-</tr>
-<tr>
 <td>configmapReload.env</td>
 <td>env sets environment variables to pass to the container. Can be set as name/value pairs, read from secrets or configmaps.</td>
 <td><pre>configmapReload:<br>  env: []<br></pre></td>
 <td><details><summary>Expand</summary><pre>env:<br>  - name: SOMEVAR<br>    value: somevalue<br>  - name: SOMEVARAGAIN<br>    value: somevalueanother<br>  - name: strawberry<br>    value: redanddelishous<br>  - name: melon<br>    value: greenandred<br>  - name: justanother<br>    value: dayinparadise<br>  - name: PASSWORD<br>    valueFrom:<br>      secretKeyRef:<br>        name: mysecret<br>        key: password<br>        optional: false<br></pre></details></td>
-</tr>
-<tr>
-<td>configmapReload.extraArgs</td>
-<td>Additional configmap-reload container arguments</td>
-<td><pre>configmapReload:<br>  extraArgs: null<br></pre></td>
-<td></td>
-</tr>
-<tr>
-<td>configmapReload.extraConfigmapMounts</td>
-<td>Additional configmap-reload mounts.</td>
-<td><pre>configmapReload:<br>  extraConfigmapMounts: null<br></pre></td>
-<td><pre>extraConfigmapMounts:<br>  - name: prometheus-alerts<br>    mountPath: /etc/alerts.d<br>    subPath: ""<br>    configMap: prometheus-alerts<br>    readOnly: true<br></pre></td>
-</tr>
-<tr>
-<td>configmapReload.extraVolumeDirs</td>
-<td>Additional configmap-reload volume directories</td>
-<td><pre>configmapReload:<br>  extraVolumeDirs: null<br></pre></td>
-<td></td>
-</tr>
-<tr>
-<td>configmapReload.extraVolumeMounts</td>
-<td>Additional configmap-reload volume mounts</td>
-<td><pre>configmapReload:<br>  extraVolumeMounts: null<br></pre></td>
-<td></td>
-</tr>
-<tr>
-<td>configmapReload.image</td>
-<td>configmap-reload container image</td>
-<td><pre>configmapReload:<br>  image: null<br></pre></td>
-<td></td>
-</tr>
-<tr>
-<td>configmapReload.name</td>
-<td>configmap-reload container name</td>
-<td><pre>configmapReload:<br>  name: null<br></pre></td>
-<td></td>
 </tr>
 <tr>
 <td>configmapReload.prometheus</td>
@@ -335,15 +281,69 @@ tr:hover {
 <td></td>
 </tr>
 <tr>
-<td>configmapReload.reloadUrl</td>
-<td>URL for configmap-reload to use for reloads</td>
-<td><pre>configmapReload:<br>  reloadUrl: ''<br></pre></td>
+<td>configmapReload.prometheus.enabled</td>
+<td>If false, the configmap-reload container will not be deployed.</td>
+<td><pre>configmapReload:<br>  prometheus:<br>    enabled: true<br></pre></td>
 <td></td>
 </tr>
 <tr>
-<td>configmapReload.resources</td>
+<td>configmapReload.prometheus.image</td>
+<td>configmap-reload container image</td>
+<td><pre>configmapReload:<br>  prometheus:<br>    image:<br>      digest: ''<br>      pullPolicy: IfNotPresent<br>      repository: quay.io/prometheus-operator/prometheus-config-reloader<br>      tag: v0.72.0<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>configmapReload.prometheus.image.containerSecurityContext</td>
+<td>Security context to be added to configmap-reload container</td>
+<td><pre>configmapReload:<br>  prometheus:<br>    image:<br>      containerSecurityContext: null<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>configmapReload.prometheus.image.digest</td>
+<td>When digest is set to a non-empty value, images will be pulled by digest (regardless of tag value).</td>
+<td><pre>configmapReload:<br>  prometheus:<br>    image:<br>      digest: ''<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>configmapReload.prometheus.image.extraArgs</td>
+<td>Additional configmap-reload container arguments</td>
+<td><pre>configmapReload:<br>  prometheus:<br>    image:<br>      extraArgs: null<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>configmapReload.prometheus.image.extraConfigmapMounts</td>
+<td>Additional configmap-reload mounts.</td>
+<td><pre>configmapReload:<br>  prometheus:<br>    image:<br>      extraConfigmapMounts: null<br></pre></td>
+<td><pre>extraConfigmapMounts:<br>  - name: prometheus-alerts<br>    mountPath: /etc/alerts.d<br>    subPath: ""<br>    configMap: prometheus-alerts<br>    readOnly: true<br></pre></td>
+</tr>
+<tr>
+<td>configmapReload.prometheus.image.extraVolumeDirs</td>
+<td>Additional configmap-reload volume directories</td>
+<td><pre>configmapReload:<br>  prometheus:<br>    image:<br>      extraVolumeDirs: null<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>configmapReload.prometheus.image.extraVolumeMounts</td>
+<td>Additional configmap-reload volume mounts</td>
+<td><pre>configmapReload:<br>  prometheus:<br>    image:<br>      extraVolumeMounts: null<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>configmapReload.prometheus.image.resources</td>
 <td>configmap-reload resource requests and limits. Ref: http://kubernetes.io/docs/user-guide/compute-resources/</td>
-<td><pre>configmapReload:<br>  resources: null<br></pre></td>
+<td><pre>configmapReload:<br>  prometheus:<br>    image:<br>      resources: null<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>configmapReload.prometheus.name</td>
+<td>configmap-reload container name</td>
+<td><pre>configmapReload:<br>  prometheus:<br>    name: configmap-reload<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>configmapReload.reloadUrl</td>
+<td>URL for configmap-reload to use for reloads</td>
+<td><pre>configmapReload:<br>  reloadUrl: ''<br></pre></td>
 <td></td>
 </tr>
 <tr>
@@ -461,9 +461,9 @@ tr:hover {
 <td></td>
 </tr>
 <tr>
-<td>serviceAccounts.automountServiceAccountToken</td>
+<td>serviceAccounts.server.automountServiceAccountToken</td>
 <td>Opt out of automounting Kubernetes API credentials. It will be overriden by server.automountServiceAccountToken value, if set.</td>
-<td><pre>serviceAccounts:<br>  automountServiceAccountToken: null<br></pre></td>
+<td><pre>serviceAccounts:<br>  server:<br>    automountServiceAccountToken: false<br></pre></td>
 <td></td>
 </tr>
 </tbody>
