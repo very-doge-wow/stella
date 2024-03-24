@@ -28,12 +28,16 @@ link.
 
 ### Docker Image
 
+|    | Note                                                                                                                                                                                                           |
+|----|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 🐳 | `stella` has switched from [Docker Hub](https://hub.docker.com/r/suchdogewow/stella) to [ghcr.io](https://github.com/very-doge-wow/stella/pkgs/container/stella). Please update all references to the new URI. |
+
 Using the [Docker image](https://github.com/very-doge-wow/stella/pkgs/container/stella):
 
 <!-- markdownlint-disable MD013 -->
 ```shell
-docker pull suchdogewow/stella:latest
-docker run -v ${full_path_to_host_chart_dir}:/tmp/chart suchdogewow/stella -hcp /tmp/chart -o /tmp/chart/output.md [OPTIONS]
+docker pull ghcr.io/very-doge-wow/stella:latest
+docker run -v ${full_path_to_host_chart_dir}:/tmp/chart ghcr.io/very-doge-wow/stella:latest -hcp /tmp/chart -o /tmp/chart/output.md [OPTIONS]
 ```
 <!-- markdownlint-enable MD013 -->
 
