@@ -31,7 +31,7 @@ jobs:
       uses: VaultVulp/action-pipenv@v2.0.1
       with:
         command: |
-          run coverage report > coverage.txt
+          run coverage report --format total > coverage.txt
 
     # upload coverage to codecov
     - name: upload
