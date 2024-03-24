@@ -4,19 +4,31 @@ jobs:
   pytest:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4 # Checking out the repo
+    # check out repo
+    - uses: actions/checkout@v4
 
+    # install all deps in pipenv
     - name: install_deps
       uses: VaultVulp/action-pipenv@v2.0.1
       with:
-        command: install -d # Install all dependencies, including development ones
+        command: install -d
 
+    # show installed deps in graph
     - name: show_graph
       uses: VaultVulp/action-pipenv@v2.0.1
       with:
         command: graph # shows installed pip packages
 
+    # run pytest through coverage package and generate report
     - name: test
       uses: VaultVulp/action-pipenv@v2.0.1
       with:
-        command: run pytest -vv
+        command: |
+           run pytest -vv --cov --cov-report=xml
+
+    # upload coverage to codecov
+    - name: upload
+      uses: codecov/codecov-action@v4.0.1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        slug: very-doge-wow/stella

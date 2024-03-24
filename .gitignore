@@ -131,3 +131,5 @@ dmypy.json
 output.md
 output.html
 .DS_Store
+.coverage
+coverage.xml
