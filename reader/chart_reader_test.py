@@ -383,6 +383,12 @@ emptyarray: []
 
 yet:
   another: []
+
+eins:
+  zwei:
+    drei: true
+    vier:
+      fuenf: "wow"
 """
     result = chart_reader.build_full_path(i=3, value_name_dirty='  another', value_name_clean='another',
                                           values_lines=test_yaml.split('\n'))
@@ -407,6 +413,14 @@ yet:
     result = chart_reader.build_full_path(i=10, value_name_dirty='  another', value_name_clean='another',
                                           values_lines=test_yaml.split('\n'))
     assert result == "yet.another"
+
+    result = chart_reader.build_full_path(i=14, value_name_dirty='    drei', value_name_clean='drei',
+                                          values_lines=test_yaml.split('\n'))
+    assert result == "eins.zwei.drei"
+
+    result = chart_reader.build_full_path(i=16, value_name_dirty='      fuenf', value_name_clean='fuenf',
+                                          values_lines=test_yaml.split('\n'))
+    assert result == "eins.zwei.vier.fuenf"
 
 
 def test_generate_requirements():

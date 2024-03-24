@@ -103,7 +103,7 @@ def build_full_path(i: int, value_name_dirty: str, value_name_clean: str, values
     line and their respective indent until the toplevel is reached, all
     the while building the full path.
     Parameters:
-        i (int): current index from outer scope
+        i (int): current index while traversing values_lines (from outer scope)
         value_name_dirty (str): the current value's name without having removed leading whitespace
         value_name_clean (str): the current value's name sanitized
         values_lines (list): list of all lines in the values document
@@ -118,6 +118,7 @@ def build_full_path(i: int, value_name_dirty: str, value_name_clean: str, values
     while match:
         # count the indent
         indent_num = match.group(0).count(' ')
+        print(f"indent_num is {indent_num}")
         # early exit if already on toplevel
         if indent_num == 0:
             return f"{upper_key}.{full_path}"
@@ -129,11 +130,14 @@ def build_full_path(i: int, value_name_dirty: str, value_name_clean: str, values
         index -= 1
         # index now points to the line with the key
         value_name_dirty = values_lines[index].split(":")[0]
+        print(f"value_name_dirty is {value_name_dirty}")
         upper_key = value_name_dirty.strip()
+        print(f"upper_key is {upper_key}")
         # make sure the found key is actually closer to top-level than the first one by counting indent
-        match_new = re.search(r'^\s*', value_name_dirty)
+        match_new = re.search(r'^\s+', value_name_dirty)
         if match_new:
-            indent_num_new = match.group(0).count(' ')
+            indent_num_new = match_new.group(0).count(' ')
+            print(f"indent_num_new is {indent_num_new}")
             if indent_num_new < indent_num:
                 full_path = f"{upper_key}.{full_path}"
         match = re.search(r'^\s*', value_name_dirty)
