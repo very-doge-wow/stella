@@ -28,6 +28,7 @@ link.
 
 ### Docker Image
 
+<!-- markdownlint-disable MD013 -->
 |    | Note                                                                                                                                                                                                           |
 |----|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 🐳 | `stella` has switched from [Docker Hub](https://hub.docker.com/r/suchdogewow/stella) to [ghcr.io](https://github.com/very-doge-wow/stella/pkgs/container/stella). Please update all references to the new URI. |
