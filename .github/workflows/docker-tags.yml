@@ -1,0 +1,27 @@
+name: Publish Docker Image on Tag
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t ghcr.io/${{ github.repository_owner }}/${{ github.repository_name }}:${{ github.ref }} .
+          docker push ghcr.io/${{ github.repository_owner }}/${{ github.repository_name }}:${{ github.ref }}
+          docker tag ghcr.io/${{ github.repository_owner }}/${{ github.repository_name }}:${{ github.ref }} ghcr.io/${{ github.repository_owner }}/${{ github.repository_name }}:latest
+          docker push ghcr.io/${{ github.repository_owner }}/${{ github.repository_name }}:latest
