@@ -97,7 +97,38 @@ a working example and then prepend the comment delimiter (`#`).
 The line starting with `# -- stella` tells `stella` that the following
 comment is a `stella` docstring. Use the `# -- example` delimiter to
 specify an optional example. If you leave this empty, the resulting
-documentation will leave this field blank.
+documentation will leave this field blank. For example:
+
+```yaml
+# -- stella
+# Define whether to enable the pod security policy.
+# -- example
+# podSecurityPolicy:
+#   enabled: true
+podSecurityPolicy:
+  enabled: false
+```
+
+Will yield this output:
+
+| Name | Description | Default | Example |
+|---|---|---|---| 
+| podSecurityPolicy | Define whether to enable the pod security policy. | <pre>podSecurityPolicy:<br>  enabled: false<br></pre> | <pre>podSecurityPolicy:<br>  enabled: true<br></pre> |
+
+You may also document nested keys, which is a feature not many helm docs tools offer. For example:
+
+```yaml
+configmapReload:
+  # -- stella
+  # URL for configmap-reload to use for reloads
+  reloadUrl: ""
+```
+
+Will yield this output:
+
+| Name | Description | Default | Example |
+|---|---|---|---| 
+| configmapReload.reloadUrl | URL for configmap-reload to use for reloads | <pre>configmapReload:<br>  reloadUrl: ''<br></pre> |  |
 
 ## Custom Templating
 

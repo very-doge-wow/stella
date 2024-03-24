@@ -5,6 +5,11 @@
 rbac:
   create: true
 
+# -- stella
+# Define whether to enable the pod security policy.
+# -- example
+# podSecurityPolicy:
+#   enabled: true
 podSecurityPolicy:
   enabled: false
 

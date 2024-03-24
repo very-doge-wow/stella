@@ -89,7 +89,7 @@ The following values can/will be used for deployments.
 | imagePullSecrets | Define ImagePullSecrets for the deployment. | <pre>imagePullSecrets: []<br></pre> |  |
 | kube-state-metrics |  | <pre>kube-state-metrics:<br>  enabled: true<br></pre> |  |
 | networkPolicy |  | <pre>networkPolicy:<br>  enabled: false<br></pre> |  |
-| podSecurityPolicy |  | <pre>podSecurityPolicy:<br>  enabled: false<br></pre> |  |
+| podSecurityPolicy | Define whether to enable the pod security policy. | <pre>podSecurityPolicy:<br>  enabled: false<br></pre> | <pre>podSecurityPolicy:<br>  enabled: true<br></pre> |
 | prometheus-node-exporter |  | <pre>prometheus-node-exporter:<br>  containerSecurityContext:<br>    allowPrivilegeEscalation: false<br>  enabled: true<br>  rbac:<br>    pspEnabled: false<br></pre> |  |
 | prometheus-pushgateway |  | <pre>prometheus-pushgateway:<br>  enabled: true<br>  serviceAnnotations:<br>    prometheus.io/probe: pushgateway<br></pre> |  |
 | rbac | Whether to create rbac. | <pre>rbac:<br>  create: true<br></pre> |  |
