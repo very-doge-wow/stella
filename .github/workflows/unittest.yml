@@ -1,7 +1,7 @@
 name: Unittests
 on: [push]
 jobs:
-  run_unit_tests:
+  pytest:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4 # Checking out the repo

@@ -1,4 +1,4 @@
-name: Build Docker Image on Commit (Non-Main Branch)
+name: Docker (Feature Branch)
 
 on:
   push:

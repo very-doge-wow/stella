@@ -1,4 +1,4 @@
-name: Publish Docker Image on Commit on main Branch
+name: Docker (Main)
 
 on:
   push:
