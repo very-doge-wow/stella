@@ -6,8 +6,7 @@ WORKDIR app
 
 COPY reader ./reader/
 COPY writer ./writer/
-COPY stella.py Pipfile Pipfile.lock ./
-COPY EXAMPLE/style.css .
+COPY stella.py Pipfile Pipfile.lock EXAMPLE/style.css ./
 
 RUN <<EOF
 pip install pipenv
