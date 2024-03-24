@@ -22,6 +22,6 @@ jobs:
       - name: Build Docker image
         run: |
           docker build \
-            --build-arg="COMMIT_SHA=${GITHUB_SHA}"\
+            --build-arg="COMMIT_SHA=${{ github.sha }}"\
             --build-arg="IMAGE_VERSION=${{ github.sha }}-stella-test" \
             -t ghcr.io/${{ github.repository }}:${{ github.sha }}-stella-test .
