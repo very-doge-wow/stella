@@ -19,19 +19,12 @@ jobs:
       with:
         command: graph # shows installed pip packages
 
-    # run pytest through coverage package
+    # run pytest through coverage package and generate report
     - name: test
       uses: VaultVulp/action-pipenv@v2.0.1
       with:
         command: |
-          run pytest -vv --cov
-
-    # generate coverage report
-    - name: report
-      uses: VaultVulp/action-pipenv@v2.0.1
-      with:
-        command: |
-          run coverage report > coverage.txt
+           run pytest -vv --cov --cov-report=xml
 
     # upload coverage to codecov
     - name: upload
