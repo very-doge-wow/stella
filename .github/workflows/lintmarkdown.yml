@@ -1,12 +1,12 @@
 name: Markdownlint
 on: [push]
 jobs:
-  lint-markdown:
-    name: lint_markdown
+  markdownlint:
+    name: markdownlint
     runs-on: ubuntu-latest
     steps:
     - name: Check out code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: lint_markdown
       uses: docker://avtodev/markdown-lint:v1
