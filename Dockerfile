@@ -23,10 +23,10 @@ USER 1000
 ENTRYPOINT ["stella"]
 
 LABEL org.opencontainers.image.source="https://github.com/very-doge-wow/stella"
-LABEL org.opencontainers.image.url="https://github.com/very-doge-wow/stella"
-LABEL org.opencontainers.image.documentation="https://github.com/very-doge-wow/stella/blob/main/README.md"
-LABEL org.opencontainers.image.version=${IMAGE_VERSION}
-LABEL org.opencontainers.image.revision=${COMMIT_SHA}
+LABEL org.opencontainers.image.url="https://github.com/very-doge-wow/stella/pkgs/container/stella"
+LABEL org.opencontainers.image.documentation="https://github.com/very-doge-wow/stella/blob/${COMMIT_SHA}/README.md"
+LABEL org.opencontainers.image.version="${IMAGE_VERSION}"
+LABEL org.opencontainers.image.revision="${COMMIT_SHA}"
 LABEL org.opencontainers.image.vendor="very-doge-wow"
 LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.title="stella"

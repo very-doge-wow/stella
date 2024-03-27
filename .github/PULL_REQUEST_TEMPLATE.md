@@ -1,7 +1,8 @@
-### Description:
-Explain the purpose of the PR.
+## Description
 
-### Checklist:
+<!--- Explain the purpose of the PR. -->
+
+## Checklist
 
 * [ ] Does your PR pass tests?
 * [ ] Have you written new tests for your changes?
