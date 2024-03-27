@@ -10,7 +10,6 @@
 [![license](https://img.shields.io/github/license/very-doge-wow/stella)](https://github.com/very-doge-wow/stella?tab=MIT-1-ov-file#readme)
 [![docker pulls](https://img.shields.io/docker/pulls/suchdogewow/stella.svg)](https://hub.docker.com/r/suchdogewow/stella)
 
-
 `stella` is a free tool to help automatically generate
 [helm](https://helm.sh/) chart documentation.
 It supports simple templating, so custom templates for output can be used as
