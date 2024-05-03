@@ -391,6 +391,19 @@ eins:
     drei: true
     vier:
       fuenf: "wow"
+      lol: "rofl"
+  sechs: "sieben"
+
+banane:
+  melone:
+    cpu: 100Mi
+    ram: 100Gi
+  test:
+    another:
+      indent: false
+    # -- stella
+    # desc
+    getme: true
 """
     result = chart_reader.build_full_path(i=3, value_name_dirty='  another', value_name_clean='another',
                                           values_lines=test_yaml.split('\n'))
@@ -423,6 +436,14 @@ eins:
     result = chart_reader.build_full_path(i=16, value_name_dirty='      fuenf', value_name_clean='fuenf',
                                           values_lines=test_yaml.split('\n'))
     assert result == "eins.zwei.vier.fuenf"
+
+    result = chart_reader.build_full_path(i=18, value_name_dirty='  sechs', value_name_clean='sechs',
+                                          values_lines=test_yaml.split('\n'))
+    assert result == "eins.sechs"
+
+    result = chart_reader.build_full_path(i=29, value_name_dirty='    getme', value_name_clean='getme',
+                                          values_lines=test_yaml.split('\n'))
+    assert result == "banane.test.getme"
 
 
 def test_generate_requirements():
