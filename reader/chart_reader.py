@@ -125,7 +125,14 @@ def build_full_path(i: int, value_name_dirty: str, value_name_clean: str, values
     full_path = value_name_clean
     # check if whitespace before key is found
     match = re.search(r'^(\s+).*$', value_name_dirty)
+    # if already on top-level, we are done here
+    if not match:
+        return full_path
+    # save original indent to compare against it below
+    initial_indent = match.group(0).count(' ')
     index = i
+    # save all indents to which a key was already added to full_path, as only one can exist for each indent
+    matched_indents = []
     while match:
         # count the indent
         indent_num = match.group(0).count(' ')
@@ -133,20 +140,23 @@ def build_full_path(i: int, value_name_dirty: str, value_name_clean: str, values
         if indent_num == 0:
             return f"{upper_key}.{full_path}"
         # iterate to the nearest key which is (closer to) top-level
-        while values_lines[index - 1].lstrip().startswith("#") or values_lines[index - 1].strip() == "":
-            # loop ignores empty lines and comments
+        upper_line = values_lines[index - 1].lstrip()
+        # loop ignores empty lines and comments
+        while upper_line.startswith("#") or upper_line == "":
             index -= 1
+            upper_line = values_lines[index - 1].lstrip()
         # loop terminates when next yaml key is found
         index -= 1
         # index now points to the line with the key
         value_name_dirty = values_lines[index].split(":")[0]
         upper_key = value_name_dirty.strip()
-        # make sure the found key is actually closer to top-level than the first one by counting indent
         match_new = re.search(r'^\s+', value_name_dirty)
         if match_new:
             indent_num_new = match_new.group(0).count(' ')
-            if indent_num_new < indent_num:
+            # make sure the found key is actually closer to top-level than the first one by counting indent
+            if indent_num > indent_num_new and initial_indent > indent_num_new and (indent_num_new not in matched_indents):
                 full_path = f"{upper_key}.{full_path}"
+                matched_indents.append(indent_num_new)
         match = re.search(r'^\s*', value_name_dirty)
     return full_path
 
