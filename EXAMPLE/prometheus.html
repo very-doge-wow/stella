@@ -5,55 +5,41 @@
   <meta name="generator" content="very-doge-wow/stella" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <style type="text/css" media="screen">
-    tr {
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
+    body {
+  font-family: sans-serif;
+  margin: auto;
+  padding: 10px;
+  max-width: 80%;
 }
 
-body {
-  padding: 0 2em;
-  font-family: Montserrat, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  color: #444;
-  background: #eee;
-}
-
-h1 {
-  font-weight: normal;
-  letter-spacing: -1px;
-  color: #34495E;
-}
-
-/* Styling for HTML tables */
 table {
+  font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 100%;
+  display: block;
+  overflow-x: auto;
 }
 
-/* Styling for table headings */
+td, th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2;}
+
+tr:hover {background-color: #E0F2FF;}
+
 th {
-  background-color: lightblue;
-  color: black;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #0288d1;
+  color: white;
 }
 
-/* Styling for table rows */
-tr:nth-child(even) {
-  background-color: #f2f2f2; /* Light gray background */
-}
-
-tr:nth-child(odd) {
-  background-color: white; /* White background */
-}
-
-/* Styling for table cells */
-td {
-  border: 1px solid black; /* Add borders to table cells */
-}
-
-/* Hover effect */
-tr:hover {
-  background-color: #cce6ff; /* Light blue background on hover */
+pre {
+    background-color: #E4E4E4;
+    padding: 0.5em;
+    border-radius: 5px;
 }
 
   </style>
@@ -281,9 +267,39 @@ tr:hover {
 <td></td>
 </tr>
 <tr>
+<td>configmapReload.prometheus.containerSecurityContext</td>
+<td>Security context to be added to configmap-reload container</td>
+<td><pre>configmapReload:<br>  prometheus:<br>    containerSecurityContext: {}<br></pre></td>
+<td></td>
+</tr>
+<tr>
 <td>configmapReload.prometheus.enabled</td>
 <td>If false, the configmap-reload container will not be deployed.</td>
 <td><pre>configmapReload:<br>  prometheus:<br>    enabled: true<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>configmapReload.prometheus.extraArgs</td>
+<td>Additional configmap-reload container arguments</td>
+<td><pre>configmapReload:<br>  prometheus:<br>    extraArgs: {}<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>configmapReload.prometheus.extraConfigmapMounts</td>
+<td>Additional configmap-reload mounts.</td>
+<td><pre>configmapReload:<br>  prometheus:<br>    extraConfigmapMounts: []<br></pre></td>
+<td><pre>extraConfigmapMounts:<br>  - name: prometheus-alerts<br>    mountPath: /etc/alerts.d<br>    subPath: ""<br>    configMap: prometheus-alerts<br>    readOnly: true<br></pre></td>
+</tr>
+<tr>
+<td>configmapReload.prometheus.extraVolumeDirs</td>
+<td>Additional configmap-reload volume directories</td>
+<td><pre>configmapReload:<br>  prometheus:<br>    extraVolumeDirs: []<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>configmapReload.prometheus.extraVolumeMounts</td>
+<td>Additional configmap-reload volume mounts</td>
+<td><pre>configmapReload:<br>  prometheus:<br>    extraVolumeMounts: []<br></pre></td>
 <td></td>
 </tr>
 <tr>
@@ -293,51 +309,21 @@ tr:hover {
 <td></td>
 </tr>
 <tr>
-<td>configmapReload.prometheus.image.containerSecurityContext</td>
-<td>Security context to be added to configmap-reload container</td>
-<td><pre>configmapReload:<br>  prometheus:<br>    image:<br>      containerSecurityContext: null<br></pre></td>
-<td></td>
-</tr>
-<tr>
 <td>configmapReload.prometheus.image.digest</td>
 <td>When digest is set to a non-empty value, images will be pulled by digest (regardless of tag value).</td>
 <td><pre>configmapReload:<br>  prometheus:<br>    image:<br>      digest: ''<br></pre></td>
 <td></td>
 </tr>
 <tr>
-<td>configmapReload.prometheus.image.extraArgs</td>
-<td>Additional configmap-reload container arguments</td>
-<td><pre>configmapReload:<br>  prometheus:<br>    image:<br>      extraArgs: null<br></pre></td>
-<td></td>
-</tr>
-<tr>
-<td>configmapReload.prometheus.image.extraConfigmapMounts</td>
-<td>Additional configmap-reload mounts.</td>
-<td><pre>configmapReload:<br>  prometheus:<br>    image:<br>      extraConfigmapMounts: null<br></pre></td>
-<td><pre>extraConfigmapMounts:<br>  - name: prometheus-alerts<br>    mountPath: /etc/alerts.d<br>    subPath: ""<br>    configMap: prometheus-alerts<br>    readOnly: true<br></pre></td>
-</tr>
-<tr>
-<td>configmapReload.prometheus.image.extraVolumeDirs</td>
-<td>Additional configmap-reload volume directories</td>
-<td><pre>configmapReload:<br>  prometheus:<br>    image:<br>      extraVolumeDirs: null<br></pre></td>
-<td></td>
-</tr>
-<tr>
-<td>configmapReload.prometheus.image.extraVolumeMounts</td>
-<td>Additional configmap-reload volume mounts</td>
-<td><pre>configmapReload:<br>  prometheus:<br>    image:<br>      extraVolumeMounts: null<br></pre></td>
-<td></td>
-</tr>
-<tr>
-<td>configmapReload.prometheus.image.resources</td>
-<td>configmap-reload resource requests and limits. Ref: http://kubernetes.io/docs/user-guide/compute-resources/</td>
-<td><pre>configmapReload:<br>  prometheus:<br>    image:<br>      resources: null<br></pre></td>
-<td></td>
-</tr>
-<tr>
 <td>configmapReload.prometheus.name</td>
 <td>configmap-reload container name</td>
 <td><pre>configmapReload:<br>  prometheus:<br>    name: configmap-reload<br></pre></td>
+<td></td>
+</tr>
+<tr>
+<td>configmapReload.prometheus.resources</td>
+<td>configmap-reload resource requests and limits. Ref: http://kubernetes.io/docs/user-guide/compute-resources/</td>
+<td><pre>configmapReload:<br>  prometheus:<br>    resources: {}<br></pre></td>
 <td></td>
 </tr>
 <tr>
@@ -421,7 +407,7 @@ tr:hover {
 <tr>
 <td>server</td>
 <td>Configure the server component.</td>
-<td><details><summary>Expand</summary><pre>server:<br>  affinity: {}<br>  alertmanagers: []<br>  automountServiceAccountToken: false<br>  baseURL: ''<br>  clusterRoleNameOverride: ''<br>  command: []<br>  configMapAnnotations: {}<br>  configMapOverrideName: ''<br>  configPath: /etc/config/prometheus.yml<br>  containerSecurityContext: {}<br>  defaultFlagsOverride: []<br>  deploymentAnnotations: {}<br>  dnsConfig: {}<br>  dnsPolicy: ClusterFirst<br>  emptyDir:<br>    sizeLimit: ''<br>  enableServiceLinks: true<br>  env: []<br>  exemplars: {}<br>  extraArgs: {}<br>  extraConfigmapLabels: {}<br>  extraConfigmapMounts: []<br>  extraFlags:<br>  - web.enable-lifecycle<br>  extraHostPathMounts: []<br>  extraInitContainers: []<br>  extraSecretMounts: []<br>  extraVolumeMounts: []<br>  extraVolumes: []<br>  global:<br>    evaluation_interval: 1m<br>    scrape_interval: 1m<br>    scrape_timeout: 10s<br>  hostAliases: []<br>  hostNetwork: false<br>  image:<br>    digest: ''<br>    pullPolicy: IfNotPresent<br>    repository: quay.io/prometheus/prometheus<br>    tag: ''<br>  ingress:<br>    annotations: {}<br>    enabled: false<br>    extraLabels: {}<br>    extraPaths: []<br>    hosts: []<br>    path: /<br>    pathType: Prefix<br>    tls: []<br>  livenessProbeFailureThreshold: 3<br>  livenessProbeInitialDelay: 30<br>  livenessProbePeriodSeconds: 15<br>  livenessProbeSuccessThreshold: 1<br>  livenessProbeTimeout: 10<br>  name: server<br>  nodeSelector: {}<br>  persistentVolume:<br>    accessModes:<br>    - ReadWriteOnce<br>    annotations: {}<br>    enabled: true<br>    existingClaim: ''<br>    labels: {}<br>    mountPath: /data<br>    size: 8Gi<br>    statefulSetNameOverride: ''<br>    subPath: ''<br>  podAnnotations: {}<br>  podAntiAffinity: ''<br>  podAntiAffinityTopologyKey: kubernetes.io/hostname<br>  podDisruptionBudget:<br>    enabled: false<br>    maxUnavailable: 1<br>  podLabels: {}<br>  podSecurityPolicy:<br>    annotations: {}<br>  portName: ''<br>  prefixURL: ''<br>  priorityClassName: ''<br>  probeHeaders: []<br>  probeScheme: HTTP<br>  readinessProbeFailureThreshold: 3<br>  readinessProbeInitialDelay: 30<br>  readinessProbePeriodSeconds: 5<br>  readinessProbeSuccessThreshold: 1<br>  readinessProbeTimeout: 4<br>  releaseNamespace: false<br>  remoteRead: []<br>  remoteWrite: []<br>  replicaCount: 1<br>  resources: {}<br>  retention: 15d<br>  retentionSize: ''<br>  revisionHistoryLimit: 10<br>  securityContext:<br>    fsGroup: 65534<br>    runAsGroup: 65534<br>    runAsNonRoot: true<br>    runAsUser: 65534<br>  service:<br>    additionalPorts: []<br>    annotations: {}<br>    clusterIP: ''<br>    enabled: true<br>    externalIPs: []<br>    gRPC:<br>      enabled: false<br>      servicePort: 10901<br>    labels: {}<br>    loadBalancerIP: ''<br>    loadBalancerSourceRanges: []<br>    servicePort: 80<br>    sessionAffinity: None<br>    statefulsetReplica:<br>      enabled: false<br>      replica: 0<br>    type: ClusterIP<br>  sidecarContainers: {}<br>  sidecarTemplateValues: {}<br>  startupProbe:<br>    enabled: false<br>    failureThreshold: 30<br>    periodSeconds: 5<br>    timeoutSeconds: 10<br>  statefulSet:<br>    annotations: {}<br>    enabled: false<br>    headless:<br>      annotations: {}<br>      gRPC:<br>        enabled: false<br>        servicePort: 10901<br>      labels: {}<br>      servicePort: 80<br>    labels: {}<br>    podManagementPolicy: OrderedReady<br>    pvcDeleteOnStsDelete: false<br>    pvcDeleteOnStsScale: false<br>  storagePath: ''<br>  strategy:<br>    type: Recreate<br>  tcpSocketProbeEnabled: false<br>  terminationGracePeriodSeconds: 300<br>  tolerations: []<br>  topologySpreadConstraints: []<br>  tsdb: {}<br>  useExistingClusterRoleName: null<br>  verticalAutoscaler:<br>    enabled: false<br></pre></details></td>
+<td><details><summary>Expand</summary><pre>server:<br>  affinity: {}<br>  alertmanagers: []<br>  automountServiceAccountToken: false<br>  baseURL: ''<br>  clusterRoleNameOverride: ''<br>  command: []<br>  configMapAnnotations: {}<br>  configMapOverrideName: ''<br>  configPath: /etc/config/prometheus.yml<br>  containerSecurityContext: {}<br>  defaultFlagsOverride: []<br>  deploymentAnnotations: {}<br>  dnsConfig: {}<br>  dnsPolicy: ClusterFirst<br>  emptyDir:<br>    sizeLimit: ''<br>  enableServiceLinks: true<br>  env: []<br>  exemplars: {}<br>  extraArgs: {}<br>  extraConfigmapLabels: {}<br>  extraConfigmapMounts: []<br>  extraFlags:<br>  - web.enable-lifecycle<br>  extraHostPathMounts: []<br>  extraInitContainers: []<br>  extraSecretMounts: []<br>  extraVolumeMounts: []<br>  extraVolumes: []<br>  global:<br>    evaluation_interval: 1m<br>    scrape_interval: 1m<br>    scrape_timeout: 10s<br>  hostAliases: []<br>  hostNetwork: false<br>  image:<br>    digest: ''<br>    pullPolicy: IfNotPresent<br>    repository: quay.io/prometheus/prometheus<br>    tag: ''<br>  ingress:<br>    annotations: {}<br>    enabled: false<br>    extraLabels: {}<br>    extraPaths: []<br>    hosts: []<br>    path: /<br>    pathType: Prefix<br>    tls: []<br>  livenessProbeFailureThreshold: 3<br>  livenessProbeInitialDelay: 30<br>  livenessProbePeriodSeconds: 15<br>  livenessProbeSuccessThreshold: 1<br>  livenessProbeTimeout: 10<br>  name: server<br>  nodeSelector: {}<br>  persistentVolume:<br>    accessModes:<br>    - ReadWriteOnce<br>    annotations: {}<br>    enabled: true<br>    existingClaim: ''<br>    labels: {}<br>    mountPath: /data<br>    size: 8Gi<br>    statefulSetNameOverride: ''<br>    subPath: ''<br>  podAnnotations: {}<br>  podAntiAffinity: ''<br>  podAntiAffinityTopologyKey: kubernetes.io/hostname<br>  podDisruptionBudget:<br>    enabled: false<br>    maxUnavailable: 1<br>  podLabels: {}<br>  podSecurityPolicy:<br>    annotations: {}<br>  portName: ''<br>  prefixURL: ''<br>  priorityClassName: ''<br>  probeHeaders: []<br>  probeScheme: HTTP<br>  readinessProbeFailureThreshold: 3<br>  readinessProbeInitialDelay: 30<br>  readinessProbePeriodSeconds: 5<br>  readinessProbeSuccessThreshold: 1<br>  readinessProbeTimeout: 4<br>  releaseNamespace: false<br>  remoteRead: []<br>  remoteWrite: []<br>  replicaCount: 1<br>  resources: {}<br>  retention: 15d<br>  retentionSize: ''<br>  revisionHistoryLimit: 10<br>  securityContext:<br>    fsGroup: 65534<br>    runAsGroup: 65534<br>    runAsNonRoot: true<br>    runAsUser: 65534<br>  service:<br>    additionalPorts: []<br>    annotations: {}<br>    clusterIP: ''<br>    enabled: true<br>    externalIPs: []<br>    gRPC:<br>      enabled: false<br>      servicePort: 10901<br>    labels: {}<br>    loadBalancerIP: ''<br>    loadBalancerSourceRanges: []<br>    servicePort: 80<br>    sessionAffinity: None<br>    statefulsetReplica:<br>      enabled: false<br>      replica: 0<br>    type: ClusterIP<br>  sidecarContainers: {}<br>  sidecarTemplateValues: {}<br>  startupProbe:<br>    enabled: false<br>    failureThreshold: 30<br>    periodSeconds: 5<br>    timeoutSeconds: 10<br>  statefulSet:<br>    annotations: {}<br>    enabled: false<br>    headless:<br>      annotations: {}<br>      gRPC:<br>        enabled: false<br>        servicePort: 10901<br>      labels: {}<br>      servicePort: 80<br>    labels: {}<br>    podManagementPolicy: OrderedReady<br>    pvcDeleteOnStsDelete: false<br>    pvcDeleteOnStsScale: false<br>  storagePath: ''<br>  strategy:<br>    type: Recreate<br>  tcpSocketProbeEnabled: false<br>  terminationGracePeriodSeconds: 300<br>  tolerations: []<br>  topologySpreadConstraints: []<br>  tsdb: {}<br>  useExistingClusterRoleName: false<br>  verticalAutoscaler:<br>    enabled: false<br></pre></details></td>
 <td></td>
 </tr>
 <tr>
@@ -445,7 +431,7 @@ tr:hover {
 <tr>
 <td>server.useExistingClusterRoleName</td>
 <td>Use a ClusterRole (and ClusterRoleBinding). If set to false, we define a RoleBinding in the defined namespaces ONLY. NB: because we need a Role with nonResourceURL's ("/metrics") - you must get someone with Cluster-admin privileges to define this role for you, before running with this setting enabled. This makes prometheus work - for users who do not have ClusterAdmin privs, but wants prometheus to operate on their own namespaces, instead of clusterwide. You MUST also set namespaces to the ones you have access to and want monitored by Prometheus.</td>
-<td><pre>server:<br>  useExistingClusterRoleName: null<br></pre></td>
+<td><pre>server:<br>  useExistingClusterRoleName: false<br></pre></td>
 <td></td>
 </tr>
 <tr>
