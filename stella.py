@@ -12,6 +12,8 @@ if __name__ == '__main__':
     parser.add_argument("-o", "--output", help="Output file (default `output.md`).", required=False, default="output.md")
     parser.add_argument("-t", "--template", help="Custom template file.", required=False, default="")
     parser.add_argument("-fh", "--format-html", help="Output using html instead of md.", required=False, action="store_true")
+    parser.add_argument("-ah", "--advanced-html", help="Output using html instead of md with additional features.", required=False,
+                        action="store_true")
     parser.add_argument("-css", "--css", help="Path to optional css file to use for html generation (use in "
                                               "conjunction with -fh).", required=False, default="")
     parser.add_argument("-v", "--verbose", help="Activate debug logging.", required=False, action="store_true")
@@ -30,6 +32,7 @@ if __name__ == '__main__':
     logging.debug(f"--output: {args.output}")
     logging.debug(f"--template: {args.template}")
     logging.debug(f"--format-html: {args.format_html}")
+    logging.debug(f"--format-html: {args.advanced_html}")
     logging.debug(f"--css: {args.css}")
     logging.debug(f"--verbose: {args.verbose}")
 
@@ -43,7 +46,7 @@ if __name__ == '__main__':
             args.output = args.output.replace(".md", ".html")
 
         # write doc from gathered data
-        doc_writer.write(output=args.output, doc=result, template=args.template, format_html=args.format_html, css=args.css)
+        doc_writer.write(output=args.output, doc=result, template=args.template, format_html=args.format_html, advanced_html=args.advanced_html, css=args.css)
     except Exception as err:
         logging.exception("Error occured.")
         exit(1)

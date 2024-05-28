@@ -3,7 +3,7 @@ import yaml
 import markdown
 
 
-def write(output: str, doc: dict, template: str, format_html: bool, css: str) -> str:
+def write(output: str, doc: dict, template: str, format_html: bool, advanced_html: bool, css: str) -> str:
     """
     Creates a Markdown doc file for the helm chart.
     Uses a custom template if present, else uses a default template.
@@ -12,6 +12,7 @@ def write(output: str, doc: dict, template: str, format_html: bool, css: str) ->
         doc (dict): Data structure containing all relevant helm chart information.
         template (str): Path to custom template. If value is empty, uses default template.
         format_html (bool): Whether to convert the finished md to html before writing to file.
+        advanced_html (bool): Whether to use the advanced html template to render the md file.
         css (str): Path to optional css file for html generation.
     """
     logging.debug("starting to write doc from generated data")
@@ -88,28 +89,237 @@ The following values can/will be used for deployments.
 
     logging.debug("writing output to file")
 
-    with open(output, "w") as file:
-        if format_html:
-            logging.debug("converting md to html before write")
-            result = markdown.markdown(result, extensions=["tables"])
-            if css != "":
-                logging.debug("adding custom css to html before write")
-                with open(css, "r") as style:
-                    result = f"""<!DOCTYPE html>
+    html_simple_template = """<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
 <head>
   <meta charset="utf-8" />
   <meta name="generator" content="very-doge-wow/stella" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <style type="text/css" media="screen">
-    {style.read()}
+    REPLACE_STRING_STYLE
   </style>
 </head>
 <body>
-{result}
+REPLACE_STRING_BODY
 </body>
 </html>
 """
+
+    html_advanced_template = r"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pipeship-application</title>
+    <style>
+        html {
+            --blue: #0288d1;
+            --dark-blue: #006da8;
+            --light-blue: #E0F2FF;
+        }
+        
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #navbar-outer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+            background-color: var(--dark-blue);
+            overflow-x: hidden;
+            margin-top: 0;
+        }
+
+        #navbar, .container {
+            max-width: 80%;
+            margin: auto;
+        }
+
+        #navbar a {
+            padding: 1em;
+            text-decoration: none;
+            color: white;
+            display: inline-block;
+            height: 100%;
+        }
+
+        #navbar a:first-child {
+            background-color: var(--blue);
+            font-weight: bold;
+        }
+
+        #navbar a:hover {
+            background-color: var(--blue);
+        }
+
+        #search {
+            padding: 10px;
+            width: 90%;
+            margin: 20px auto;
+            display: block;
+        }
+        .content {
+            padding: 20px;
+            margin-top: 3em;
+        }
+        .container {
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            display: block;
+            overflow: auto;
+        }
+
+        td, th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        tr:nth-child(even){
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: var(--light-blue);
+        }
+
+        th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: var(--blue);
+            color: white;
+        }
+
+        pre {
+            background-color: #E4E4E4;
+            padding: 0.5em;
+            border-radius: 5px;
+        }
+
+        #search {
+            width: 98%;
+            display: block;
+            overflow: auto;
+            font-size: medium;
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar-outer">
+        <div id="navbar"></div>
+    </div>
+    <div class="content">
+        <div class="container">
+          REPLACE_STRING_BODY
+        </div>
+    </div>
+
+    <script>
+        function selectTableBelowHeading(headingText) {
+            // Find the heading element with the specified text
+            const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+            let targetHeading = null;
+            for (let i = 0; i < headings.length; i++) {
+                if (headings[i].textContent.trim() === headingText.trim()) {
+                    targetHeading = headings[i];
+                    break;
+                }
+            }
+
+            if (!targetHeading) {
+                console.log("Heading not found");
+                return null;
+            }
+
+            // Find the nearest subsequent table element
+            let nextElement = targetHeading.nextElementSibling;
+            while (nextElement) {
+                if (nextElement.tagName.toLowerCase() === 'table') {
+                    return nextElement;
+                }
+                nextElement = nextElement.nextElementSibling;
+            }
+
+            console.log("Table not found below the specified heading");
+                return null;
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // create dynamic navbar
+            const navbar = document.getElementById("navbar");
+            const headers = document.querySelectorAll("h1, h2, h3");
+
+            headers.forEach(header => {
+                const id = header.textContent.toLowerCase().replace(/\s+/g, '-');
+                header.id = id;
+
+                const anchor = document.createElement("a");
+                anchor.href = `#${id}`;
+                anchor.textContent = header.textContent;
+                navbar.appendChild(anchor);
+            });
+
+            const navbarFirstItem = document.querySelectorAll("#navbar a")[0]
+            navbarFirstItem.innerText = "🏠 " + navbarFirstItem.innerText
+
+            // enable searching values
+            const valuesTable = selectTableBelowHeading("Values")
+            // add the input field for searching values
+            valuesTable.insertAdjacentHTML('beforebegin', '<input type="text" id="search" placeholder="Search...">');
+
+            const searchInput = document.getElementById("search")
+            searchInput.addEventListener("input", function () {
+                // Declare variables
+                var input, filter, tables, tableRows, txtValue;
+                input = document.getElementById('search');
+                filter = input.value.toUpperCase();
+                tableRows = valuesTable.getElementsByTagName('tr');
+
+                // Loop through all tableRows except the first and hide those who don't match the search query
+                for (i = 1; i < tableRows.length; i++) {
+                    tableRowColumns = tableRows[i].getElementsByTagName("td");
+                    txtValue = ""
+                    for (j = 0; j < tableRowColumns.length; j++) {
+                        additionalText = tableRowColumns[j].textContent || tableRowColumns[j].innerText
+                        txtValue += additionalText
+                    }
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tableRows[i].style.display = "";
+                    } else {
+                        tableRows[i].style.display = "none";
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+"""
+
+    with (open(output, "w") as file):
+        if format_html:
+            logging.debug("converting md to html before write")
+            result = markdown.markdown(result, extensions=["tables"])
+        if format_html and not advanced_html:
+            if css != "":
+                logging.debug("adding custom css to html before write")
+                with open(css, "r") as style:
+                    result = html_simple_template.replace("REPLACE_STRING_STYLE", style.read()).replace("REPLACE_STRING_BODY", result)
+        elif format_html:
+            logging.debug("converting md to html before write using advanced html")
+            result = html_advanced_template.replace("REPLACE_STRING_BODY", result)
         # simply output the text (md or html, don't care)
         file.write(result)
 
