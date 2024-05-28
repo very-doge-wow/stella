@@ -85,8 +85,10 @@ options:
 ```
 <!-- markdownlint-enable MD013 -->
 
-The option `--advanced-html` can't be used with custom html, as it offers some additional functionality which would
-break when using custom CSS. It will create a static html site with dynamic navbar and a search for the chart's values.
+The option `--advanced-html` can't be used with custom html, as it offers some
+additional functionality which wouldbreak when using custom CSS. It will
+create a static html site with dynamic navbar and a search for the chart's
+values.
 
 ## Adding `stella` Docstrings to your Chart
 
