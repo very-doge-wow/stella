@@ -453,6 +453,283 @@ def test_writer_html():
 <p><em>Automatic helm documentation generated using <a href="https://github.com/very-doge-wow/stella">very-doge-wow/stella</a>.</em></p>"""
 
 
+def test_writer_advanced_html():
+    doc = {
+        "type": "application",
+        "version": "1.0",
+        "appVersion": "1.1",
+        "apiVersion": "1.2",
+        "name": "unittest",
+        "description": "simple templating test",
+        "dependencies": [],
+        "templates": [],
+        "objects": [
+            {
+                "kind": "Ingress",
+                "from Template": "template.yaml"
+            }
+        ],
+        "values": [
+            {
+                "name": "ReplicaCount",
+                "description": "how many replicas to deploy",
+                "default": "1",
+                "example": "replicaCount: 2"
+            }
+        ]
+    }
+
+    result = doc_writer.write("test/output.md", doc, "", True, True, "")
+    assert result == r"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pipeship-application</title>
+    <style>
+        html {
+            --blue: #0288d1;
+            --dark-blue: #006da8;
+            --light-blue: #E0F2FF;
+        }
+        
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #navbar-outer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+            background-color: var(--dark-blue);
+            overflow-x: hidden;
+            margin-top: 0;
+        }
+
+        #navbar, .container {
+            max-width: 80%;
+            margin: auto;
+        }
+
+        #navbar a {
+            padding: 1em;
+            text-decoration: none;
+            color: white;
+            display: inline-block;
+            height: 100%;
+        }
+
+        #navbar a:first-child {
+            background-color: var(--blue);
+            font-weight: bold;
+        }
+
+        #navbar a:hover {
+            background-color: var(--blue);
+        }
+
+        #search {
+            padding: 10px;
+            width: 90%;
+            margin: 20px auto;
+            display: block;
+        }
+        .content {
+            padding: 20px;
+            margin-top: 3em;
+        }
+        .container {
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            display: block;
+            overflow: auto;
+        }
+
+        td, th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        tr:nth-child(even){
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: var(--light-blue);
+        }
+
+        th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: var(--blue);
+            color: white;
+        }
+
+        pre {
+            background-color: #E4E4E4;
+            padding: 0.5em;
+            border-radius: 5px;
+        }
+
+        #search {
+            width: 98%;
+            display: block;
+            overflow: auto;
+            font-size: medium;
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar-outer">
+        <div id="navbar"></div>
+    </div>
+    <div class="content">
+        <div class="container">
+          <h1>unittest</h1>
+<p><img alt="Version: 1.0" src="https://img.shields.io/badge/Version-1.0-informational?style=flat-square" /> <img alt="Version: 1.1" src="https://img.shields.io/badge/appVersion-1.1-informational?style=flat-square" /> <img alt="Version: 1.2" src="https://img.shields.io/badge/apiVersion-1.2-informational?style=flat-square" /> <img alt="Type: application" src="https://img.shields.io/badge/Type-application-informational?style=flat-square" /> </p>
+<h2>Description</h2>
+<p>simple templating test</p>
+<h2>Dependencies</h2>
+<p>This chart depends on the following subcharts.</p>
+<p><em>No dependencies found.</em></p>
+<h2>Templates</h2>
+<p>The following templates will be deployed.</p>
+<p><em>No templates found.</em></p>
+<h3>Objects</h3>
+<p>The aforementioned templates will deploy the following objects.</p>
+<table>
+<thead>
+<tr>
+<th>Kind</th>
+<th>From template</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ingress</td>
+<td>template.yaml</td>
+</tr>
+</tbody>
+</table>
+<h2>Values</h2>
+<p>The following values can/will be used for deployments.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Default</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ReplicaCount</td>
+<td>how many replicas to deploy</td>
+<td><pre>1</pre></td>
+<td><pre>replicaCount: 2</pre></td>
+</tr>
+</tbody>
+</table>
+<p><em>Automatic helm documentation generated using <a href="https://github.com/very-doge-wow/stella">very-doge-wow/stella</a>.</em></p>
+        </div>
+    </div>
+
+    <script>
+        function selectTableBelowHeading(headingText) {
+            // Find the heading element with the specified text
+            const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+            let targetHeading = null;
+            for (let i = 0; i < headings.length; i++) {
+                if (headings[i].textContent.trim() === headingText.trim()) {
+                    targetHeading = headings[i];
+                    break;
+                }
+            }
+
+            if (!targetHeading) {
+                console.log("Heading not found");
+                return null;
+            }
+
+            // Find the nearest subsequent table element
+            let nextElement = targetHeading.nextElementSibling;
+            while (nextElement) {
+                if (nextElement.tagName.toLowerCase() === 'table') {
+                    return nextElement;
+                }
+                nextElement = nextElement.nextElementSibling;
+            }
+
+            console.log("Table not found below the specified heading");
+                return null;
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // create dynamic navbar
+            const navbar = document.getElementById("navbar");
+            const headers = document.querySelectorAll("h1, h2, h3");
+
+            headers.forEach(header => {
+                const id = header.textContent.toLowerCase().replace(/\s+/g, '-');
+                header.id = id;
+
+                const anchor = document.createElement("a");
+                anchor.href = `#${id}`;
+                anchor.textContent = header.textContent;
+                navbar.appendChild(anchor);
+            });
+
+            const navbarFirstItem = document.querySelectorAll("#navbar a")[0]
+            navbarFirstItem.innerText = "🏠 " + navbarFirstItem.innerText
+
+            // enable searching values
+            const valuesTable = selectTableBelowHeading("Values")
+            // add the input field for searching values
+            valuesTable.insertAdjacentHTML('beforebegin', '<input type="text" id="search" placeholder="Search...">');
+
+            const searchInput = document.getElementById("search")
+            searchInput.addEventListener("input", function () {
+                // Declare variables
+                var input, filter, tables, tableRows, txtValue;
+                input = document.getElementById('search');
+                filter = input.value.toUpperCase();
+                tableRows = valuesTable.getElementsByTagName('tr');
+
+                // Loop through all tableRows except the first and hide those who don't match the search query
+                for (i = 1; i < tableRows.length; i++) {
+                    tableRowColumns = tableRows[i].getElementsByTagName("td");
+                    txtValue = ""
+                    for (j = 0; j < tableRowColumns.length; j++) {
+                        additionalText = tableRowColumns[j].textContent || tableRowColumns[j].innerText
+                        txtValue += additionalText
+                    }
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tableRows[i].style.display = "";
+                    } else {
+                        tableRows[i].style.display = "none";
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+"""
+
+
 def test_writer_html_custom_css():
     doc = {
         "type": "application",
