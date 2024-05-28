@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - more-features-for-html-output
 
 jobs:
   build:
