@@ -106,7 +106,7 @@ REPLACE_STRING_BODY
 """
 
     html_advanced_template = r"""<!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
