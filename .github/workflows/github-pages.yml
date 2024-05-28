@@ -10,22 +10,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-    - name: Set up Python
-      uses: actions/setup-python@v4
+    # check out repo
+    - uses: actions/checkout@v4
+    # install all deps in pipenv
+    - name: install_deps
+      uses: VaultVulp/action-pipenv@v2.0.1
       with:
-        python-version: '3.12'
-
-    - name: Install Pipenv
-      run: pip install pipenv
-
-    - name: Install dependencies
-      run: pipenv install
-
-    - name: Run Python script
-      run: pipenv run python stella.py -fh -ah -hcp EXAMPLE/prometheus -o ./index.html
+        command: install
+    # run stella
+    - name: install_deps
+      uses: VaultVulp/action-pipenv@v2.0.1
+      with:
+        command: run python stella.py -fh -ah -hcp EXAMPLE/prometheus -o ./index.html
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
