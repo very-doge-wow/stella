@@ -20,9 +20,13 @@ templates and generate a Markdown or HTML documentation from that data.
 
 For an example output when running `stella` for the
 [prometheus](https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus)
-helm chart, follow
-[this](https://github.com/very-doge-wow/stella/blob/main/EXAMPLE/prometheus.md)
-link.
+helm chart, follow these links:
+
+<!-- markdownlint-disable MD013 -->
+* [Advanced HTML (Deployed)](https://very-doge-wow.github.io/stella/)
+* [Markdown (Source)](https://github.com/very-doge-wow/stella/blob/main/EXAMPLE/prometheus.md)
+* [Simple HTML (Source)](https://github.com/very-doge-wow/stella/blob/main/EXAMPLE/prometheus.html)
+<!-- markdownlint-enable MD013 -->
 
 ## Usage
 
