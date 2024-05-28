@@ -171,7 +171,7 @@ def test_writer_keywords_custom_template():
         ]
     }
 
-    result = doc_writer.write("test/output.md", doc, "test/custom-template-keywords.md", False, "")
+    result = doc_writer.write("test/output.md", doc, "test/custom-template-keywords.md", False, False,"")
     assert result == """unittest
 
 1.0
@@ -244,7 +244,7 @@ def test_writer_keywords_default_template():
         ]
     }
 
-    result = doc_writer.write("test/output.md", doc, "", False, "")
+    result = doc_writer.write("test/output.md", doc, "", False, False, "")
 
     assert result == """
 # unittest
@@ -316,7 +316,7 @@ def test_writer_empty():
         ]
     }
 
-    result = doc_writer.write("test/output.md", doc, "", False, "")
+    result = doc_writer.write("test/output.md", doc, "", False, False, "")
     assert result == """
 # unittest
 ![Version: 1.0](https://img.shields.io/badge/Version-1.0-informational?style=flat-square) ![Version: 1.1](https://img.shields.io/badge/appVersion-1.1-informational?style=flat-square) ![Version: 1.2](https://img.shields.io/badge/apiVersion-1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) 
@@ -403,7 +403,7 @@ def test_writer_html():
         ]
     }
 
-    result = doc_writer.write("test/output.md", doc, "", True, "")
+    result = doc_writer.write("test/output.md", doc, "", True, False, "")
     assert result == """<h1>unittest</h1>
 <p><img alt="Version: 1.0" src="https://img.shields.io/badge/Version-1.0-informational?style=flat-square" /> <img alt="Version: 1.1" src="https://img.shields.io/badge/appVersion-1.1-informational?style=flat-square" /> <img alt="Version: 1.2" src="https://img.shields.io/badge/apiVersion-1.2-informational?style=flat-square" /> <img alt="Type: application" src="https://img.shields.io/badge/Type-application-informational?style=flat-square" /> </p>
 <h2>Description</h2>
@@ -479,7 +479,7 @@ def test_writer_html_custom_css():
         ]
     }
 
-    result = doc_writer.write("test/output.md", doc, "", True, "test/style.css")
+    result = doc_writer.write("test/output.md", doc, "", True, False, "test/style.css")
     assert result == """<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
 <head>

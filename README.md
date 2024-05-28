@@ -66,11 +66,11 @@ python stella.py --help
 
 <!-- markdownlint-disable MD013 -->
 ```text
-usage: stella.py [-h] [-hcp HELM_CHART_PATH] [-o OUTPUT] [-t TEMPLATE] [-fh] [-css CSS] [-v]
+usage: stella.py [-h] [-hcp HELM_CHART_PATH] [-o OUTPUT] [-t TEMPLATE] [-fh] [-ah] [-css CSS] [-v]
 
 Will create documentation for helm charts using metadata.
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
   -hcp HELM_CHART_PATH, --helm-chart-path HELM_CHART_PATH
                         Path to helm chart (default `.`).
@@ -79,10 +79,14 @@ optional arguments:
   -t TEMPLATE, --template TEMPLATE
                         Custom template file.
   -fh, --format-html    Output using html instead of md.
+  -ah, --advanced-html  Output using html instead of md with additional features.
   -css CSS, --css CSS   Path to optional css file to use for html generation (use in conjunction with -fh).
   -v, --verbose         Activate debug logging.
 ```
 <!-- markdownlint-enable MD013 -->
+
+The option `--advanced-html` can't be used with custom html, as it offers some additional functionality which would
+break when using custom CSS. It will create a static html site with dynamic navbar and a search for the chart's values.
 
 ## Adding `stella` Docstrings to your Chart
 
