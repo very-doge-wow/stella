@@ -1,0 +1,8 @@
+**/*test.py
+test/
+.dockerignore
+.gitignore
+*.md
+LICENSE
+*.png
+.github
