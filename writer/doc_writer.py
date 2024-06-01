@@ -213,6 +213,10 @@ REPLACE_STRING_BODY
             overflow: auto;
             font-size: medium;
         }
+        
+        h1, h2, h3, h4 {
+            padding-top: 3em;
+        }
     </style>
 </head>
 <body>
