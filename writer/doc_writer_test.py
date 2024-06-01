@@ -490,6 +490,7 @@ def test_writer_advanced_html():
             --blue: #0288d1;
             --dark-blue: #006da8;
             --light-blue: #E0F2FF;
+            --margin-top: 3em;
         }
         
         body, html {
@@ -539,7 +540,7 @@ def test_writer_advanced_html():
         }
         .content {
             padding: 20px;
-            margin-top: 3em;
+            margin-top: var(--margin-top);
         }
         .container {
             padding: 20px;
@@ -587,6 +588,10 @@ def test_writer_advanced_html():
             display: block;
             overflow: auto;
             font-size: medium;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            scroll-margin-top: var(--margin-top);
         }
     </style>
 </head>

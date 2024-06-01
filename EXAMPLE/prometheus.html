@@ -1,51 +1,125 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="very-doge-wow/stella" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <style type="text/css" media="screen">
-    body {
-  font-family: sans-serif;
-  margin: auto;
-  padding: 10px;
-  max-width: 80%;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html {
+            --blue: #0288d1;
+            --dark-blue: #006da8;
+            --light-blue: #E0F2FF;
+            --margin-top: 3em;
+        }
+        
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
 
-table {
-  font-family: Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  display: block;
-  overflow-x: auto;
-}
+        #navbar-outer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+            background-color: var(--dark-blue);
+            overflow-x: hidden;
+            margin-top: 0;
+        }
 
-td, th {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
+        #navbar, .container {
+            max-width: 80%;
+            margin: auto;
+        }
 
-tr:nth-child(even){background-color: #f2f2f2;}
+        #navbar a {
+            padding: 1em;
+            text-decoration: none;
+            color: white;
+            display: inline-block;
+            height: 100%;
+        }
 
-tr:hover {background-color: #E0F2FF;}
+        #navbar a:first-child {
+            background-color: var(--blue);
+            font-weight: bold;
+        }
 
-th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #0288d1;
-  color: white;
-}
+        #navbar a:hover {
+            background-color: var(--blue);
+        }
 
-pre {
-    background-color: #E4E4E4;
-    padding: 0.5em;
-    border-radius: 5px;
-}
+        #search {
+            padding: 10px;
+            width: 90%;
+            margin: 20px auto;
+            display: block;
+        }
+        .content {
+            padding: 20px;
+            margin-top: var(--margin-top);
+        }
+        .container {
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            display: block;
+            overflow: auto;
+        }
 
-  </style>
+        td, th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        tr:nth-child(even){
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: var(--light-blue);
+        }
+
+        th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: var(--blue);
+            color: white;
+        }
+
+        pre {
+            background-color: #E4E4E4;
+            padding: 0.5em;
+            border-radius: 5px;
+        }
+
+        #search {
+            width: 98%;
+            display: block;
+            overflow: auto;
+            font-size: medium;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            scroll-margin-top: var(--margin-top);
+        }
+    </style>
 </head>
 <body>
-<h1>prometheus</h1>
+    <div id="navbar-outer">
+        <div id="navbar"></div>
+    </div>
+    <div class="content">
+        <div class="container">
+          <h1>prometheus</h1>
 <p><img alt="Version: 25.18.0" src="https://img.shields.io/badge/Version-25.18.0-informational?style=flat-square" /> <img alt="Version: v2.51.0" src="https://img.shields.io/badge/appVersion-v2.51.0-informational?style=flat-square" /> <img alt="Version: v2" src="https://img.shields.io/badge/apiVersion-v2-informational?style=flat-square" /> <img alt="Type: application" src="https://img.shields.io/badge/Type-application-informational?style=flat-square" /> </p>
 <h2>Description</h2>
 <p>Prometheus is a monitoring system and time series database.</p>
@@ -455,5 +529,86 @@ pre {
 </tbody>
 </table>
 <p><em>Automatic helm documentation generated using <a href="https://github.com/very-doge-wow/stella">very-doge-wow/stella</a>.</em></p>
+        </div>
+    </div>
+
+    <script>
+        function selectTableBelowHeading(headingText) {
+            // Find the heading element with the specified text
+            const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+            let targetHeading = null;
+            for (let i = 0; i < headings.length; i++) {
+                if (headings[i].textContent.trim() === headingText.trim()) {
+                    targetHeading = headings[i];
+                    break;
+                }
+            }
+
+            if (!targetHeading) {
+                console.log("Heading not found");
+                return null;
+            }
+
+            // Find the nearest subsequent table element
+            let nextElement = targetHeading.nextElementSibling;
+            while (nextElement) {
+                if (nextElement.tagName.toLowerCase() === 'table') {
+                    return nextElement;
+                }
+                nextElement = nextElement.nextElementSibling;
+            }
+
+            console.log("Table not found below the specified heading");
+                return null;
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // create dynamic navbar
+            const navbar = document.getElementById("navbar");
+            const headers = document.querySelectorAll("h1, h2, h3");
+
+            headers.forEach(header => {
+                const id = header.textContent.toLowerCase().replace(/\s+/g, '-');
+                header.id = id;
+
+                const anchor = document.createElement("a");
+                anchor.href = `#${id}`;
+                anchor.textContent = header.textContent;
+                navbar.appendChild(anchor);
+            });
+
+            const navbarFirstItem = document.querySelectorAll("#navbar a")[0]
+            navbarFirstItem.innerText = "🏠 " + navbarFirstItem.innerText
+
+            // enable searching values
+            const valuesTable = selectTableBelowHeading("Values")
+            // add the input field for searching values
+            valuesTable.insertAdjacentHTML('beforebegin', '<input type="text" id="search" placeholder="Search...">');
+
+            const searchInput = document.getElementById("search")
+            searchInput.addEventListener("input", function () {
+                // Declare variables
+                var input, filter, tables, tableRows, txtValue;
+                input = document.getElementById('search');
+                filter = input.value.toUpperCase();
+                tableRows = valuesTable.getElementsByTagName('tr');
+
+                // Loop through all tableRows except the first and hide those who don't match the search query
+                for (i = 1; i < tableRows.length; i++) {
+                    tableRowColumns = tableRows[i].getElementsByTagName("td");
+                    txtValue = ""
+                    for (j = 0; j < tableRowColumns.length; j++) {
+                        additionalText = tableRowColumns[j].textContent || tableRowColumns[j].innerText
+                        txtValue += additionalText
+                    }
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tableRows[i].style.display = "";
+                    } else {
+                        tableRows[i].style.display = "none";
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
