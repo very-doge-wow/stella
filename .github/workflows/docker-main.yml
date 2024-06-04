@@ -23,6 +23,6 @@ jobs:
         run: |
           docker build  \
             --build-arg="COMMIT_SHA=${{ github.sha }}"\
-            --build-arg="IMAGE_VERSION=latest" \
-            -t ghcr.io/${{ github.repository }}:latest .
-          docker push ghcr.io/${{ github.repository }}:latest
+            --build-arg="IMAGE_VERSION=bleeding" \
+            -t ghcr.io/${{ github.repository }}:bleeding .
+          docker push ghcr.io/${{ github.repository }}:bleeding
