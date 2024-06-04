@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>prometheus - helm chart documentation</title>
     <style>
         html {
             --blue: #0288d1;
             --dark-blue: #006da8;
             --light-blue: #E0F2FF;
+            --margin-top: 3em;
         }
         
         body, html {
@@ -57,7 +59,7 @@
         }
         .content {
             padding: 20px;
-            margin-top: 3em;
+            margin-top: var(--margin-top);
         }
         .container {
             padding: 20px;
@@ -105,6 +107,10 @@
             display: block;
             overflow: auto;
             font-size: medium;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            scroll-margin-top: var(--margin-top);
         }
     </style>
 </head>
