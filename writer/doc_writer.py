@@ -95,6 +95,7 @@ The following values can/will be used for deployments.
   <meta charset="utf-8" />
   <meta name="generator" content="very-doge-wow/stella" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>REPLACE_STRING_TITLE</title>
   <style type="text/css" media="screen">
     REPLACE_STRING_STYLE
   </style>
@@ -110,6 +111,7 @@ REPLACE_STRING_BODY
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REPLACE_STRING_TITLE</title>
     <style>
         html {
             --blue: #0288d1;
@@ -312,19 +314,26 @@ REPLACE_STRING_BODY
 </html>
 """
 
-    with (open(output, "w") as file):
+    with open(output, "w") as file:
         if format_html:
-            logging.debug("converting md to html before write")
+            logging.debug("Converting Markdown to HTML")
+            title_str = f"{doc['name']} - helm chart documentation"
             result = markdown.markdown(result, extensions=["tables"])
-        if format_html and not advanced_html:
-            if css != "":
-                logging.debug("adding custom css to html before write")
-                with open(css, "r") as style:
-                    result = html_simple_template.replace("REPLACE_STRING_STYLE", style.read()).replace("REPLACE_STRING_BODY", result)
-        elif format_html:
-            logging.debug("converting md to html before write using advanced html")
-            result = html_advanced_template.replace("REPLACE_STRING_BODY", result)
-        # simply output the text (md or html, don't care)
+
+            if not advanced_html:
+                if css:
+                    logging.debug("Adding custom CSS to HTML")
+                    with open(css, "r") as style:
+                        css_content = style.read()
+                    result = html_simple_template.replace("REPLACE_STRING_STYLE", css_content).replace(
+                        "REPLACE_STRING_BODY", result)
+            else:
+                logging.debug("Using advanced HTML template")
+                result = html_advanced_template.replace("REPLACE_STRING_BODY", result)
+
+            # title is replaced regardless of advanced or simple html
+            result = result.replace("REPLACE_STRING_TITLE", title_str)
+
         file.write(result)
 
     logging.info(f"Wrote doc to {output}.")
