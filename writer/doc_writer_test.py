@@ -485,6 +485,7 @@ def test_writer_advanced_html():
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>unittest - helm chart documentation</title>
     <style>
         html {
             --blue: #0288d1;
@@ -767,6 +768,7 @@ def test_writer_html_custom_css():
   <meta charset="utf-8" />
   <meta name="generator" content="very-doge-wow/stella" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>unittest - helm chart documentation</title>
   <style type="text/css" media="screen">
     tr {
     border-top: 1px solid #ddd;
