@@ -48,7 +48,7 @@ if __name__ == '__main__':
         # write doc from gathered data
         doc_writer.write(output=args.output, doc=result, template=args.template, format_html=args.format_html, advanced_html=args.advanced_html, css=args.css)
     except Exception as err:
-        logging.exception("Error occured.")
+        logging.exception("Error occurred.")
         exit(1)
 
     logging.info("Done!")
