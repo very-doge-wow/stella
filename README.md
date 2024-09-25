@@ -197,6 +197,7 @@ create helm chart docs.
 ### Linting Code
 
 Install linters beforehand:
+
 * [markdownlint-cli](https://github.com/igorshubovych/markdownlint-cli)
 * [ruff](https://docs.astral.sh/ruff/)
 
