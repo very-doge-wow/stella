@@ -216,11 +216,13 @@ pipenv run pytest -vv --cov --cov-report=xml
 
 ```shell
 pipenv install
+
 pipenv run python stella.py \
   -fh \
   -css EXAMPLE/style.css \
   -hcp EXAMPLE/prometheus \
   -o EXAMPLE/prometheus.html
+
 pipenv run python stella.py \
   -fh \
   --advanced-html \
