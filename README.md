@@ -30,7 +30,7 @@ helm chart, follow these links:
 
 ## Usage
 
-### Docker Image
+### 🐳 Docker Image
 
 <!-- markdownlint-disable MD013 -->
 |    | Note                                                                                                                                                                                                           |
@@ -46,7 +46,7 @@ docker run -v ${full_path_to_host_chart_dir}:/tmp/chart ghcr.io/very-doge-wow/st
 ```
 <!-- markdownlint-enable MD013 -->
 
-### Installation
+### 🛠 Installation
 
 To run it natively on your machine using pipenv:
 
@@ -66,7 +66,7 @@ pip install pyyaml markdown
 python stella.py --help
 ```
 
-### General Usage
+### 📚 General Usage
 
 <!-- markdownlint-disable MD013 -->
 ```text
@@ -94,7 +94,7 @@ additional functionality which would break when using custom CSS. It will
 create a static html site with dynamic navbar and a search for the chart's
 values.
 
-## Adding `stella` Docstrings to your Chart
+## ⎈ Adding `stella` Docstrings to your Chart
 
 Metadata is read from the present files of your chart.
 Additionally, you should also document the options given
@@ -155,7 +155,7 @@ Will yield the output:
 <!-- markdownlint-enable MD013 -->
 <!-- markdownlint-enable MD033 -->
 
-## Custom Templating
+## 📄 Custom Templating
 
 To specify a custom template, create a text/markdown file, then pass it to
 stella using the config parameter.
@@ -172,14 +172,14 @@ You can use the following fields inside your template:
 * `{{ stella.objects }}`
 * `{{ stella.values }}`
 
-## Contributing to `stella`
+## 💫 Contributing to `stella`
 
 You want to contribute? Awesome!
 Feel free to propose changes, report bugs or request features and
 improvements. But first, please read the
 [contribution guidelines](https://github.com/very-doge-wow/stella/blob/main/CONTRIBUTING.md).
 
-## Why `stella`?
+## 💭 Why `stella`?
 
 `stella` is named after
 [Tilemann Stella](https://de.wikipedia.org/wiki/Tilemann_Stella),
@@ -187,3 +187,57 @@ a scholar from the Renaissance era.
 He is most famously known for being a cartographer and for creating
 multiple waterways, which is fitting when considering the tool should
 create helm chart docs.
+
+## 🧑‍💻 Development
+
+<!-- markdownlint-disable MD033 -->
+<details>
+<summary>Expand for more info</summary>
+
+### Linting Code
+
+Install linters beforehand:
+
+* [markdownlint-cli](https://github.com/igorshubovych/markdownlint-cli)
+* [ruff](https://docs.astral.sh/ruff/)
+
+```shell
+# Markdown Linter
+markdownlint './*.md' \
+  --ignore './test/output.md' \
+  --ignore './test/custom-template-keywords.md' \
+  --ignore './EXAMPLE_OUTPUT.md'
+
+# Python Linter
+ruff check \
+  --fix \
+  --config "lint.extend-select=['E','F','B','Q','S','W','DJ']"  .
+```
+
+### Running Unit Tests
+
+```shell
+pipenv install -d
+pipenv run pytest -vv --cov --cov-report=xml
+```
+
+### Updating Example Outputs
+
+```shell
+pipenv install
+
+pipenv run python stella.py \
+  -fh \
+  -css EXAMPLE/style.css \
+  -hcp EXAMPLE/prometheus \
+  -o EXAMPLE/prometheus.html
+
+pipenv run python stella.py \
+  -fh \
+  --advanced-html \
+  -hcp EXAMPLE/prometheus \
+  -o EXAMPLE/prometheus-advanced.html
+```
+
+</details>
+<!-- markdownlint-enable MD033 -->
