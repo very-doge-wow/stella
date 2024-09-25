@@ -16,7 +16,7 @@ It supports simple templating, so custom templates for output can be used as
 well. Will read metadata such as `Chart.yaml`, `values.yaml` or the present
 templates and generate a Markdown or HTML documentation from that data.
 
-## Example 
+## Example
 
 For an example output when running `stella` for the
 [prometheus](https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus)
@@ -188,9 +188,22 @@ He is most famously known for being a cartographer and for creating
 multiple waterways, which is fitting when considering the tool should
 create helm chart docs.
 
-## 🧑‍💻 Development 
+## 🧑‍💻 Development
+
+<!-- markdownlint-disable MD033 -->
 <details>
 <summary>Expand for more info</summary>
+
+### Linting Code
+
+Install [markdownlint-cli](https://github.com/igorshubovych/markdownlint-cli) first.
+
+```shell
+markdownlint './*.md' \
+  --ignore './test/output.md' \
+  --ignore './test/custom-template-keywords.md' \
+  --ignore './EXAMPLE_OUTPUT.md'
+```
 
 ### Running Unit Tests
 
@@ -201,10 +214,19 @@ pipenv run pytest -vv --cov --cov-report=xml
 
 ### Updating Example Outputs
 
-```
+```shell
 pipenv install
-pipenv run python stella.py -fh -css EXAMPLE/style.css -hcp EXAMPLE/prometheus -o EXAMPLE/prometheus.html
-pipenv run python stella.py -fh --advanced-html -hcp EXAMPLE/prometheus -o EXAMPLE/prometheus-advanced.html
+pipenv run python stella.py \
+  -fh \
+  -css EXAMPLE/style.css \
+  -hcp EXAMPLE/prometheus \
+  -o EXAMPLE/prometheus.html
+pipenv run python stella.py \
+  -fh \
+  --advanced-html \
+  -hcp EXAMPLE/prometheus \
+  -o EXAMPLE/prometheus-advanced.html
 ```
 
 </details>
+<!-- markdownlint-enable MD033 -->
