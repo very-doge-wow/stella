@@ -196,14 +196,18 @@ create helm chart docs.
 
 ### Linting Code
 
-Install [markdownlint-cli](https://github.com/igorshubovych/markdownlint-cli) first.
+Install linters beforehand:
+* [markdownlint-cli](https://github.com/igorshubovych/markdownlint-cli)
+* [ruff](https://docs.astral.sh/ruff/)
 
 ```shell
+# Markdown Linter
 markdownlint './*.md' \
   --ignore './test/output.md' \
   --ignore './test/custom-template-keywords.md' \
   --ignore './EXAMPLE_OUTPUT.md'
 
+# Python Linter
 ruff check \
   --fix \
   --config "lint.extend-select=['E','F','B','Q','S','W','DJ']"  .
