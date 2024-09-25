@@ -520,7 +520,7 @@ def translate_list_of_dicts_to_md(list_of_dicts: list) -> str:
 
 def count_lines(text):
     # Split the text by newline characters
-    lines = text.split('\n')
+    lines = text.split("\n")
     # Count the number of lines
     return len(lines)
 

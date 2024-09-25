@@ -203,6 +203,10 @@ markdownlint './*.md' \
   --ignore './test/output.md' \
   --ignore './test/custom-template-keywords.md' \
   --ignore './EXAMPLE_OUTPUT.md'
+
+ruff check \
+  --fix \
+  --config "lint.extend-select=['E','F','B','Q','S','W','DJ']"  .
 ```
 
 ### Running Unit Tests

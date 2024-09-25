@@ -1,12 +1,11 @@
 #! /usr/local/bin/python3
 import argparse
 import logging
-import os
 
 import reader.chart_reader as chart_reader
 import writer.doc_writer as doc_writer
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Will create documentation for helm charts using metadata.")
     parser.add_argument("-hcp", "--helm-chart-path", help="Path to helm chart (default `.`).", required=False, default=".")
     parser.add_argument("-o", "--output", help="Output file (default `output.md`).", required=False, default="output.md")
@@ -40,14 +39,14 @@ if __name__ == '__main__':
     try:
         # read all necessary metadata
         result = chart_reader.read(args.helm_chart_path)
-        
+
         # fix file ending for case format html
         if args.format_html and args.output.endswith(".md"):
             args.output = args.output.replace(".md", ".html")
 
         # write doc from gathered data
         doc_writer.write(output=args.output, doc=result, template=args.template, format_html=args.format_html, advanced_html=args.advanced_html, css=args.css)
-    except Exception as err:
+    except Exception:
         logging.exception("Error occurred.")
         exit(1)
 
