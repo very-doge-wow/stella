@@ -113,113 +113,248 @@ REPLACE_STRING_BODY
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>REPLACE_STRING_TITLE</title>
     <style>
-        html {
-            --blue: #0288d1;
-            --dark-blue: #006da8;
-            --light-blue: #E0F2FF;
-            --margin-top: 3em;
-        }
-        
-        body, html {
-            height: 100%;
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-        }
+html {
+    --blue: #A8DADC;   /* Pastel Cyan */
+    --dark-blue: #457B9D;   /* Steel Blue */
+    --light-blue: #F1FAEE;  /* Honeydew */
+    --light-gray: #F8F9FA;  /* Light Gray */
+    --gray: #D8E2DC;        /* Soft Gray */
+    --dark-gray: #264653;   /* Deep Green */
+    --dark-bg: #343A40;     /* Charcoal */
+    --dark-card-bg: #495057; /* Granite */
+    --dark-text: #E9ECEF;   /* Light Gray Text for Dark Mode */
+    --darker-text: #121212; /* Dark text for Dark Mode */
+    --dark-gray-text: #264653; /* Deep Green for Dark Mode Text */
+    --dark-link: #A8DADC;   /* Pastel Cyan for Links */
+    --dark-link-hover: #81B1BD; /* Steel Blue for Hover */
+    --primary-gradient: linear-gradient(135deg, #A8DADC, #F1FAEE); /* Cyan to Honeydew */
+    --secondary-gradient: linear-gradient(135deg, #457B9D, #A8DADC); /* Steel Blue to Cyan */
+    --margin-top: 3em;
+    --border-radius: 15px;
+}
 
-        #navbar-outer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: auto;
-            background-color: var(--dark-blue);
-            overflow-x: hidden;
-            margin-top: 0;
-        }
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    background-color: var(--light-gray);
+    color: var(--dark-gray);
+    transition: all 0.3s;
+}
 
-        #navbar, .container {
-            max-width: 80%;
-            margin: auto;
-        }
+#navbar-outer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    background: var(--secondary-gradient);
+    overflow-x: hidden;
+    margin-top: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: all 0.3s;
+}
 
-        #navbar a {
-            padding: 1em;
-            text-decoration: none;
-            color: white;
-            display: inline-block;
-            height: 100%;
-        }
+#navbar, .container {
+    max-width: 80%;
+    margin: auto;
+}
 
-        #navbar a:first-child {
-            background-color: var(--blue);
-            font-weight: bold;
-        }
+#navbar a {
+    padding: 1em;
+    text-decoration: none;
+    color: var(--light-gray);
+    display: inline-block;
+    transition: background-color 0.3s, transform 0.3s;
+    border-radius: var(--border-radius);
+}
 
-        #navbar a:hover {
-            background-color: var(--blue);
-        }
+#navbar a:first-child {
+    background: var(--primary-gradient);
+    font-weight: bold;
+    color: var(--dark-gray);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
-        #search {
-            padding: 10px;
-            width: 90%;
-            margin: 20px auto;
-            display: block;
-        }
-        .content {
-            padding: 20px;
-            margin-top: var(--margin-top);
-        }
-        .container {
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            display: block;
-            overflow: auto;
-        }
+#navbar a:hover {
+    background: var(--primary-gradient);
+    transform: translateY(-2px);
+    color: var(--dark-gray);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
 
-        td, th {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
+#search {
+    position: relative;
+    padding: 15px;
+    width: 98%;
+    margin: 20px auto;
+    display: block;
+    font-size: medium;
+    color: var(--dark-gray);
+    border: none;
+    border-radius: var(--border-radius);
+    background: var(--light-gray);
+    box-shadow: inset 6px 6px 12px #ccc, inset -6px -6px 12px #fff;
+    transition: all 0.3s;
+}
 
-        tr:nth-child(even){
-            background-color: #f2f2f2;
-        }
+#search:focus {
+    box-shadow: inset 6px 6px 12px #bbb, inset -6px -6px 12px #eee, 0 0 8px 2px rgba(248, 241, 225, 0.5);
+    outline: none;
+}
 
-        tr:hover {
-            background-color: var(--light-blue);
-        }
+.content {
+    padding: 25px;
+    margin-top: var(--margin-top);
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+    background: var(--light-gray);
+}
 
-        th {
-            padding-top: 12px;
-            padding-bottom: 12px;
-            text-align: left;
-            background-color: var(--blue);
-            color: white;
-        }
+.container {
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: 4px 4px 8px #ccc, -4px -4px 8px #fff;
+    background-color: var(--light-gray);
+    transition: all 0.3s;
+}
 
-        pre {
-            background-color: #E4E4E4;
-            padding: 0.5em;
-            border-radius: 5px;
-        }
+.table-container {
+    padding: 0 1em;
+    overflow: auto;
+}
 
-        #search {
-            width: 98%;
-            display: block;
-            overflow: auto;
-            font-size: medium;
-        }
+table {
+    border-collapse: collapse;
+    width: 100%;
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: all 0.3s;
+}
 
-        h1, h2, h3, h4, h5, h6 {
-            scroll-margin-top: var(--margin-top);
-        }
+td, th {
+    border: 1px solid var(--gray);
+    padding: 12px;
+    transition: background-color 0.3s;
+}
+
+tr:nth-child(even) {
+    background-color: #E9ECEF; /* Soft Light Gray */
+}
+
+tr:hover {
+    background-color: #D8E2DC; /* Very Soft Gray */
+}
+
+th {
+    padding-top: 14px;
+    padding-bottom: 14px;
+    text-align: left;
+    background: var(--secondary-gradient);
+    color: var(--light-gray);
+}
+
+pre {
+    background-color: #E4E4E4;
+    padding: 15px;
+    border-radius: var(--border-radius);
+    overflow-x: auto;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    scroll-margin-top: var(--margin-top);
+    color: var(--dark-gray);
+    transition: color 0.3s;
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+    body, html {
+        background-color: var(--dark-bg);
+        color: var(--dark-text);
+    }
+
+    #navbar-outer {
+        background: var(--primary-gradient);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    #navbar a {
+        color: var(--dark-gray-text); /* Make navbar links text darker */
+    }
+
+    #navbar a:first-child {
+        background: var(--secondary-gradient);
+        color: var(--light-gray);
+    }
+
+    #navbar a:hover {
+        background: var(--secondary-gradient);
+        color: var(--light-gray);
+    }
+
+    #search {
+        background: var(--dark-card-bg);
+        color: var(--dark-text);
+        box-shadow: inset 6px 6px 12px #292d31, inset -6px -6px 12px #5a616a;
+    }
+
+    #search:focus {
+        box-shadow: inset 6px 6px 12px #292d31, inset -6px -6px 12px #5a616a, 0 0 8px 2px rgba(168, 218, 220, 0.5);
+    }
+
+    .content, .container {
+        background: var(--dark-card-bg);
+        box-shadow: 4px 4px 8px #292d31, -4px -4px 8px #5a616a;
+    }
+
+    table {
+        background-color: var(--dark-card-bg);
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+    }
+
+    td, th {
+        border: 1px solid #555;
+    }
+
+    tr:nth-child(even) {
+        background-color: #42474d; /* Dark Granite */
+    }
+
+    tr:hover {
+        background-color: #3c3f41; /* Slightly lighter dark granite */
+    }
+
+    th {
+        background: var(--primary-gradient);
+        color: var(--dark-gray-text); /* Make table header text darker */
+    }
+
+    pre {
+        background-color: #333;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: var(--light-blue);
+    }
+
+    a {
+        color: var(--dark-link);
+        transition: color 0.3s;
+    }
+
+    a:hover {
+        color: var(--dark-link-hover);
+    }
+}
     </style>
 </head>
 <body>
@@ -385,7 +520,7 @@ def translate_list_of_dicts_to_md(list_of_dicts: list) -> str:
 
 def count_lines(text):
     # Split the text by newline characters
-    lines = text.split('\n')
+    lines = text.split("\n")
     # Count the number of lines
     return len(lines)
 

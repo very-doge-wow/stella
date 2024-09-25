@@ -81,7 +81,7 @@ def get_value_from_yaml(parsed_yaml: dict, full_path: str) -> dict:
     Returns:
         result (dict): Generated data structure.
     """
-    keys = full_path.split('.')  # Split the full path into individual keys
+    keys = full_path.split(".")  # Split the full path into individual keys
     result = {}  # Initialize an empty dictionary to store the result
     current = result  # Set a pointer to the beginning of the result dictionary
     for key in keys[:-1]:  # Iterate over each key except the last one
@@ -98,7 +98,7 @@ def get_value_from_yaml(parsed_yaml: dict, full_path: str) -> dict:
         elif isinstance(value, list) and not value:
             current[keys[-1]] = []  # Set the value if it's an empty list
         elif isinstance(value, str) and not value.strip():
-            current[keys[-1]] = ''  # Set the value if it's an empty string or contains only whitespace
+            current[keys[-1]] = ""  # Set the value if it's an empty string or contains only whitespace
         else:
             current[keys[-1]] = value  # Otherwise, set the value as is
     else:
@@ -124,18 +124,18 @@ def build_full_path(i: int, value_name_dirty: str, value_name_clean: str, values
     # first element will always be the current key's name
     full_path = value_name_clean
     # check if whitespace before key is found
-    match = re.search(r'^(\s+).*$', value_name_dirty)
+    match = re.search(r"^(\s+).*$", value_name_dirty)
     # if already on top-level, we are done here
     if not match:
         return full_path
     # save original indent to compare against it below
-    initial_indent = match.group(0).count(' ')
+    initial_indent = match.group(0).count(" ")
     index = i
     # save all indents to which a key was already added to full_path, as only one can exist for each indent
     matched_indents = []
     while match:
         # count the indent
-        indent_num = match.group(0).count(' ')
+        indent_num = match.group(0).count(" ")
         # early exit if already on toplevel
         if indent_num == 0:
             return f"{upper_key}.{full_path}"
@@ -150,14 +150,14 @@ def build_full_path(i: int, value_name_dirty: str, value_name_clean: str, values
         # index now points to the line with the key
         value_name_dirty = values_lines[index].split(":")[0]
         upper_key = value_name_dirty.strip()
-        match_new = re.search(r'^\s+', value_name_dirty)
+        match_new = re.search(r"^\s+", value_name_dirty)
         if match_new:
-            indent_num_new = match_new.group(0).count(' ')
+            indent_num_new = match_new.group(0).count(" ")
             # make sure the found key is actually closer to top-level than the first one by counting indent
             if indent_num > indent_num_new and initial_indent > indent_num_new and (indent_num_new not in matched_indents):
                 full_path = f"{upper_key}.{full_path}"
                 matched_indents.append(indent_num_new)
-        match = re.search(r'^\s*', value_name_dirty)
+        match = re.search(r"^\s*", value_name_dirty)
     return full_path
 
 
@@ -185,8 +185,8 @@ def generate_values_doc(doc: dict, helm_chart_path: str) -> dict:
         if stella in line:
             # found a stella doc string
             # get the indent
-            match = re.search(r'^(\s+).*$', line)
-            indent_num = match.group(0).count(' ')-1 if match else 0
+            match = re.search(r"^(\s+).*$", line)
+            indent_num = match.group(0).count(" ")-1 if match else 0
             doc_string = ""
             i = index
             # check if the next line still is a comment, if so add it to docstring
@@ -316,7 +316,7 @@ def generate_objects(doc: dict, helm_chart_path: str) -> dict:
             if obj != "" and type(obj) == str:
                 doc["objects"].append({
                     "kind": obj,
-                    "from Template": tmpl['path']
+                    "from Template": tmpl["path"]
                 })
 
         logging.debug("done generating objects doc")
