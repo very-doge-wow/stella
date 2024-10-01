@@ -115,10 +115,9 @@ table {
     border-radius: var(--border-radius);
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
-
     max-width: 100%; /* Prevents the table from exceeding the container's width */
     table-layout: fixed; /* Ensures the table columns distribute the width evenly */
-    overflow-x: auto; /* Enables horizontal scrolling if content exceeds container width */
+    overflow-x: scroll;  /* Enables horizontal scrolling if content exceeds container width */
     display: inline-block; /* Allows the table to overflow horizontally */
     transition: all 0.3s;
 }
