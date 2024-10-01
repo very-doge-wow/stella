@@ -97,6 +97,7 @@ body, html {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: all 0.3s;
     background: var(--light-gray);
+    overflow: hidden;
 }
 
 .container {
@@ -105,21 +106,19 @@ body, html {
     box-shadow: 4px 4px 8px #ccc, -4px -4px 8px #fff;
     background-color: var(--light-gray);
     transition: all 0.3s;
-}
-
-.table-container {
-    padding: 0 1em;
-    overflow: auto;
+    overflow: hidden;
 }
 
 table {
     border-collapse: collapse;
-    width: 100%;
     background-color: white;
     border-radius: var(--border-radius);
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
-    overflow: hidden;
+    max-width: 100%; /* Prevents the table from exceeding the container's width */
+    table-layout: fixed; /* Ensures the table columns distribute the width evenly */
+    overflow-x: scroll;  /* Enables horizontal scrolling if content exceeds container width */
+    display: inline-block; /* Allows the table to overflow horizontally */
     transition: all 0.3s;
 }
 
