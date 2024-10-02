@@ -502,7 +502,6 @@ def translate_list_of_dicts_to_md(list_of_dicts: list) -> str:
                             name = value
                         if type(value) == dict:
                             value = yaml.safe_dump(value).replace("|", "\\|")  # escape pipe chars to fix md tables
-                            value = value.replace("\n", "<br>") # keep newlines explicit
                         if (key == "default" or key == "example") and value != "":
                             # we should put this into a code-block
                             value = "<pre>" + str(value).lstrip() + "</pre>"
@@ -511,8 +510,7 @@ def translate_list_of_dicts_to_md(list_of_dicts: list) -> str:
                                 value = f"<details><summary>Expand</summary>{value}</details>"
                             # replace newlines with html equivalent
                             value = value.replace("\n", "<br>")
-                        if key != "default" or key != "example":
-                            value = value.replace("\n", " ")  # no newlines allowed out of code-blocks
+                        value = value.replace("\n", "<br>")  # keep newlines explicit
                         md += f"| {value.rstrip()} "
         md += "|\n"
     return md
