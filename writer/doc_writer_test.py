@@ -40,7 +40,7 @@ def test_translate_list_of_dicts_to_md_multiline():
     md_table = doc_writer.translate_list_of_dicts_to_md(list_of_dicts)
     assert md_table == """| Name | Color | Shape |
 |---|---|---| 
-| Banana | Yellow | Banana-shaped and kinda bent |
+| Banana | Yellow | Banana-shaped<br>and kinda bent |
 | Pear | Green | Pear-shaped |
 """
 
