@@ -1,4 +1,4 @@
-FROM python:3.12-alpine3.19
+FROM python:3.13-alpine3.19
 
 ARG IMAGE_VERSION=latest
 ARG COMMIT_SHA=unknown
