@@ -28,3 +28,5 @@ jobs:
           docker push ghcr.io/${{ github.repository }}:${{ github.ref_name }}
           docker tag ghcr.io/${{ github.repository }}:${{ github.ref_name }} ghcr.io/${{ github.repository }}:latest
           docker push ghcr.io/${{ github.repository }}:latest
+          docker tag ghcr.io/${{ github.repository }}:${{ github.ref_name }} ghcr.io/${{ github.repository }}:bleeding
+          docker push ghcr.io/${{ github.repository }}:bleeding
