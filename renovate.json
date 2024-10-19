@@ -1,0 +1,17 @@
+{
+  "packageRules": [
+    {
+      "groupName": "All Updates",
+      "groupSlug": "all-updates",
+      "matchUpdateTypes": [
+        "major",
+        "minor",
+        "patch",
+        "digest"
+      ]
+    }
+  ],
+  "commitMessageAction": "Update Dependencies",
+  "branchPrefix": "renovate/",
+  "dependencyDashboard": false
+}
