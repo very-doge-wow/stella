@@ -4,12 +4,12 @@ dependencies:
   version: 1.13.0
 - name: kube-state-metrics
   repository: https://prometheus-community.github.io/helm-charts
-  version: 5.17.0
+  version: 5.26.0
 - name: prometheus-node-exporter
   repository: https://prometheus-community.github.io/helm-charts
   version: 4.31.0
 - name: prometheus-pushgateway
   repository: https://prometheus-community.github.io/helm-charts
   version: 2.8.0
-digest: sha256:3bc429061b33d09152b43d2426b9af5258ce63b5a2346cd91c02e4a2ef0108e7
-generated: "2024-10-19T09:53:28.968916858Z"
+digest: sha256:36dc20cb027186c1274f5fd7182a7a23e7c6ed5b11646045ca606d559703a342
+generated: "2024-10-19T09:53:52.456920329Z"
