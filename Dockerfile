@@ -1,4 +1,17 @@
-FROM python:3.13-alpine3.19
+FROM python:3.13-alpine3.20@sha256:c38ead8bcf521573dad837d7ecfdebbc87792202e89953ba8b2b83a9c5a520b6 as helper
+
+USER root
+
+WORKDIR app
+
+COPY Pipfile Pipfile.lock ./
+
+RUN <<EOF
+pip install pipenv --upgrade
+pipenv requirements --hash > requirements.txt
+EOF
+
+FROM python:3.13-alpine3.20@sha256:c38ead8bcf521573dad837d7ecfdebbc87792202e89953ba8b2b83a9c5a520b6
 
 ARG IMAGE_VERSION=latest
 ARG COMMIT_SHA=unknown
@@ -7,13 +20,13 @@ USER root
 
 WORKDIR app
 
-COPY reader ./reader/
-COPY writer ./writer/
-COPY stella.py Pipfile Pipfile.lock EXAMPLE/style.css ./
+COPY reader/ ./reader
+COPY writer ./writer
+COPY stella.py EXAMPLE/style.css ./
+COPY --from=helper /app/requirements.txt .
 
 RUN <<EOF
-pip install pipenv
-pipenv install --system --deploy
+pip install --root-user-action ignore -r requirements.txt
 chmod +x stella.py
 ln -s /app/stella.py /usr/local/bin/stella
 EOF
