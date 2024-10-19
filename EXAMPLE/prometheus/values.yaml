@@ -77,7 +77,7 @@ configmapReload:
     # configmap-reload container image
     image:
       repository: quay.io/prometheus-operator/prometheus-config-reloader
-      tag: v0.72.0
+      tag: v0.77.1
       # -- stella
       # When digest is set to a non-empty value, images will be pulled by digest (regardless of tag value).
       digest: ""
