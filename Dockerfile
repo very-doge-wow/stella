@@ -1,24 +1,29 @@
-FROM python:3.13-alpine3.20 as helper
+FROM python:3.13-alpine3.20@sha256:c38ead8bcf521573dad837d7ecfdebbc87792202e89953ba8b2b83a9c5a520b6 as helper
+
+# renovate: datasource=pypi depName=pipenv versioning=pep440
+ENV PIP_ENV_VERSION=2024.0.3
 
 USER root
 
-WORKDIR app
+WORKDIR /app
 
 COPY Pipfile Pipfile.lock ./
 
 RUN <<EOF
-pip install pipenv --upgrade
+pip install pipenv==${PIP_ENV_VERSION} --no-cache-dir --upgrade
 pipenv requirements --hash > requirements.txt
 EOF
 
-FROM python:3.13-alpine3.20
+USER 1000
+
+FROM python:3.13-alpine3.20@sha256:c38ead8bcf521573dad837d7ecfdebbc87792202e89953ba8b2b83a9c5a520b6
 
 ARG IMAGE_VERSION=latest
 ARG COMMIT_SHA=unknown
 
 USER root
 
-WORKDIR app
+WORKDIR /app
 
 COPY reader/ ./reader
 COPY writer ./writer
@@ -26,7 +31,7 @@ COPY stella.py EXAMPLE/style.css ./
 COPY --from=helper /app/requirements.txt .
 
 RUN <<EOF
-pip install --root-user-action ignore -r requirements.txt
+pip install --no-cache-dir --root-user-action ignore -r requirements.txt
 chmod +x stella.py
 ln -s /app/stella.py /usr/local/bin/stella
 EOF
