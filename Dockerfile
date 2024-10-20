@@ -1,4 +1,4 @@
-FROM python:3.13-alpine3.20@sha256:c38ead8bcf521573dad837d7ecfdebbc87792202e89953ba8b2b83a9c5a520b6 as helper
+FROM python:3.13-alpine3.20 as helper
 
 USER root
 
@@ -11,7 +11,7 @@ pip install pipenv --upgrade
 pipenv requirements --hash > requirements.txt
 EOF
 
-FROM python:3.13-alpine3.20@sha256:c38ead8bcf521573dad837d7ecfdebbc87792202e89953ba8b2b83a9c5a520b6
+FROM python:3.13-alpine3.20
 
 ARG IMAGE_VERSION=latest
 ARG COMMIT_SHA=unknown

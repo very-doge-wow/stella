@@ -1,4 +1,5 @@
 {
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "packageRules": [
     {
       "groupName": "All Updates",
@@ -9,6 +10,10 @@
         "patch",
         "digest"
       ]
+    },
+    {
+      "matchPaths": ["test/test-chart/**"],
+      "enabled": false
     }
   ],
   "commitMessageAction": "Update Dependencies",
