@@ -7,7 +7,6 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v4
-
       - name: lint_markdown
         uses: docker://avtodev/markdown-lint:v1
         with:
@@ -15,8 +14,11 @@ jobs:
           ignore: './test/output.md ./test/custom-template-keywords.md ./EXAMPLE_OUTPUT.md'
   hadolint:
     name: hadolint
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: hadolint/hadolint-action@v3.1.0
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: hadolint
+        uses: hadolint/hadolint-action@v3.1.0
         with:
           dockerfile: Dockerfile
