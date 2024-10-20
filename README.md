@@ -194,6 +194,9 @@ create helm chart docs.
 <details>
 <summary>Expand for more info</summary>
 
+Install [GNU make](https://www.gnu.org/software/make/) to use the Makefile
+for easier handling of all necessary commands.
+
 ### Linting Code
 
 Install linters beforehand:
@@ -204,43 +207,28 @@ Install linters beforehand:
 
 ```shell
 # Markdown Linter
-markdownlint './*.md' \
-  --ignore './test/output.md' \
-  --ignore './test/custom-template-keywords.md' \
-  --ignore './EXAMPLE_OUTPUT.md'
+make markdownlint
 
 # Python Linter
-ruff check \
-  --fix \
-  --config "lint.extend-select=['E','F','B','Q','S','W','DJ']"  .
+make ruff
 
 # Dockerfile Linter
-hadolint Dockerfile
+make hadolint
+
+# Run all Linters at once
+make lint
 ```
 
 ### Running Unit Tests
 
 ```shell
-pipenv install -d
-pipenv run pytest -vv --cov --cov-report=xml
+make test
 ```
 
 ### Updating Example Outputs
 
 ```shell
-pipenv install
-
-pipenv run python stella.py \
-  -fh \
-  -css EXAMPLE/style.css \
-  -hcp EXAMPLE/prometheus \
-  -o EXAMPLE/prometheus.html
-
-pipenv run python stella.py \
-  -fh \
-  --advanced-html \
-  -hcp EXAMPLE/prometheus \
-  -o EXAMPLE/prometheus-advanced.html
+make examples
 ```
 
 </details>
