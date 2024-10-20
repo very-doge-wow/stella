@@ -200,6 +200,7 @@ Install linters beforehand:
 
 * [markdownlint-cli](https://github.com/igorshubovych/markdownlint-cli)
 * [ruff](https://docs.astral.sh/ruff/)
+* [hadolint](https://github.com/hadolint/hadolint)
 
 ```shell
 # Markdown Linter
@@ -212,6 +213,9 @@ markdownlint './*.md' \
 ruff check \
   --fix \
   --config "lint.extend-select=['E','F','B','Q','S','W','DJ']"  .
+
+# Dockerfile Linter
+hadolint Dockerfile
 ```
 
 ### Running Unit Tests

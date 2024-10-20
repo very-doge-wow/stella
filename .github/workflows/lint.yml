@@ -1,0 +1,22 @@
+name: Lint
+on: [push]
+jobs:
+  markdownlint:
+    name: markdownlint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: lint_markdown
+        uses: docker://avtodev/markdown-lint:v1
+        with:
+          args: './*.md'
+          ignore: './test/output.md ./test/custom-template-keywords.md ./EXAMPLE_OUTPUT.md'
+  hadolint:
+    name: hadolint
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
