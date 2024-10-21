@@ -6,7 +6,7 @@
 [![release date](https://img.shields.io/github/release-date/very-doge-wow/stella?style=flat)](https://github.com/very-doge-wow/stella/releases)
 [![unittests](https://github.com/very-doge-wow/stella/actions/workflows/unittest.yml/badge.svg)](https://github.com/very-doge-wow/stella/actions/workflows/unittest.yml)
 [![code coverage](https://img.shields.io/codecov/c/github/very-doge-wow/stella/main)](https://app.codecov.io/github/very-doge-wow/stella)
-[![markdownlint](https://github.com/very-doge-wow/stella/actions/workflows/lintmarkdown.yml/badge.svg)](https://github.com/very-doge-wow/stella/actions/workflows/lintmarkdown.yml)
+[![linters](https://github.com/very-doge-wow/stella/actions/workflows/lint.yml/badge.svg)](https://github.com/very-doge-wow/stella/actions/workflows/lint.yml)
 [![license](https://img.shields.io/github/license/very-doge-wow/stella)](https://github.com/very-doge-wow/stella?tab=MIT-1-ov-file#readme)
 [![docker pulls](https://img.shields.io/docker/pulls/suchdogewow/stella.svg)](https://hub.docker.com/r/suchdogewow/stella)
 
