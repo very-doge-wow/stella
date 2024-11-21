@@ -28,7 +28,7 @@ jobs:
 
     # upload coverage to codecov
     - name: upload
-      uses: codecov/codecov-action@v5.0.4
+      uses: codecov/codecov-action@v5.0.7
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         slug: very-doge-wow/stella
