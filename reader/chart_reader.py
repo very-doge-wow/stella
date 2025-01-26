@@ -44,6 +44,8 @@ def read(helm_chart_path: str) -> dict:
     doc = generate_templates(doc, helm_chart_path)
     # generate objects
     doc = generate_objects(doc, helm_chart_path)
+    # generate default commands
+    doc = generate_commands(doc, helm_chart_path)
 
     return doc
 
@@ -320,4 +322,44 @@ def generate_objects(doc: dict, helm_chart_path: str) -> dict:
                 })
 
         logging.debug("done generating objects doc")
+    return doc
+
+
+def generate_commands(doc: dict, helm_chart_path: str) -> dict:
+    """
+    Generates default commands for the chart and saves them to a data structure.
+    Parameters:
+        doc (dict): Data structure to save to.
+        helm_chart_path (str): Path to the chart.
+    Returns:
+        doc (dict): Generated data structure.
+    """
+    doc["commands"] = []
+    with open(f"{helm_chart_path}/Chart.yaml") as file:
+        custom_yaml = yaml.safe_load(file)
+
+    if not custom_yaml.get("annotations"):
+        return doc
+
+    if not any("stella" in annotation for annotation in custom_yaml.get("annotations")):
+        return doc
+
+    repo = custom_yaml.get("annotations").get("stella/repo", "unknown")
+    repo_alias = custom_yaml.get("annotations").get("stella/repo-alias", "unknown")
+    version = custom_yaml.get("version")
+    name = custom_yaml.get("name")
+
+    repo_add = f"<pre>helm repo add {repo_alias} {repo}</pre>"
+    install = f"<pre>helm upgrade --install --wait my-release {repo_alias}/{name} --version {version}</pre>"
+
+    doc["commands"] = [
+        {
+            "command": repo_add,
+            "description": "Adds the remote repository."
+        },
+        {
+            "command": install,
+            "description": "Installs the given version of the chart."
+        }
+    ]
     return doc

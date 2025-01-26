@@ -155,6 +155,19 @@ Will yield the output:
 <!-- markdownlint-enable MD013 -->
 <!-- markdownlint-enable MD033 -->
 
+For documenting the repository where your chart is published,
+add these annotations to your chart's `Chart.yaml`:
+
+```yaml
+annotations:
+  "stella/repo": "https://your.repository.url/"
+  "stella/repo-alias": "some-alias-for-your-repo"
+```
+
+This information - if provided - will be used to generate default commands
+which your users can invoke to add the remote repository and install
+the chart.
+
 ## 📄 Custom Templating
 
 To specify a custom template, create a text/markdown file, then pass it to
