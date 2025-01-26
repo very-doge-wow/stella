@@ -165,7 +165,7 @@ annotations:
 ```
 
 This information - if provided - will be used to generate default commands
-which your user's can invoke to add the remote repository and install
+which your users can invoke to add the remote repository and install
 the chart.
 
 ## 📄 Custom Templating
