@@ -1,6 +1,6 @@
 import unittest
 import yaml
-from unittest.mock import Mock, patch, mock_open
+from unittest.mock import patch, mock_open
 from hamcrest import assert_that, has_entries, contains_inanyorder
 import chart_reader
 
@@ -132,7 +132,6 @@ class TestChartReader(unittest.TestCase):
     import yaml
 
     import chart_reader
-    from unittest.mock import Mock
     from hamcrest import assert_that, has_entries, contains_inanyorder
 
     def test_read(self):
