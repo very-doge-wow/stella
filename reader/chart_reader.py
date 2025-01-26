@@ -60,12 +60,8 @@ def generate_chart_metadata(doc: dict, helm_chart_path: str) -> dict:
         doc (dict): Generated data structure.
     """
     logging.debug("generating metadata doc")
-    content = {}
-    try:
-        with open(f"{helm_chart_path}/Chart.yaml") as file:
-            content = yaml.safe_load(file)
-    except FileNotFoundError:
-        logging.debug("Chart.yaml not found")
+    with open(f"{helm_chart_path}/Chart.yaml") as file:
+        content = yaml.safe_load(file)
     doc["description"] = content.get("description", "unknown")
     doc["apiVersion"] = content.get("apiVersion", "unknown")
     doc["type"] = content.get("type", "unknown")
