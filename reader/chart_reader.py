@@ -44,6 +44,8 @@ def read(helm_chart_path: str) -> dict:
     doc = generate_templates(doc, helm_chart_path)
     # generate objects
     doc = generate_objects(doc, helm_chart_path)
+    # generate default commands
+    docs = generate_commands(doc, helm_chart_path)
 
     return doc
 
@@ -58,8 +60,12 @@ def generate_chart_metadata(doc: dict, helm_chart_path: str) -> dict:
         doc (dict): Generated data structure.
     """
     logging.debug("generating metadata doc")
-    with open(f"{helm_chart_path}/Chart.yaml") as file:
-        content = yaml.safe_load(file)
+    content = {}
+    try:
+        with open(f"{helm_chart_path}/Chart.yaml") as file:
+            content = yaml.safe_load(file)
+    except FileNotFoundError:
+        logging.debug("Chart.yaml not found")
     doc["description"] = content.get("description", "unknown")
     doc["apiVersion"] = content.get("apiVersion", "unknown")
     doc["type"] = content.get("type", "unknown")
@@ -320,4 +326,41 @@ def generate_objects(doc: dict, helm_chart_path: str) -> dict:
                 })
 
         logging.debug("done generating objects doc")
+    return doc
+
+
+def generate_commands(doc: dict, helm_chart_path: str) -> dict:
+    """
+    Generates default commands for the chart and saves them to a data structure.
+    Parameters:
+        doc (dict): Data structure to save to.
+        helm_chart_path (str): Path to the chart.
+    Returns:
+        doc (dict): Generated data structure.
+    """
+    custom_yaml = {}
+    with open(f"{helm_chart_path}/Chart.yaml") as file:
+        custom_yaml = yaml.safe_load(file)
+
+    if not custom_yaml.get("stella"):
+        return doc
+
+    repo = custom_yaml.get("stella").get("repo")
+    repo_alias = custom_yaml.get("stella").get("repoAlias")
+    version = custom_yaml.get("version")
+    name = custom_yaml.get("name")
+
+    repo_add = f"helm repo add {repo_alias} {repo}"
+    install = f"helm upgrade --install --wait my-release {repo_alias}/{name} --version {version}"
+
+    doc["commands"] = [
+        {
+            "command": repo_add,
+            "description": "Adds the remote repository."
+        },
+        {
+            "command": install,
+            "description": "Installs the given version of the chart."
+        }
+    ]
     return doc
