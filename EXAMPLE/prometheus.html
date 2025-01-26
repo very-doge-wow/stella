@@ -255,6 +255,25 @@ h1, h2, h3, h4, h5, h6 {
 <p><img alt="Version: 25.18.0" src="https://img.shields.io/badge/Version-25.18.0-informational?style=flat-square" /> <img alt="Version: v2.51.0" src="https://img.shields.io/badge/appVersion-v2.51.0-informational?style=flat-square" /> <img alt="Version: v2" src="https://img.shields.io/badge/apiVersion-v2-informational?style=flat-square" /> <img alt="Type: application" src="https://img.shields.io/badge/Type-application-informational?style=flat-square" /> </p>
 <h2>Description</h2>
 <p>Prometheus is a monitoring system and time series database.</p>
+<h2>Commands</h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><pre>helm repo add my-charts https://my-best.example/repo</pre></td>
+<td>Adds the remote repository.</td>
+</tr>
+<tr>
+<td><pre>helm upgrade --install --wait my-release my-charts/prometheus --version 25.18.0</pre></td>
+<td>Installs the given version of the chart.</td>
+</tr>
+</tbody>
+</table>
 <h2>Dependencies</h2>
 <p>This chart depends on the following subcharts.</p>
 <table>
@@ -269,25 +288,25 @@ h1, h2, h3, h4, h5, h6 {
 <tbody>
 <tr>
 <td>alertmanager</td>
-<td>1.13.*</td>
+<td>1.14.*</td>
 <td>https://prometheus-community.github.io/helm-charts</td>
 <td>alertmanager.enabled</td>
 </tr>
 <tr>
 <td>kube-state-metrics</td>
-<td>5.26.*</td>
+<td>5.28.*</td>
 <td>https://prometheus-community.github.io/helm-charts</td>
 <td>kube-state-metrics.enabled</td>
 </tr>
 <tr>
 <td>prometheus-node-exporter</td>
-<td>4.39.*</td>
+<td>4.43.*</td>
 <td>https://prometheus-community.github.io/helm-charts</td>
 <td>prometheus-node-exporter.enabled</td>
 </tr>
 <tr>
 <td>prometheus-pushgateway</td>
-<td>2.15.*</td>
+<td>2.17.*</td>
 <td>https://prometheus-community.github.io/helm-charts</td>
 <td>prometheus-pushgateway.enabled</td>
 </tr>
@@ -457,7 +476,7 @@ h1, h2, h3, h4, h5, h6 {
 <tr>
 <td>configmapReload</td>
 <td>Monitors ConfigMap changes and POSTs to a URL.<br>Ref: https://github.com/prometheus-operator/prometheus-operator/tree/main/cmd/prometheus-config-reloader<br></td>
-<td><details><summary>Expand</summary><pre>configmapReload:<br>  env: []<br>  prometheus:<br>    containerSecurityContext: {}<br>    enabled: true<br>    extraArgs: {}<br>    extraConfigmapMounts: []<br>    extraVolumeDirs: []<br>    extraVolumeMounts: []<br>    image:<br>      digest: ''<br>      pullPolicy: IfNotPresent<br>      repository: quay.io/prometheus-operator/prometheus-config-reloader<br>      tag: v0.77.1<br>    name: configmap-reload<br>    resources: {}<br>  reloadUrl: ''<br></pre></details></td>
+<td><details><summary>Expand</summary><pre>configmapReload:<br>  env: []<br>  prometheus:<br>    containerSecurityContext: {}<br>    enabled: true<br>    extraArgs: {}<br>    extraConfigmapMounts: []<br>    extraVolumeDirs: []<br>    extraVolumeMounts: []<br>    image:<br>      digest: ''<br>      pullPolicy: IfNotPresent<br>      repository: quay.io/prometheus-operator/prometheus-config-reloader<br>      tag: v0.79.2<br>    name: configmap-reload<br>    resources: {}<br>  reloadUrl: ''<br></pre></details></td>
 <td></td>
 </tr>
 <tr>
@@ -469,7 +488,7 @@ h1, h2, h3, h4, h5, h6 {
 <tr>
 <td>configmapReload.prometheus</td>
 <td>Define values for the prometheus configuration.<br></td>
-<td><details><summary>Expand</summary><pre>configmapReload:<br>  prometheus:<br>    containerSecurityContext: {}<br>    enabled: true<br>    extraArgs: {}<br>    extraConfigmapMounts: []<br>    extraVolumeDirs: []<br>    extraVolumeMounts: []<br>    image:<br>      digest: ''<br>      pullPolicy: IfNotPresent<br>      repository: quay.io/prometheus-operator/prometheus-config-reloader<br>      tag: v0.77.1<br>    name: configmap-reload<br>    resources: {}<br></pre></details></td>
+<td><details><summary>Expand</summary><pre>configmapReload:<br>  prometheus:<br>    containerSecurityContext: {}<br>    enabled: true<br>    extraArgs: {}<br>    extraConfigmapMounts: []<br>    extraVolumeDirs: []<br>    extraVolumeMounts: []<br>    image:<br>      digest: ''<br>      pullPolicy: IfNotPresent<br>      repository: quay.io/prometheus-operator/prometheus-config-reloader<br>      tag: v0.79.2<br>    name: configmap-reload<br>    resources: {}<br></pre></details></td>
 <td></td>
 </tr>
 <tr>
@@ -511,7 +530,7 @@ h1, h2, h3, h4, h5, h6 {
 <tr>
 <td>configmapReload.prometheus.image</td>
 <td>configmap-reload container image<br></td>
-<td><pre>configmapReload:<br>  prometheus:<br>    image:<br>      digest: ''<br>      pullPolicy: IfNotPresent<br>      repository: quay.io/prometheus-operator/prometheus-config-reloader<br>      tag: v0.77.1<br></pre></td>
+<td><pre>configmapReload:<br>  prometheus:<br>    image:<br>      digest: ''<br>      pullPolicy: IfNotPresent<br>      repository: quay.io/prometheus-operator/prometheus-config-reloader<br>      tag: v0.79.2<br></pre></td>
 <td></td>
 </tr>
 <tr>

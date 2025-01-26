@@ -30,6 +30,9 @@ def write(output: str, doc: dict, template: str, format_html: bool, advanced_htm
 ## Description
 {{ stella.description }}
 
+## Commands
+{{ stella.commands }}
+
 ## Dependencies
 This chart depends on the following subcharts.
 
@@ -63,7 +66,8 @@ The following values can/will be used for deployments.
         "{{ stella.dependencies }}",
         "{{ stella.templates }}",
         "{{ stella.objects }}",
-        "{{ stella.values }}"
+        "{{ stella.values }}",
+        "{{ stella.commands }}"
     ]
 
     # transform dicts to md tables

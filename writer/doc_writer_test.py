@@ -168,7 +168,8 @@ def test_writer_keywords_custom_template():
                 "default": "1",
                 "example": "replicaCount: 2"
             }
-        ]
+        ],
+        "commands": []
     }
 
     result = doc_writer.write("test/output.md", doc, "test/custom-template-keywords.md", False, False,"")
@@ -241,7 +242,8 @@ def test_writer_keywords_default_template():
                 "default": "1",
                 "example": "replicaCount: 2"
             }
-        ]
+        ],
+        "commands": []
     }
 
     result = doc_writer.write("test/output.md", doc, "", False, False, "")
@@ -252,6 +254,9 @@ def test_writer_keywords_default_template():
 
 ## Description
 simple templating test
+
+## Commands
+*No commands found.*
 
 ## Dependencies
 This chart depends on the following subcharts.
@@ -313,7 +318,8 @@ def test_writer_empty():
                 "default": "1",
                 "example": "replicaCount: 2"
             }
-        ]
+        ],
+        "commands": []
     }
 
     result = doc_writer.write("test/output.md", doc, "", False, False, "")
@@ -323,6 +329,9 @@ def test_writer_empty():
 
 ## Description
 simple templating test
+
+## Commands
+*No commands found.*
 
 ## Dependencies
 This chart depends on the following subcharts.
@@ -400,7 +409,8 @@ def test_writer_html():
                 "default": "1",
                 "example": "replicaCount: 2"
             }
-        ]
+        ],
+        "commands": []
     }
 
     result = doc_writer.write("test/output.md", doc, "", True, False, "")
@@ -408,6 +418,8 @@ def test_writer_html():
 <p><img alt="Version: 1.0" src="https://img.shields.io/badge/Version-1.0-informational?style=flat-square" /> <img alt="Version: 1.1" src="https://img.shields.io/badge/appVersion-1.1-informational?style=flat-square" /> <img alt="Version: 1.2" src="https://img.shields.io/badge/apiVersion-1.2-informational?style=flat-square" /> <img alt="Type: application" src="https://img.shields.io/badge/Type-application-informational?style=flat-square" /> </p>
 <h2>Description</h2>
 <p>simple templating test</p>
+<h2>Commands</h2>
+<p><em>No commands found.</em></p>
 <h2>Dependencies</h2>
 <p>This chart depends on the following subcharts.</p>
 <p><em>No dependencies found.</em></p>
@@ -476,7 +488,8 @@ def test_writer_advanced_html():
                 "default": "1",
                 "example": "replicaCount: 2"
             }
-        ]
+        ],
+        "commands": []
     }
 
     result = doc_writer.write("test/output.md", doc, "", True, True, "")
@@ -740,6 +753,8 @@ h1, h2, h3, h4, h5, h6 {
 <p><img alt="Version: 1.0" src="https://img.shields.io/badge/Version-1.0-informational?style=flat-square" /> <img alt="Version: 1.1" src="https://img.shields.io/badge/appVersion-1.1-informational?style=flat-square" /> <img alt="Version: 1.2" src="https://img.shields.io/badge/apiVersion-1.2-informational?style=flat-square" /> <img alt="Type: application" src="https://img.shields.io/badge/Type-application-informational?style=flat-square" /> </p>
 <h2>Description</h2>
 <p>simple templating test</p>
+<h2>Commands</h2>
+<p><em>No commands found.</em></p>
 <h2>Dependencies</h2>
 <p>This chart depends on the following subcharts.</p>
 <p><em>No dependencies found.</em></p>
@@ -892,7 +907,8 @@ def test_writer_html_custom_css():
                 "default": "1",
                 "example": "replicaCount: 2"
             }
-        ]
+        ],
+        "commands": []
     }
 
     result = doc_writer.write("test/output.md", doc, "", True, False, "test/style.css")
@@ -962,6 +978,8 @@ tr:hover {
 <p><img alt="Version: 1.0" src="https://img.shields.io/badge/Version-1.0-informational?style=flat-square" /> <img alt="Version: 1.1" src="https://img.shields.io/badge/appVersion-1.1-informational?style=flat-square" /> <img alt="Version: 1.2" src="https://img.shields.io/badge/apiVersion-1.2-informational?style=flat-square" /> <img alt="Type: application" src="https://img.shields.io/badge/Type-application-informational?style=flat-square" /> </p>
 <h2>Description</h2>
 <p>simple templating test</p>
+<h2>Commands</h2>
+<p><em>No commands found.</em></p>
 <h2>Dependencies</h2>
 <p>This chart depends on the following subcharts.</p>
 <p><em>No dependencies found.</em></p>
