@@ -63,9 +63,9 @@ class TestChartReader(unittest.TestCase):
     @patch("builtins.open", new_callable=mock_open, read_data="stella:\n  repo: https://example.com\n  repoAlias: example\nversion: 0.1.0\nname: my-chart")
     def test_generate_commands(self, mock_file, mock_safe_load):
         mock_safe_load.return_value = {
-            "stella": {
-                "repo": "https://example.com",
-                "repoAlias": "example"
+            "annotations": {
+                "stella/repo": "https://example.com",
+                "stella/repo-alias": "example"
             },
             "version": "0.1.0",
             "name": "my-chart"
@@ -73,11 +73,11 @@ class TestChartReader(unittest.TestCase):
         result = chart_reader.generate_commands(self.blank_doc, "test/test-chart")
         assert_that(result["commands"], contains_inanyorder(
             {
-                "command": "helm repo add example https://example.com",
+                "command": "<pre>helm repo add example https://example.com</pre>",
                 "description": "Adds the remote repository."
             },
             {
-                "command": "helm upgrade --install --wait my-release example/my-chart --version 0.1.0",
+                "command": "<pre>helm upgrade --install --wait my-release example/my-chart --version 0.1.0</pre>",
                 "description": "Installs the given version of the chart."
             }
         ))
@@ -196,7 +196,7 @@ class TestChartReader(unittest.TestCase):
                          {"kind": "Ingress", "from Template": "ingress.yaml"},
                          {"kind": "Service", "from Template": "service.yaml"},
                          {"kind": "ServiceAccount", "from Template": "serviceaccount.yaml"}],
-             "commands": [{"description": "", "command": ""}]}
+             "commands": []}
         ))
 
     def test_generate_values_doc_and_example(self):

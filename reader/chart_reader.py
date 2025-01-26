@@ -45,7 +45,7 @@ def read(helm_chart_path: str) -> dict:
     # generate objects
     doc = generate_objects(doc, helm_chart_path)
     # generate default commands
-    docs = generate_commands(doc, helm_chart_path)
+    doc = generate_commands(doc, helm_chart_path)
 
     return doc
 
@@ -338,20 +338,23 @@ def generate_commands(doc: dict, helm_chart_path: str) -> dict:
     Returns:
         doc (dict): Generated data structure.
     """
-    custom_yaml = {}
+    doc["commands"] = []
     with open(f"{helm_chart_path}/Chart.yaml") as file:
         custom_yaml = yaml.safe_load(file)
 
-    if not custom_yaml.get("stella"):
+    if not custom_yaml.get("annotations"):
         return doc
 
-    repo = custom_yaml.get("stella").get("repo")
-    repo_alias = custom_yaml.get("stella").get("repoAlias")
+    if not any("stella" in annotation for annotation in custom_yaml.get("annotations")):
+        return doc
+
+    repo = custom_yaml.get("annotations").get("stella/repo", "unknown")
+    repo_alias = custom_yaml.get("annotations").get("stella/repo-alias", "unknown")
     version = custom_yaml.get("version")
     name = custom_yaml.get("name")
 
-    repo_add = f"helm repo add {repo_alias} {repo}"
-    install = f"helm upgrade --install --wait my-release {repo_alias}/{name} --version {version}"
+    repo_add = f"<pre>helm repo add {repo_alias} {repo}</pre>"
+    install = f"<pre>helm upgrade --install --wait my-release {repo_alias}/{name} --version {version}</pre>"
 
     doc["commands"] = [
         {
