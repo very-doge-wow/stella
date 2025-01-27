@@ -1,4 +1,4 @@
-FROM python:3.13-alpine3.20@sha256:9ab3b6ef4afb7582afaa84e97d40a36f192595bb0578561c282cecc22a45de49 as helper
+FROM python:3.13-alpine3.20@sha256:7788ec80bdacc4736a50adce4c3711581e83650a8895c6dbf202caf4af7a3270 as helper
 
 # renovate: datasource=pypi depName=pipenv versioning=pep440
 ENV PIP_ENV_VERSION=2024.4.1
@@ -16,7 +16,7 @@ EOF
 
 USER 1000
 
-FROM python:3.13-alpine3.20@sha256:9ab3b6ef4afb7582afaa84e97d40a36f192595bb0578561c282cecc22a45de49
+FROM python:3.13-alpine3.20@sha256:7788ec80bdacc4736a50adce4c3711581e83650a8895c6dbf202caf4af7a3270
 
 ARG IMAGE_VERSION=latest
 ARG COMMIT_SHA=unknown
