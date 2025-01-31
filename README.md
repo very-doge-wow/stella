@@ -180,6 +180,7 @@ You can use the following fields inside your template:
 * `{{ stella.apiVersion }}`
 * `{{ stella.type }}`
 * `{{ stella.description }}`
+* `{{ stella.commands }}`
 * `{{ stella.dependencies }}`
 * `{{ stella.templates }}`
 * `{{ stella.objects }}`
