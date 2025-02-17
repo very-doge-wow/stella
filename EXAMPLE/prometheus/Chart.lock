@@ -1,7 +1,7 @@
 dependencies:
 - name: alertmanager
   repository: https://prometheus-community.github.io/helm-charts
-  version: 1.14.0
+  version: 1.15.0
 - name: kube-state-metrics
   repository: https://prometheus-community.github.io/helm-charts
   version: 5.30.0
@@ -11,5 +11,5 @@ dependencies:
 - name: prometheus-pushgateway
   repository: https://prometheus-community.github.io/helm-charts
   version: 3.0.0
-digest: sha256:700b5feb0f22f3b7fc44538f2798921841760f23953e628285ed5c71ab893e72
-generated: "2025-02-10T07:53:45.718998466Z"
+digest: sha256:fb0c8979abd15da64e72bbbbf8e7c317e7104d7634d245b15ba2574fcca75aa2
+generated: "2025-02-15T10:35:39.845618863Z"
