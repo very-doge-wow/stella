@@ -10,7 +10,7 @@ markdown = "==3.7"
 [dev-packages]
 pyhamcrest = "==2.1.0"
 pytest = "==8.3.5"
-pytest-cov = "==6.0.0"
+pytest-cov = "==6.1.0"
 
 [requires]
 python_version = "3.11"
