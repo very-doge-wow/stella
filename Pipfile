@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 pyyaml = "==6.0.2"
-markdown = "==3.7"
+markdown = "==3.8"
 
 [dev-packages]
 pyhamcrest = "==2.1.0"
