@@ -7,9 +7,9 @@ dependencies:
   version: 5.33.1
 - name: prometheus-node-exporter
   repository: https://prometheus-community.github.io/helm-charts
-  version: 4.46.0
+  version: 4.46.1
 - name: prometheus-pushgateway
   repository: https://prometheus-community.github.io/helm-charts
-  version: 3.2.0
-digest: sha256:cfa9338cf281342575f0c8a4177ee3fdd37e353db738bf010dd8f39d5b9344da
-generated: "2025-05-21T02:06:40.479200146Z"
+  version: 3.3.0
+digest: sha256:81488f0061cee7148c73a3299530f60c4778e50af9385722f526113c68f0030f
+generated: "2025-05-24T02:13:32.755518488Z"
