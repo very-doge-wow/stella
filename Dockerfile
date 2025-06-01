@@ -1,7 +1,7 @@
 FROM python:3.13-alpine3.20@sha256:40a4559d3d6b2117b1fbe426f17d55b9100fa40609733a1d0c3f39e2151d4b33 as helper
 
 # renovate: datasource=pypi depName=pipenv versioning=pep440
-ENV PIP_ENV_VERSION=2025.0.2
+ENV PIP_ENV_VERSION=2025.0.3
 
 USER root
 
