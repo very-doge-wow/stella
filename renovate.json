@@ -23,5 +23,8 @@
   ],
   "commitMessageAction": "Update Dependencies",
   "branchPrefix": "renovate/",
-  "dependencyDashboard": false
+  "dependencyDashboard": false,
+  "ignorePaths": [
+    "EXAMPLE/**"
+  ]
 }
