@@ -1,4 +1,4 @@
-FROM python:3.13-alpine3.20@sha256:40a4559d3d6b2117b1fbe426f17d55b9100fa40609733a1d0c3f39e2151d4b33 as helper
+FROM python:3.13-alpine3.22 as helper
 
 # renovate: datasource=pypi depName=pipenv versioning=pep440
 ENV PIP_ENV_VERSION=2025.0.4
@@ -16,16 +16,15 @@ EOF
 
 USER 1000
 
-FROM python:3.13-alpine3.20@sha256:40a4559d3d6b2117b1fbe426f17d55b9100fa40609733a1d0c3f39e2151d4b33
+FROM python:3.13-alpine3.22
 
-ARG IMAGE_VERSION=latest
-ARG COMMIT_SHA=unknown
+ARG IMAGE_VERSION=latest COMMIT_SHA=unknown
 
 USER root
 
 WORKDIR /app
 
-COPY reader/ ./reader
+COPY reader ./reader
 COPY writer ./writer
 COPY stella.py EXAMPLE/style.css ./
 COPY --from=helper /app/requirements.txt .
