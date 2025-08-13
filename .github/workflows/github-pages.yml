@@ -11,7 +11,7 @@ jobs:
 
     steps:
     # check out repo
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     # install all deps in pipenv
     - name: install_deps
       uses: VaultVulp/action-pipenv@v2.0.1
