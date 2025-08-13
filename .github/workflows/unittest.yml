@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     # check out repo
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
 
     # install all deps in pipenv
     - name: install_deps
