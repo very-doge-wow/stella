@@ -4,11 +4,7 @@ tagFormat: ${version}
 preset: conventionalcommits
 plugins:
   - - '@semantic-release/commit-analyzer'
-    - preset: conventionalcommits
   - - '@semantic-release/release-notes-generator'
-    - preset: conventionalcommits
-      writerOpts:
-        committerDate: false
   - - '@semantic-release/github'
     - successComment: false
       failComment: false
