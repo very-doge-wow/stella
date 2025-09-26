@@ -22,20 +22,14 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install dependencies
-        run: npm ci
-
       - name: Semantic release (version, tag, GitHub release)
         id: semantic-release
         uses: cycjimmy/semantic-release-action@v4
         with:
-          # Semantic release will automatically:
-          # - Parse ALL conventional commit types
-          # - Determine version bump
-          # - Create git tag  
-          # - Create GitHub release with generated notes
-          dry_run: false
-          semantic_version: 23
+          semantic_version: 24
+          extra_plugins: |
+            @semantic-release/git
+            conventional-changelog-conventionalcommits
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
