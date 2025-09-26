@@ -1,0 +1,23 @@
+name: PR Validation
+
+# Workflow for pull request validation
+# Runs tests and builds docker image (but doesn't push)
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  # Run tests in parallel for PRs
+  unittests:
+    name: Run Unit Tests
+    uses: ./.github/workflows/unittest.yml
+
+  linters:
+    name: Run Linters  
+    uses: ./.github/workflows/lint.yml
+
+  # Build docker image for PRs (but don't push)
+  docker-build:
+    name: Build Docker Image
+    uses: ./.github/workflows/docker-build.yml

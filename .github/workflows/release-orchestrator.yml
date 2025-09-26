@@ -1,0 +1,30 @@
+name: Release Orchestrator
+
+# Main orchestrator workflow for pushes to main branch
+# Coordinates testing, building, and auto-versioning
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  # Run tests in parallel
+  unittests:
+    name: Run Unit Tests
+    uses: ./.github/workflows/unittest.yml
+
+  linters:
+    name: Run Linters
+    uses: ./.github/workflows/lint.yml
+
+  # Deploy GitHub Pages (independent of tests)
+  github-pages:
+    name: Deploy GitHub Pages
+    uses: ./.github/workflows/github-pages.yml
+
+  # Auto-version and release - only runs after all tests pass
+  auto-version-and-release:
+    name: Auto Version & GitHub Release
+    needs: [unittests, linters]
+    uses: ./.github/workflows/auto-version.yml
