@@ -51,7 +51,7 @@ BREAKING CHANGE: API endpoint structure changed
 
 ### Orchestrator Workflows
 - **`.github/workflows/release-orchestrator.yml`** - Main orchestrator for `main` branch pushes
-- **`.github/workflows/pr-validation.yml`** - Orchestrator for pull requests and feature branches
+- **`.github/workflows/pr-validation.yml`** - Orchestrator for pull requests
 
 ### Reusable Workflows
 - **`.github/workflows/unittest.yml`** - Runs Python unit tests with coverage
@@ -64,13 +64,13 @@ BREAKING CHANGE: API endpoint structure changed
 ```
 Release Orchestrator (main push):
 ├── unittests ──┐
-├── linters ────┼─→ auto-version-and-release (semantic-release + docker)
+├── linters ────┼─→ auto-version-and-release (semantic-release)
 └── github-pages
 
-PR Validation (PR/feature):
+PR Validation (pull requests only):
 ├── unittests
 ├── linters  
-└── docker-build (push only)
+└── docker-build
 ```
 
 ## Docker Image Tags
