@@ -22,6 +22,9 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Install dependencies
+        run: npm install
+
       - name: Semantic release (version, tag, GitHub release)
         id: semantic-release
         uses: cycjimmy/semantic-release-action@v4

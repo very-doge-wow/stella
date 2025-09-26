@@ -133,3 +133,5 @@ output.html
 .DS_Store
 .coverage
 coverage.xml
+
+node_modules/

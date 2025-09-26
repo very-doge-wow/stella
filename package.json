@@ -1,0 +1,10 @@
+{
+  "name": "stella-release-config",
+  "private": true,
+  "devDependencies": {
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^10.0.0",
+    "conventional-changelog-conventionalcommits": "^8.0.0",
+    "semantic-release": "^23.0.0"
+  }
+}
