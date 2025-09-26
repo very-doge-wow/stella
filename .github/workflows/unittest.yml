@@ -1,5 +1,6 @@
 name: Unittests
-on: [push]
+on:
+  workflow_call:
 jobs:
   pytest:
     runs-on: ubuntu-latest

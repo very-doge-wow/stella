@@ -1,13 +1,15 @@
 name: Deploy Example to GitHub Pages
 
 on:
-  push:
-    branches:
-      - main
+  workflow_call:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
 
     steps:
     # check out repo

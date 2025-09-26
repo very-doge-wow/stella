@@ -1,13 +1,16 @@
 name: Docker (Main)
 
 on:
-  push:
-    branches:
-      - main
+  workflow_call:
 
 jobs:
-  build-and-publish:
+  # This job only builds the bleeding edge image
+  # Version tagging is handled by auto-version.yml workflow
+  build-bleeding:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
@@ -19,7 +22,7 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push Docker image
+      - name: Build and push bleeding Docker image
         run: |
           docker build  \
             --build-arg="COMMIT_SHA=${{ github.sha }}"\

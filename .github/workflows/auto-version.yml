@@ -1,0 +1,50 @@
+name: Auto Version and Tag
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  auto-version-and-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0  # Need full history for conventional commits
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Semantic release (version, tag, GitHub release)
+        id: semantic-release
+        uses: cycjimmy/semantic-release-action@v4
+        with:
+          # Semantic release will automatically:
+          # - Parse ALL conventional commit types
+          # - Determine version bump
+          # - Create git tag  
+          # - Create GitHub release with generated notes
+          dry_run: false
+          semantic_version: 23
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Display release info
+        if: steps.semantic-release.outputs.new_release_published == 'true'
+        run: |
+          echo "✅ New release published: ${{ steps.semantic-release.outputs.new_release_version }}"
+          echo "📝 GitHub release created with auto-generated notes"
+          echo "🐳 Docker build will be triggered by the new tag"
+
+      - name: No version bump needed
+        if: steps.semantic-release.outputs.new_release_published == 'false'
+        run: |
+          echo "ℹ️  No release published - no conventional commits found that require a version bump."
+          echo "💡 Use conventional commit format to trigger automated releases"
