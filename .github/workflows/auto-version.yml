@@ -39,7 +39,7 @@ jobs:
   build-docker:
     needs: auto-version-and-release
     if: needs.auto-version-and-release.outputs.published == 'true'
-    uses: ./.github/workflows/docker-tag.yaml
+    uses: ./.github/workflows/docker-tag.yml
     with:
       tag: ${{ needs.auto-version-and-release.outputs.version }}
     secrets: inherit
