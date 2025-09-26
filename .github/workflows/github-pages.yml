@@ -3,30 +3,55 @@ name: Deploy Example to GitHub Pages
 on:
   workflow_call:
 
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-
     steps:
     # check out repo
     - uses: actions/checkout@v5
+    
+    # Setup Pages
+    - name: Setup Pages
+      uses: actions/configure-pages@v5
+      
     # install all deps in pipenv
     - name: install_deps
       uses: VaultVulp/action-pipenv@v2.0.1
       with:
         command: install
-    # run stella
-    - name: install_deps
+        
+    # run stella to generate documentation
+    - name: generate_docs
       uses: VaultVulp/action-pipenv@v2.0.1
       with:
         command: run python stella.py -fh -ah -hcp EXAMPLE/prometheus -o ./index.html
 
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v4
+    # Upload artifact for Pages
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./
+        path: ./
+
+  # Deployment job
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

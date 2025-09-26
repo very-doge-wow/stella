@@ -11,7 +11,10 @@
     [
       "@semantic-release/release-notes-generator", 
       {
-        "preset": "conventionalcommits"
+        "preset": "conventionalcommits",
+        "writerOpts": {
+          "committerDate": false
+        }
       }
     ],
     [
