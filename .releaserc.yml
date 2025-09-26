@@ -1,0 +1,21 @@
+branches:
+  - main
+tagFormat: ${version}
+preset: conventionalcommits
+plugins:
+  - - '@semantic-release/commit-analyzer'
+    - preset: conventionalcommits
+  - - '@semantic-release/release-notes-generator'
+    - preset: conventionalcommits
+      writerOpts:
+        committerDate: false
+  - - '@semantic-release/github'
+    - successComment: false
+      failComment: false
+      releasedLabels: false
+  - - '@semantic-release/git'
+    - assets: []
+      message: |-
+        chore(release): ${nextRelease.version} [skip ci]
+
+        ${nextRelease.notes}
