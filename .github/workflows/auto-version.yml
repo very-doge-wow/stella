@@ -10,11 +10,14 @@ jobs:
     permissions:
       contents: write
       pull-requests: read
+    outputs:
+      published: ${{ steps.semantic-release.outputs.new_release_published }}
+      version:   ${{ steps.semantic-release.outputs.new_release_version }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
         with:
-          fetch-depth: 0  # Need full history for conventional commits
+          fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
@@ -33,15 +36,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Display release info
-        if: steps.semantic-release.outputs.new_release_published == 'true'
-        run: |
-          echo "✅ New release published: ${{ steps.semantic-release.outputs.new_release_version }}"
-          echo "📝 GitHub release created with auto-generated notes"
-          echo "🐳 Docker build will be triggered by the new tag"
-
-      - name: No version bump needed
-        if: steps.semantic-release.outputs.new_release_published == 'false'
-        run: |
-          echo "ℹ️  No release published - no conventional commits found that require a version bump."
-          echo "💡 Use conventional commit format to trigger automated releases"
+  build-docker:
+    needs: auto-version-and-release
+    if: needs.auto-version-and-release.outputs.published == 'true'
+    uses: ./.github/workflows/docker-tag.yaml
+    with:
+      tag: ${{ needs.auto-version-and-release.outputs.version }}
+    secrets: inherit
