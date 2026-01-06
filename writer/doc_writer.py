@@ -255,7 +255,7 @@ img { max-width: 100% !important; height: auto !important; vertical-align: middl
   top: calc(var(--navbar-height) + 10px) !important;
   z-index: 5 !important;
   display: block !important;
-  width: 100% !important;
+  width: 40% !important;
   margin: 14px 0 18px !important;
   padding: 12px 16px !important;
   font-size: 14px !important;
