@@ -24,7 +24,7 @@ jobs:
     
     # Setup Pages
     - name: Setup Pages
-      uses: actions/configure-pages@v5
+      uses: actions/configure-pages@v6
       
     # install all deps in pipenv
     - name: install_deps
