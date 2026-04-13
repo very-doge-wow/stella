@@ -495,17 +495,19 @@ def test_writer_advanced_html():
     result = doc_writer.write("test/output.md", doc, "", True, True, "")
 
     import os
-    advanced_css_path = os.path.join(os.path.dirname(__file__), "advanced.css")
-    with open(advanced_css_path) as f:
+    writer_dir = os.path.dirname(__file__)
+    with open(os.path.join(writer_dir, "advanced.css")) as f:
         advanced_css = f.read()
+    with open(os.path.join(writer_dir, "advanced.js")) as f:
+        advanced_js = f.read()
 
     assert "unittest - helm chart documentation" in result
-    assert advanced_css in result
+    assert doc_writer.indent_text(advanced_css, "    ") in result
+    assert doc_writer.indent_text(advanced_js, "        ") in result
     assert "<h1>unittest</h1>" in result
     assert "<td>ReplicaCount</td>" in result
     assert '<div id="navbar-outer">' in result
     assert '<div id="navbar"></div>' in result
-    assert "selectTableBelowHeading" in result
 
 
 def test_writer_html_custom_css():
@@ -663,6 +665,13 @@ def test_count_lines():
 
     input_str = ""
     assert doc_writer.count_lines(input_str) == 1
+
+
+def test_indent_text():
+    assert doc_writer.indent_text("hello\nworld", "  ") == "  hello\n  world"
+    assert doc_writer.indent_text("hello\n\nworld", "    ") == "    hello\n\n    world"
+    assert doc_writer.indent_text("single line", "\t") == "\tsingle line"
+    assert doc_writer.indent_text("", "  ") == ""
 
 
 # test if values/examples are wrapped in html details element
