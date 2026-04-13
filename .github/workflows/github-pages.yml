@@ -33,10 +33,13 @@ jobs:
         command: install
         
     # run stella to generate documentation
+    - name: create_output_dir
+      run: mkdir -p _site
+
     - name: generate_docs
-      run: |
-        mkdir -p _site
-        pipenv run python stella.py -fh -ah -hcp EXAMPLE/prometheus -o ./_site/index.html
+      uses: VaultVulp/action-pipenv@v2.0.1
+      with:
+        command: run python stella.py -fh -ah -hcp EXAMPLE/prometheus -o ./_site/index.html
 
     # Upload artifact for Pages
     - name: Upload artifact
