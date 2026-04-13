@@ -15,6 +15,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v4
         with:
@@ -23,9 +29,12 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push bleeding Docker image
-        run: |
-          docker build  \
-            --build-arg="COMMIT_SHA=${{ github.sha }}"\
-            --build-arg="IMAGE_VERSION=bleeding" \
-            -t ghcr.io/${{ github.repository }}:bleeding .
-          docker push ghcr.io/${{ github.repository }}:bleeding
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          build-args: |
+            COMMIT_SHA=${{ github.sha }}
+            IMAGE_VERSION=bleeding
+          tags: ghcr.io/${{ github.repository }}:bleeding
