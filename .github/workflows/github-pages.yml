@@ -36,13 +36,13 @@ jobs:
     - name: generate_docs
       uses: VaultVulp/action-pipenv@v2.0.1
       with:
-        command: run python stella.py -fh -ah -hcp EXAMPLE/prometheus -o ./index.html
+        command: run python stella.py -fh -ah -hcp EXAMPLE/prometheus -o ./_site/index.html
 
     # Upload artifact for Pages
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v4
       with:
-        path: ./
+        path: ./_site
 
   # Deployment job
   deploy:
