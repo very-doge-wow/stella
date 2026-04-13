@@ -4,6 +4,10 @@ import yaml
 import markdown
 
 
+def indent_text(text: str, prefix: str) -> str:
+    return "\n".join(prefix + line if line else line for line in text.splitlines())
+
+
 def write(output: str, doc: dict, template: str, format_html: bool, advanced_html: bool, css: str) -> str:
     """
     Creates a Markdown doc file for the helm chart.
@@ -159,7 +163,11 @@ REPLACE_STRING_ADVANCED_SCRIPT
                         "REPLACE_STRING_BODY", result)
             else:
                 logging.debug("Using advanced HTML template")
-                result = html_advanced_template.replace("REPLACE_STRING_ADVANCED_STYLE", advanced_css).replace("REPLACE_STRING_ADVANCED_SCRIPT", advanced_js).replace("REPLACE_STRING_BODY", result)
+                result = html_advanced_template.replace(
+                    "REPLACE_STRING_ADVANCED_STYLE", indent_text(advanced_css, "    ")
+                ).replace(
+                    "REPLACE_STRING_ADVANCED_SCRIPT", indent_text(advanced_js, "        ")
+                ).replace("REPLACE_STRING_BODY", result)
 
             # title is replaced regardless of advanced or simple html
             result = result.replace("REPLACE_STRING_TITLE", title_str)
