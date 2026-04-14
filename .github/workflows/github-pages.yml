@@ -28,7 +28,7 @@ jobs:
       
     # install dependencies and generate documentation
     - name: Setup Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: '3.x'
 
@@ -52,7 +52,7 @@ jobs:
 
     # Upload artifact for Pages
     - name: Upload artifact
-      uses: actions/upload-pages-artifact@v4
+      uses: actions/upload-pages-artifact@v5
       with:
         name: pages-artifact
         path: ./_site
