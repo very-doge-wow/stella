@@ -27,7 +27,7 @@ jobs:
 
       - name: Semantic release (version, tag, GitHub release)
         id: semantic-release
-        uses: cycjimmy/semantic-release-action@v4
+        uses: cycjimmy/semantic-release-action@v6.0.0
         with:
           semantic_version: 24
           extra_plugins: |
