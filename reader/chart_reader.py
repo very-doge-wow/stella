@@ -328,7 +328,19 @@ def generate_objects(doc: dict, helm_chart_path: str) -> dict:
         objects = []
         for line in tmpl_string.split("\n"):
             if line.startswith("kind:"):
-                objects.append(line.split("kind:")[1].strip())
+                kind_value = line.split("kind:")[1].strip()
+                # handle Go template expressions like {{ .Values.kind | default "HTTPRoute" }}
+                if "{{" in kind_value and "}}" in kind_value:
+                    # try to extract default value from template expression
+                    default_match = re.search(r'default\s+"([^"]+)"', kind_value)
+                    if not default_match:
+                        default_match = re.search(r"default\s+'([^']+)'", kind_value)
+                    if default_match:
+                        kind_value = default_match.group(1)
+                    else:
+                        # no default found, skip this dynamic kind
+                        continue
+                objects.append(kind_value)
 
         for obj in objects:
             if obj != "" and type(obj) == str:
