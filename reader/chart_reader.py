@@ -22,6 +22,14 @@ def read(helm_chart_path: str) -> dict:
         "version": "",
         "description": "",
         "type": "",
+        "kubeVersion": "",
+        "keywords": [],
+        "home": "",
+        "sources": [],
+        "maintainers": [],
+        "icon": "",
+        "deprecated": False,
+        "annotations": {},
         "dependencies": [],
         "values": [],
         "templates": [],
@@ -68,6 +76,14 @@ def generate_chart_metadata(doc: dict, helm_chart_path: str) -> dict:
     doc["name"] = content.get("name", "unknown")
     doc["appVersion"] = content.get("appVersion", "unknown")
     doc["version"] = content.get("version", "unknown")
+    doc["kubeVersion"] = content.get("kubeVersion", "")
+    doc["keywords"] = content.get("keywords", [])
+    doc["home"] = content.get("home", "")
+    doc["sources"] = content.get("sources", [])
+    doc["maintainers"] = content.get("maintainers", [])
+    doc["icon"] = content.get("icon", "")
+    doc["deprecated"] = content.get("deprecated", False)
+    doc["annotations"] = content.get("annotations", {})
     logging.debug("done generating metadata doc")
     return doc
 

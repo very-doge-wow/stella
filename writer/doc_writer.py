@@ -29,11 +29,14 @@ def write(output: str, doc: dict, template: str, format_html: bool, advanced_htm
     else:
         logging.debug("using default template")
         template_content = """
-# {{ stella.name }}
+# {{ stella.icon }} {{ stella.name }}
 ![Version: {{ stella.version }}](https://img.shields.io/badge/Version-{{ stella.version }}-informational?style=flat-square) ![Version: {{ stella.appVersion }}](https://img.shields.io/badge/appVersion-{{ stella.appVersion }}-informational?style=flat-square) ![Version: {{ stella.apiVersion }}](https://img.shields.io/badge/apiVersion-{{ stella.apiVersion }}-informational?style=flat-square) ![Type: {{ stella.type }}](https://img.shields.io/badge/Type-{{ stella.type }}-informational?style=flat-square) 
 
 ## Description
 {{ stella.description }}
+
+## Info
+{{ stella.chartInfo }}
 
 ## Commands
 {{ stella.commands }}
@@ -68,6 +71,15 @@ The following values can/will be used for deployments.
         "{{ stella.apiVersion }}",
         "{{ stella.type }}",
         "{{ stella.description }}",
+        "{{ stella.kubeVersion }}",
+        "{{ stella.keywords }}",
+        "{{ stella.home }}",
+        "{{ stella.sources }}",
+        "{{ stella.maintainers }}",
+        "{{ stella.icon }}",
+        "{{ stella.deprecated }}",
+        "{{ stella.annotations }}",
+        "{{ stella.chartInfo }}",
         "{{ stella.dependencies }}",
         "{{ stella.templates }}",
         "{{ stella.objects }}",
@@ -75,18 +87,36 @@ The following values can/will be used for deployments.
         "{{ stella.commands }}"
     ]
 
-    # transform dicts to md tables
+    # format new chart info fields as table rows BEFORE generic conversion
+    # so we can work with the original data types
     translated = doc
+    translated = format_chart_info_fields(translated)
+
+    # transform dicts to md tables
     for key in translated:
         if type(translated[key]) == list:
             logging.debug(f"converting list of dicts {key} to md")
 
             if len(translated[key]) > 0:
-                md = translate_list_of_dicts_to_md(doc[key])
+                # check if list contains dicts (table) or simple values (bullet list)
+                if isinstance(translated[key][0], dict):
+                    md = translate_list_of_dicts_to_md(doc[key])
+                else:
+                    md = translate_list_to_md(doc[key])
                 translated[key] = md
             else:
                 md = f"*No {get_name_from_keyword(key)} found.*"
                 translated[key] = md
+        elif type(translated[key]) == dict:
+            logging.debug(f"converting dict {key} to md")
+            if len(translated[key]) > 0:
+                md = translate_dict_to_md(doc[key])
+                translated[key] = md
+            else:
+                md = f"*No {get_name_from_keyword(key)} found.*"
+                translated[key] = md
+        elif type(translated[key]) == bool:
+            translated[key] = str(translated[key]).lower()
 
     result = ""
     for line in template_content.split("\n"):
@@ -217,6 +247,165 @@ def translate_list_of_dicts_to_md(list_of_dicts: list) -> str:
                         value = value.replace("\n", "<br>")  # keep newlines explicit
                         md += f"| {value.rstrip()} "
         md += "|\n"
+    return md
+
+
+def format_chart_info_fields(translated: dict) -> dict:
+    """
+    Formats the new Chart.yaml fields as table rows for the Chart Information section.
+    Each field is rendered as a row: | Label | Value |
+    Empty/missing fields are rendered as empty strings so they don't appear.
+    Also builds a composite 'chartInfo' field containing the full table.
+    Works with raw data types before generic conversion.
+    Parameters:
+        translated (dict): The translated doc structure with raw data types.
+    Returns:
+        translated (dict): Updated structure with formatted string fields.
+    """
+    rows = []
+
+    # home - render as link
+    home = translated.get("home", "")
+    if home:
+        if home.startswith("http://") or home.startswith("https://"):
+            home_str = f"<a href=\"{home}\">{home}</a>"
+        else:
+            home_str = home
+        row = f"| **Home** | {home_str} |"
+        translated["home"] = row
+        rows.append(row)
+    else:
+        translated["home"] = ""
+
+    # icon - render as standalone image (not in table)
+    icon = translated.get("icon", "")
+    if icon:
+        translated["icon"] = f'<img src="{icon}" alt="Chart Icon" width="64">'
+    else:
+        translated["icon"] = ""
+
+    # sources - render as ul/li list with links
+    sources = translated.get("sources", [])
+    if sources and isinstance(sources, list) and len(sources) > 0:
+        items = []
+        for s in sources:
+            if str(s).startswith("http://") or str(s).startswith("https://"):
+                items.append(f"<li><a href=\"{s}\">{s}</a></li>")
+            else:
+                items.append(f"<li>{s}</li>")
+        sources_str = f"<ul>{''.join(items)}</ul>"
+        row = f"| **Sources** | {sources_str} |"
+        translated["sources"] = row
+        rows.append(row)
+    else:
+        translated["sources"] = ""
+
+    # maintainers - render as inline list of name (email)
+    maintainers = translated.get("maintainers", [])
+    if maintainers and isinstance(maintainers, list) and len(maintainers) > 0:
+        parts = []
+        for m in maintainers:
+            name = m.get("name", "")
+            email = m.get("email", "")
+            url = m.get("url", "")
+            entry = name
+            if email:
+                entry += f" ({email})"
+            if url:
+                entry += f" [{url}]({url})"
+            parts.append(entry)
+        maintainers_str = ", ".join(parts)
+        row = f"| **Maintainers** | {maintainers_str} |"
+        translated["maintainers"] = row
+        rows.append(row)
+    else:
+        translated["maintainers"] = ""
+
+    # kubeVersion
+    kube_version = translated.get("kubeVersion", "")
+    if kube_version:
+        row = f"| **Kubernetes Version** | `{kube_version}` |"
+        translated["kubeVersion"] = row
+        rows.append(row)
+    else:
+        translated["kubeVersion"] = ""
+
+    # deprecated
+    deprecated = translated.get("deprecated", False)
+    if deprecated:
+        row = "| **Deprecated** | ⚠️ This chart is deprecated |"
+        translated["deprecated"] = row
+        rows.append(row)
+    else:
+        translated["deprecated"] = ""
+
+    # keywords
+    keywords = translated.get("keywords", [])
+    if keywords and isinstance(keywords, list) and len(keywords) > 0:
+        keywords_str = ", ".join(str(k) for k in keywords)
+        row = f"| **Keywords** | {keywords_str} |"
+        translated["keywords"] = row
+        rows.append(row)
+    else:
+        translated["keywords"] = ""
+
+    # annotations - render as ul/li list, excluding stella/ annotations
+    annotations = translated.get("annotations", {})
+    if annotations and isinstance(annotations, dict) and len(annotations) > 0:
+        items = []
+        for k, v in annotations.items():
+            if k.startswith("stella/"):
+                continue
+            v_str = str(v).replace("\n", " ").strip()
+            if len(v_str) > 80:
+                v_str = v_str[:77] + "..."
+            items.append(f"<li>`{k}`: {v_str}</li>")
+        if items:
+            annotations_str = "<ul>" + "".join(items) + "</ul>"
+            row = f"| **Annotations** | {annotations_str} |"
+            translated["annotations"] = row
+            rows.append(row)
+        else:
+            translated["annotations"] = ""
+    else:
+        translated["annotations"] = ""
+
+    # build composite chartInfo table
+    if rows:
+        table = "| | |\n|---|---|\n" + "\n".join(rows)
+        translated["chartInfo"] = table
+    else:
+        translated["chartInfo"] = "*No additional chart information found.*"
+
+    return translated
+
+
+def translate_list_to_md(items: list) -> str:
+    """
+    Creates a Markdown bullet list from a list of simple values (strings, numbers).
+    Parameters:
+        items (list): List of simple values.
+    Returns:
+        md (str): Markdown bullet list.
+    """
+    md = ""
+    for item in items:
+        md += f"- {item}\n"
+    return md
+
+
+def translate_dict_to_md(dictionary: dict) -> str:
+    """
+    Creates a Markdown table from a dictionary with key-value pairs.
+    Parameters:
+        dictionary (dict): Dictionary to convert.
+    Returns:
+        md (str): Markdown table created from dict.
+    """
+    md = "| Key | Value |\n|---|---| \n"
+    for key, value in dictionary.items():
+        value_str = str(value).replace("\n", "<br>").replace("|", "\\|")
+        md += f"| {key} | {value_str} |\n"
     return md
 
 

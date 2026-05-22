@@ -15,6 +15,14 @@ class TestChartReader(unittest.TestCase):
             "version": "",
             "description": "",
             "type": "",
+            "kubeVersion": "",
+            "keywords": [],
+            "home": "",
+            "sources": [],
+            "maintainers": [],
+            "icon": "",
+            "deprecated": False,
+            "annotations": {},
             "dependencies": [],
             "values": [],
             "templates": [],
@@ -31,7 +39,15 @@ class TestChartReader(unittest.TestCase):
             "version": "0.1.0",
             "appVersion": "1.16.0",
             "description": "A Helm chart for Kubernetes",
-            "type": "application"
+            "type": "application",
+            "kubeVersion": ">=1.19.0-0",
+            "home": "https://example.com",
+            "icon": "https://example.com/icon.png",
+            "sources": ["https://github.com/example/test"],
+            "keywords": ["test", "helm"],
+            "maintainers": [{"name": "tester", "email": "test@example.com"}],
+            "deprecated": False,
+            "annotations": {"example.io/docs": "https://example.com/docs"}
         }
         result = chart_reader.generate_chart_metadata({}, "test/test-chart")
         assert_that(result, has_entries(
@@ -41,7 +57,15 @@ class TestChartReader(unittest.TestCase):
                 "description": "A Helm chart for Kubernetes",
                 "name": "test-chart",
                 "type": "application",
-                "version": "0.1.0"
+                "version": "0.1.0",
+                "kubeVersion": ">=1.19.0-0",
+                "home": "https://example.com",
+                "icon": "https://example.com/icon.png",
+                "sources": ["https://github.com/example/test"],
+                "keywords": ["test", "helm"],
+                "maintainers": [{"name": "tester", "email": "test@example.com"}],
+                "deprecated": False,
+                "annotations": {"example.io/docs": "https://example.com/docs"}
             }
         ))
 
@@ -55,7 +79,15 @@ class TestChartReader(unittest.TestCase):
                 "description": "unknown",
                 "name": "unknown",
                 "type": "unknown",
-                "version": "unknown"
+                "version": "unknown",
+                "kubeVersion": "",
+                "home": "",
+                "icon": "",
+                "sources": [],
+                "keywords": [],
+                "maintainers": [],
+                "deprecated": False,
+                "annotations": {}
             }
         ))
 
@@ -142,6 +174,14 @@ class TestChartReader(unittest.TestCase):
             "version": "",
             "description": "",
             "type": "",
+            "kubeVersion": "",
+            "keywords": [],
+            "home": "",
+            "sources": [],
+            "maintainers": [],
+            "icon": "",
+            "deprecated": False,
+            "annotations": {},
             "dependencies": [],
             "values": [],
             "templates": [],
@@ -153,7 +193,16 @@ class TestChartReader(unittest.TestCase):
         result["templates"] = sorted(result["templates"], key=lambda item: item.get("path"))
         assert_that(result, has_entries(
             {"name": "test-chart", "appVersion": "1.16.0", "apiVersion": "v2", "version": "0.1.0",
-             "description": "A Helm chart for Kubernetes", "type": "application", "dependencies": [
+             "description": "A Helm chart for Kubernetes", "type": "application",
+             "kubeVersion": ">=1.19.0-0",
+             "home": "https://example.com/test-chart",
+             "icon": "https://example.com/icon.png",
+             "sources": ["https://github.com/example/test-chart"],
+             "keywords": ["test", "helm"],
+             "maintainers": [{"name": "test-maintainer", "email": "test@example.com", "url": "https://example.com"}],
+             "deprecated": False,
+             "annotations": {"example.io/docs": "https://example.com/docs"},
+             "dependencies": [
                 {"name": "postgresql", "condition": "postgresql.enabled", "version": "1.2.3",
                  "repository": "https://lol.de/repo/"},
                 {"name": "mysql", "condition": "mysql.enabled", "version": "1.2.3",
