@@ -205,7 +205,7 @@ simple templating test
 
 | **Home** | <a href="https://example.com">https://example.com</a> |
 
-| **Sources** | <ul><li><a href="https://github.com/example/test">https://github.com/example/test</a></li></ul> |
+| **Sources** | <a href="https://github.com/example/test">https://github.com/example/test</a> |
 
 | **Maintainers** | tester (test@example.com) [https://example.com](https://example.com) |
 
@@ -213,7 +213,7 @@ simple templating test
 
 
 
-| **Annotations** | <ul><li>`example.io/docs`: https://example.com/docs</li></ul> |
+| **Annotations** | `example.io/docs`: https://example.com/docs |
 
 | Name | Condition | Version | Repository |
 |---|---|---|---| 
@@ -303,11 +303,11 @@ simple templating test
 | | |
 |---|---|
 | **Home** | <a href="https://example.com">https://example.com</a> |
-| **Sources** | <ul><li><a href="https://github.com/example/test">https://github.com/example/test</a></li></ul> |
+| **Sources** | <a href="https://github.com/example/test">https://github.com/example/test</a> |
 | **Maintainers** | tester (test@example.com) [https://example.com](https://example.com) |
 | **Kubernetes Version** | `>=1.19.0-0` |
 | **Keywords** | test, helm |
-| **Annotations** | <ul><li>`example.io/docs`: https://example.com/docs</li></ul> |
+| **Annotations** | `example.io/docs`: https://example.com/docs |
 
 ## Commands
 *No commands found.*

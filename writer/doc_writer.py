@@ -284,16 +284,23 @@ def format_chart_info_fields(translated: dict) -> dict:
     else:
         translated["icon"] = ""
 
-    # sources - render as ul/li list with links
+    # sources - render as ul/li list with links (single item rendered inline)
     sources = translated.get("sources", [])
     if sources and isinstance(sources, list) and len(sources) > 0:
-        items = []
-        for s in sources:
+        if len(sources) == 1:
+            s = sources[0]
             if str(s).startswith("http://") or str(s).startswith("https://"):
-                items.append(f"<li><a href=\"{s}\">{s}</a></li>")
+                sources_str = f'<a href="{s}">{s}</a>'
             else:
-                items.append(f"<li>{s}</li>")
-        sources_str = f"<ul>{''.join(items)}</ul>"
+                sources_str = str(s)
+        else:
+            items = []
+            for s in sources:
+                if str(s).startswith("http://") or str(s).startswith("https://"):
+                    items.append(f'<li><a href="{s}">{s}</a></li>')
+                else:
+                    items.append(f"<li>{s}</li>")
+            sources_str = f"<ul>{''.join(items)}</ul>"
         row = f"| **Sources** | {sources_str} |"
         translated["sources"] = row
         rows.append(row)
@@ -349,7 +356,7 @@ def format_chart_info_fields(translated: dict) -> dict:
     else:
         translated["keywords"] = ""
 
-    # annotations - render as ul/li list, excluding stella/ annotations
+    # annotations - render as ul/li list, excluding stella/ annotations (single item inline)
     annotations = translated.get("annotations", {})
     if annotations and isinstance(annotations, dict) and len(annotations) > 0:
         items = []
@@ -359,9 +366,12 @@ def format_chart_info_fields(translated: dict) -> dict:
             v_str = str(v).replace("\n", " ").strip()
             if len(v_str) > 80:
                 v_str = v_str[:77] + "..."
-            items.append(f"<li>`{k}`: {v_str}</li>")
+            items.append(f"`{k}`: {v_str}")
         if items:
-            annotations_str = "<ul>" + "".join(items) + "</ul>"
+            if len(items) == 1:
+                annotations_str = items[0]
+            else:
+                annotations_str = "<ul>" + "".join(f"<li>{i}</li>" for i in items) + "</ul>"
             row = f"| **Annotations** | {annotations_str} |"
             translated["annotations"] = row
             rows.append(row)
