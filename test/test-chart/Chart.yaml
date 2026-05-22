@@ -22,3 +22,19 @@ version: 0.1.0
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
 appVersion: "1.16.0"
+
+kubeVersion: ">=1.19.0-0"
+home: https://example.com/test-chart
+icon: https://example.com/icon.png
+sources:
+  - https://github.com/example/test-chart
+keywords:
+  - test
+  - helm
+maintainers:
+  - name: test-maintainer
+    email: test@example.com
+    url: https://example.com
+deprecated: false
+annotations:
+  example.io/docs: "https://example.com/docs"

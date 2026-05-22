@@ -142,6 +142,20 @@ def test_writer_keywords_custom_template():
         "apiVersion": "1.2",
         "name": "unittest",
         "description": "simple templating test",
+        "kubeVersion": ">=1.19.0-0",
+        "keywords": ["test", "helm"],
+        "home": "https://example.com",
+        "sources": ["https://github.com/example/test"],
+        "maintainers": [
+            {
+                "name": "tester",
+                "email": "test@example.com",
+                "url": "https://example.com"
+            }
+        ],
+        "icon": "https://example.com/icon.png",
+        "deprecated": False,
+        "annotations": {"example.io/docs": "https://example.com/docs"},
         "dependencies": [
             {
                 "name": "dependency",
@@ -185,6 +199,22 @@ application
 
 simple templating test
 
+| **Kubernetes Version** | `>=1.19.0-0` |
+
+| **Keywords** | test, helm |
+
+| **Home** | <a href="https://example.com">https://example.com</a> |
+
+| **Sources** | <ul><li><a href="https://github.com/example/test">https://github.com/example/test</a></li></ul> |
+
+| **Maintainers** | tester (test@example.com) [https://example.com](https://example.com) |
+
+<img src="https://example.com/icon.png" alt="Chart Icon" width="64">
+
+
+
+| **Annotations** | <ul><li>`example.io/docs`: https://example.com/docs</li></ul> |
+
 | Name | Condition | Version | Repository |
 |---|---|---|---| 
 | dependency | ifEnabled=true | 1.3 | https://unit.test/ |
@@ -216,6 +246,20 @@ def test_writer_keywords_default_template():
         "apiVersion": "1.2",
         "name": "unittest",
         "description": "simple templating test",
+        "kubeVersion": ">=1.19.0-0",
+        "keywords": ["test", "helm"],
+        "home": "https://example.com",
+        "sources": ["https://github.com/example/test"],
+        "maintainers": [
+            {
+                "name": "tester",
+                "email": "test@example.com",
+                "url": "https://example.com"
+            }
+        ],
+        "icon": "https://example.com/icon.png",
+        "deprecated": False,
+        "annotations": {"example.io/docs": "https://example.com/docs"},
         "dependencies": [
             {
                 "name": "dependency",
@@ -249,11 +293,21 @@ def test_writer_keywords_default_template():
     result = doc_writer.write("test/output.md", doc, "", False, False, "")
 
     assert result == """
-# unittest
+# <img src="https://example.com/icon.png" alt="Chart Icon" width="64"> unittest
 ![Version: 1.0](https://img.shields.io/badge/Version-1.0-informational?style=flat-square) ![Version: 1.1](https://img.shields.io/badge/appVersion-1.1-informational?style=flat-square) ![Version: 1.2](https://img.shields.io/badge/apiVersion-1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) 
 
 ## Description
 simple templating test
+
+## Info
+| | |
+|---|---|
+| **Home** | <a href="https://example.com">https://example.com</a> |
+| **Sources** | <ul><li><a href="https://github.com/example/test">https://github.com/example/test</a></li></ul> |
+| **Maintainers** | tester (test@example.com) [https://example.com](https://example.com) |
+| **Kubernetes Version** | `>=1.19.0-0` |
+| **Keywords** | test, helm |
+| **Annotations** | <ul><li>`example.io/docs`: https://example.com/docs</li></ul> |
 
 ## Commands
 *No commands found.*
@@ -303,6 +357,14 @@ def test_writer_empty():
         "apiVersion": "1.2",
         "name": "unittest",
         "description": "simple templating test",
+        "kubeVersion": "",
+        "keywords": [],
+        "home": "",
+        "sources": [],
+        "maintainers": [],
+        "icon": "",
+        "deprecated": False,
+        "annotations": {},
         "dependencies": [],
         "templates": [],
         "objects": [
@@ -324,11 +386,14 @@ def test_writer_empty():
 
     result = doc_writer.write("test/output.md", doc, "", False, False, "")
     assert result == """
-# unittest
+#  unittest
 ![Version: 1.0](https://img.shields.io/badge/Version-1.0-informational?style=flat-square) ![Version: 1.1](https://img.shields.io/badge/appVersion-1.1-informational?style=flat-square) ![Version: 1.2](https://img.shields.io/badge/apiVersion-1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) 
 
 ## Description
 simple templating test
+
+## Info
+*No additional chart information found.*
 
 ## Commands
 *No commands found.*
@@ -394,6 +459,14 @@ def test_writer_html():
         "apiVersion": "1.2",
         "name": "unittest",
         "description": "simple templating test",
+        "kubeVersion": "",
+        "keywords": [],
+        "home": "",
+        "sources": [],
+        "maintainers": [],
+        "icon": "",
+        "deprecated": False,
+        "annotations": {},
         "dependencies": [],
         "templates": [],
         "objects": [
@@ -418,6 +491,8 @@ def test_writer_html():
 <p><img alt="Version: 1.0" src="https://img.shields.io/badge/Version-1.0-informational?style=flat-square" /> <img alt="Version: 1.1" src="https://img.shields.io/badge/appVersion-1.1-informational?style=flat-square" /> <img alt="Version: 1.2" src="https://img.shields.io/badge/apiVersion-1.2-informational?style=flat-square" /> <img alt="Type: application" src="https://img.shields.io/badge/Type-application-informational?style=flat-square" /> </p>
 <h2>Description</h2>
 <p>simple templating test</p>
+<h2>Info</h2>
+<p><em>No additional chart information found.</em></p>
 <h2>Commands</h2>
 <p><em>No commands found.</em></p>
 <h2>Dependencies</h2>
@@ -473,6 +548,14 @@ def test_writer_advanced_html():
         "apiVersion": "1.2",
         "name": "unittest",
         "description": "simple templating test",
+        "kubeVersion": "",
+        "keywords": [],
+        "home": "",
+        "sources": [],
+        "maintainers": [],
+        "icon": "",
+        "deprecated": False,
+        "annotations": {},
         "dependencies": [],
         "templates": [],
         "objects": [
@@ -518,6 +601,14 @@ def test_writer_html_custom_css():
         "apiVersion": "1.2",
         "name": "unittest",
         "description": "simple templating test",
+        "kubeVersion": "",
+        "keywords": [],
+        "home": "",
+        "sources": [],
+        "maintainers": [],
+        "icon": "",
+        "deprecated": False,
+        "annotations": {},
         "dependencies": [],
         "templates": [],
         "objects": [
@@ -604,6 +695,8 @@ tr:hover {
 <p><img alt="Version: 1.0" src="https://img.shields.io/badge/Version-1.0-informational?style=flat-square" /> <img alt="Version: 1.1" src="https://img.shields.io/badge/appVersion-1.1-informational?style=flat-square" /> <img alt="Version: 1.2" src="https://img.shields.io/badge/apiVersion-1.2-informational?style=flat-square" /> <img alt="Type: application" src="https://img.shields.io/badge/Type-application-informational?style=flat-square" /> </p>
 <h2>Description</h2>
 <p>simple templating test</p>
+<h2>Info</h2>
+<p><em>No additional chart information found.</em></p>
 <h2>Commands</h2>
 <p><em>No commands found.</em></p>
 <h2>Dependencies</h2>

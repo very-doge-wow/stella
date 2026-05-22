@@ -10,6 +10,22 @@
 
 {{ stella.description }}
 
+{{ stella.kubeVersion }}
+
+{{ stella.keywords }}
+
+{{ stella.home }}
+
+{{ stella.sources }}
+
+{{ stella.maintainers }}
+
+{{ stella.icon }}
+
+{{ stella.deprecated }}
+
+{{ stella.annotations }}
+
 {{ stella.dependencies }}
 
 {{ stella.templates }}
