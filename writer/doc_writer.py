@@ -268,7 +268,7 @@ def format_chart_info_fields(translated: dict) -> dict:
     home = translated.get("home", "")
     if home:
         if home.startswith("http://") or home.startswith("https://"):
-            home_str = f"<a href=\"{home}\">{home}</a>"
+            home_str = f'<a href="{home}">{home}</a>'
         else:
             home_str = home
         row = f"| **Home** | {home_str} |"

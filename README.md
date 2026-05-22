@@ -13,8 +13,9 @@
 `stella` is a free tool to help automatically generate
 [helm](https://helm.sh/) chart documentation.
 It supports simple templating, so custom templates for output can be used as
-well. Will read metadata such as `Chart.yaml`, `values.yaml` or the present
-templates and generate a Markdown or HTML documentation from that data.
+well. Will read all metadata from `Chart.yaml` (including maintainers, sources,
+annotations, keywords, icon, etc.), `values.yaml` and the present
+templates, then generate a Markdown or HTML documentation from that data.
 
 ## Example
 
@@ -174,17 +175,30 @@ To specify a custom template, create a text/markdown file, then pass it to
 stella using the config parameter.
 You can use the following fields inside your template:
 
-* `{{ stella.name }}`
-* `{{ stella.version }}`
-* `{{ stella.appVersion }}`
-* `{{ stella.apiVersion }}`
-* `{{ stella.type }}`
-* `{{ stella.description }}`
-* `{{ stella.commands }}`
-* `{{ stella.dependencies }}`
-* `{{ stella.templates }}`
-* `{{ stella.objects }}`
-* `{{ stella.values }}`
+<!-- markdownlint-disable MD013 -->
+| Keyword | Description |
+|---|---|
+| `{{ stella.name }}` | Chart name |
+| `{{ stella.version }}` | Chart version |
+| `{{ stella.appVersion }}` | Application version |
+| `{{ stella.apiVersion }}` | Chart API version |
+| `{{ stella.type }}` | Chart type (application or library) |
+| `{{ stella.description }}` | Chart description |
+| `{{ stella.kubeVersion }}` | Required Kubernetes version |
+| `{{ stella.home }}` | Project home page URL (rendered as link) |
+| `{{ stella.sources }}` | Source code URLs (rendered as list with links) |
+| `{{ stella.maintainers }}` | Chart maintainers |
+| `{{ stella.icon }}` | Chart icon (rendered as image with max width) |
+| `{{ stella.deprecated }}` | Whether the chart is deprecated |
+| `{{ stella.keywords }}` | Chart keywords |
+| `{{ stella.annotations }}` | Chart annotations (stella/ annotations excluded) |
+| `{{ stella.dependencies }}` | Chart dependencies table |
+| `{{ stella.templates }}` | Templates table |
+| `{{ stella.objects }}` | Kubernetes objects table |
+| `{{ stella.values }}` | Values table |
+| `{{ stella.commands }}` | Helm commands (if stella annotations are set) |
+| `{{ stella.chartInfo }}` | Composite info table (combines home, sources, maintainers, kubeVersion, keywords, annotations) |
+<!-- markdownlint-enable MD013 -->
 
 ## 💫 Contributing to `stella`
 
