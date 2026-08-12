@@ -3,7 +3,7 @@ FROM python:3.14-alpine3.22 AS helper
 # renovate: datasource=pypi depName=pipenv versioning=pep440
 ENV PIP_ENV_VERSION=2026.7.1
 
-USER root
+USER 0
 
 WORKDIR /app
 
@@ -20,7 +20,7 @@ FROM python:3.14-alpine3.22
 
 ARG IMAGE_VERSION=latest COMMIT_SHA=unknown
 
-USER root
+USER 0
 
 WORKDIR /app
 
