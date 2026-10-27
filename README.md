@@ -86,6 +86,7 @@ options:
   -fh, --format-html    Output using html instead of md.
   -ah, --advanced-html  Output using html instead of md with additional features.
   -css CSS, --css CSS   Path to optional css file to use for html generation (use in conjunction with -fh).
+  -js JS, --js JS       Path to optional js file to use for html generation (use in conjunction with -fh and -css).
   -v, --verbose         Activate debug logging.
 ```
 <!-- markdownlint-enable MD013 -->
@@ -94,6 +95,16 @@ The option `--advanced-html` can't be used with custom CSS, as it offers some
 additional functionality which would break when using custom CSS. It will
 create a static html site with dynamic navbar and a search for the chart's
 values.
+
+If you want the dynamic features (navbar/search) of `--advanced-html` *and*
+full control over styling, combine `-css` with `-js`. When both are given
+(together with `-fh`, without `-ah`), stella renders the simple HTML output
+but adds the `#navbar-outer` / `#navbar` navbar mount and the
+`.content` / `.container` wrappers, injects your CSS into the `<style>` block,
+and injects your JS into a `<script>` block. Your JS can then build the navbar,
+a search box, a light/dark toggle, etc. — exactly like the advanced template
+does, but with your own markup and styles. Passing `-css` alone keeps the
+previous plain behaviour (no navbar, no script).
 
 ## ⎈ Adding `stella` Docstrings to your Chart
 

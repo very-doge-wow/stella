@@ -747,6 +747,101 @@ tr:hover {
 """
 
 
+def test_writer_html_custom_css_and_js():
+    doc = {
+        "type": "application",
+        "version": "1.0",
+        "appVersion": "1.1",
+        "apiVersion": "1.2",
+        "name": "unittest",
+        "description": "simple templating test",
+        "kubeVersion": "",
+        "keywords": [],
+        "home": "",
+        "sources": [],
+        "maintainers": [],
+        "icon": "",
+        "deprecated": False,
+        "annotations": {},
+        "dependencies": [],
+        "templates": [],
+        "objects": [
+            {
+                "kind": "Ingress",
+                "from Template": "template.yaml"
+            }
+        ],
+        "values": [
+            {
+                "name": "ReplicaCount",
+                "description": "how many replicas to deploy",
+                "default": "1",
+                "example": "replicaCount: 2"
+            }
+        ],
+        "commands": []
+    }
+
+    result = doc_writer.write("test/output.md", doc, "", True, False, "test/style.css", "test/script.js")
+
+    with open("test/style.css") as f:
+        css_content = f.read()
+    with open("test/script.js") as f:
+        js_content = f.read()
+
+    # title is replaced
+    assert "unittest - helm chart documentation" in result
+    # custom css is injected (indented into the style block)
+    assert doc_writer.indent_text(css_content, "    ") in result
+    # custom js is injected (indented into the script block)
+    assert doc_writer.indent_text(js_content, "        ") in result
+    # navbar/content/container mount points are present so the custom js has somewhere to render
+    assert '<div id="navbar-outer">' in result
+    assert '<div id="navbar"></div>' in result
+    assert '<div class="content">' in result
+    assert '<div class="container">' in result
+    # body content is still rendered
+    assert "<h1>unittest</h1>" in result
+    assert "<td>ReplicaCount</td>" in result
+
+
+def test_writer_html_custom_css_only_has_no_navbar():
+    # regression: passing only css (no js) must keep the plain simple-html output
+    # without the navbar/script mount points
+    doc = {
+        "type": "application",
+        "version": "1.0",
+        "appVersion": "1.1",
+        "apiVersion": "1.2",
+        "name": "unittest",
+        "description": "simple templating test",
+        "kubeVersion": "",
+        "keywords": [],
+        "home": "",
+        "sources": [],
+        "maintainers": [],
+        "icon": "",
+        "deprecated": False,
+        "annotations": {},
+        "dependencies": [],
+        "templates": [],
+        "objects": [],
+        "values": [
+            {
+                "name": "ReplicaCount",
+                "description": "how many replicas to deploy",
+                "default": "1",
+                "example": "replicaCount: 2"
+            }
+        ],
+        "commands": []
+    }
+
+    result = doc_writer.write("test/output.md", doc, "", True, False, "test/style.css")
+    assert '<div id="navbar-outer">' not in result
+    assert "<script>" not in result
+
+
 def test_count_lines():
     input_str = """one
     two

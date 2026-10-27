@@ -15,6 +15,10 @@ if __name__ == "__main__":
                         action="store_true")
     parser.add_argument("-css", "--css", help="Path to optional css file to use for html generation (use in "
                                               "conjunction with -fh).", required=False, default="")
+    parser.add_argument("-js", "--js", help="Path to optional js file to use for html generation (use in "
+                                             "conjunction with -fh and -css). Enables a dynamic navbar/search "
+                                             "mount while keeping full control over styling.", required=False,
+                        default="")
     parser.add_argument("-v", "--verbose", help="Activate debug logging.", required=False, action="store_true")
     args = parser.parse_args()
 
@@ -33,6 +37,7 @@ if __name__ == "__main__":
     logging.debug(f"--format-html: {args.format_html}")
     logging.debug(f"--format-html: {args.advanced_html}")
     logging.debug(f"--css: {args.css}")
+    logging.debug(f"--js: {args.js}")
     logging.debug(f"--verbose: {args.verbose}")
 
     # actual logic
@@ -45,7 +50,7 @@ if __name__ == "__main__":
             args.output = args.output.replace(".md", ".html")
 
         # write doc from gathered data
-        doc_writer.write(output=args.output, doc=result, template=args.template, format_html=args.format_html, advanced_html=args.advanced_html, css=args.css)
+        doc_writer.write(output=args.output, doc=result, template=args.template, format_html=args.format_html, advanced_html=args.advanced_html, css=args.css, js=args.js)
     except Exception:
         logging.exception("Error occurred.")
         exit(1)
