@@ -8,7 +8,7 @@ def indent_text(text: str, prefix: str) -> str:
     return "\n".join(prefix + line if line else line for line in text.splitlines())
 
 
-def write(output: str, doc: dict, template: str, format_html: bool, advanced_html: bool, css: str) -> str:
+def write(output: str, doc: dict, template: str, format_html: bool, advanced_html: bool, css: str, js: str = "") -> str:
     """
     Creates a Markdown doc file for the helm chart.
     Uses a custom template if present, else uses a default template.
@@ -19,6 +19,10 @@ def write(output: str, doc: dict, template: str, format_html: bool, advanced_htm
         format_html (bool): Whether to convert the finished md to html before writing to file.
         advanced_html (bool): Whether to use the advanced html template to render the md file.
         css (str): Path to optional css file for html generation.
+        js (str): Path to optional js file for html generation. When provided together
+            with css (and without advanced_html), the simple html output gains the
+            navbar/content/container mount points and the given js is injected, so a
+            dynamic navbar/search can be used while keeping full control over styling.
     """
     logging.debug("starting to write doc from generated data")
 
@@ -145,6 +149,34 @@ REPLACE_STRING_BODY
 </html>
 """
 
+    html_custom_template = r"""<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+    <meta charset="utf-8" />
+    <meta name="generator" content="very-doge-wow/stella" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <title>REPLACE_STRING_TITLE</title>
+    <style type="text/css" media="screen">
+REPLACE_STRING_STYLE
+    </style>
+</head>
+<body>
+    <div id="navbar-outer">
+        <div id="navbar"></div>
+    </div>
+    <div class="content">
+        <div class="container">
+          REPLACE_STRING_BODY
+        </div>
+    </div>
+
+    <script>
+REPLACE_STRING_SCRIPT
+    </script>
+</body>
+</html>
+"""
+
     writer_dir = os.path.dirname(__file__)
     with open(os.path.join(writer_dir, "advanced.css")) as f:
         advanced_css = f.read()
@@ -185,7 +217,18 @@ REPLACE_STRING_ADVANCED_SCRIPT
             result = markdown.markdown(result, extensions=["tables"])
 
             if not advanced_html:
-                if css:
+                if css and js:
+                    logging.debug("Adding custom CSS and custom JS to HTML (with navbar mount)")
+                    with open(css, "r") as style:
+                        css_content = style.read()
+                    with open(js, "r") as script:
+                        js_content = script.read()
+                    result = html_custom_template.replace(
+                        "REPLACE_STRING_STYLE", indent_text(css_content, "    ")
+                    ).replace(
+                        "REPLACE_STRING_SCRIPT", indent_text(js_content, "        ")
+                    ).replace("REPLACE_STRING_BODY", result)
+                elif css:
                     logging.debug("Adding custom CSS to HTML")
                     with open(css, "r") as style:
                         css_content = style.read()
