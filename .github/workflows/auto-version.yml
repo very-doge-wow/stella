@@ -29,7 +29,7 @@ jobs:
         id: semantic-release
         uses: cycjimmy/semantic-release-action@v8.1.4
         with:
-          semantic_version: 25
+          semantic_version: 26
           extra_plugins: |
             @semantic-release/git
             conventional-changelog-conventionalcommits@9
